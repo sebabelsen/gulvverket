@@ -1,0 +1,9 @@
+title: Vårsalg
+type: percentage_off
+start_date: '2026-05-26 22:00'
+end_date: '2026-05-30 22:00'
+discount_code: SPRINGSALE
+maximum_uses: 3
+minimum_order_value: 30000
+percentage_off: 25
+redemptions_count: 0

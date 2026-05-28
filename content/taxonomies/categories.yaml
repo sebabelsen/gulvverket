@@ -1,0 +1,6 @@
+title: Kategorier
+preview_targets:
+  -
+    label: Entry
+    url: '{permalink}'
+    refresh: true

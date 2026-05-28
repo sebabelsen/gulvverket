@@ -52,8 +52,12 @@ return [
     |
     */
 
-    'widgets' => [
-        //
+    'widgets' => [ 
+        ['type' => 'total_sales', 'width' => 25, 'days' => 7],
+        ['type' => 'total_revenue', 'width' => 25, 'days' => 7],
+        ['type' => 'new_customers', 'width' => 25, 'days' => 7],
+        ['type' => 'returning_customers', 'width' => 25, 'days' => 7],
+        ['type' => 'refunded_orders', 'width' => 25, 'days' => 7],
     ],
 
     /*

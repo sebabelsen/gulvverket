@@ -1,0 +1,21 @@
+<a href="{{ url }}" class="group block bg-white border border-stone-200 rounded-xl overflow-hidden hover:border-stone-400 transition">
+    <div class="aspect-square bg-stone-100 overflow-hidden relative">
+        {{ if gallery }}
+            {{ gallery limit="1" }}
+                <img src="{{ url }}" alt="{{ alt ?? title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            {{ /gallery }}
+        {{ else }}
+            <div class="w-full h-full flex items-center justify-center text-stone-400 text-sm">Ingen bilde</div>
+        {{ /if }}
+        {{ if we_use_this_ourselves }}
+            <span class="absolute top-3 left-3 inline-block px-2 py-1 text-xs font-medium bg-stone-900 text-white rounded">Vi bruker dette selv</span>
+        {{ /if }}
+    </div>
+    <div class="p-5">
+        <h3 class="font-medium text-stone-950 mb-1">{{ title }}</h3>
+        {{ if short_description }}
+            <p class="text-sm text-stone-600 line-clamp-2 mb-3">{{ short_description }}</p>
+        {{ /if }}
+        <p class="text-stone-950 font-semibold">{{ price  }}</p>
+    </div>
+</a>

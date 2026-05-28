@@ -1,0 +1,117 @@
+title: Produkt
+tabs:
+  main:
+    display: Hovedinnhold
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              display: Produktnavn
+              localizable: true
+              input_type: text
+          -
+            handle: short_description
+            field:
+              type: textarea
+              display: Kort beskrivelse
+              instructions: 'Vises på produktkort og i søkeresultater. Maks ~160 tegn anbefalt.'
+              character_limit: 200
+              localizable: true
+          -
+            handle: description
+            field:
+              type: bard
+              display: Beskrivelse
+              localizable: true
+              container: assets
+              buttons:
+                - bold
+                - italic
+                - underline
+                - h2
+                - h3
+                - unorderedlist
+                - orderedlist
+                - quote
+                - link
+                - image
+                - table
+              save_html: false
+              toolbar_mode: fixed
+          -
+            handle: gallery
+            field:
+              type: assets
+              display: Produktbilder
+              container: assets
+              mode: list
+              instructions: 'Første bilde brukes som hovedbilde på produktkort og i header.'
+              allow_uploads: true
+              restrict: false
+          -
+            handle: we_use_this_ourselves
+            field:
+              type: toggle
+              display: 'Vi bruker dette selv'
+              instructions: 'Vis et badge på produktet som signaliserer at HGS bruker det i daglig arbeid.'
+              default: false
+              localizable: true
+  inventory:
+    display: Lager
+    sections:
+      -
+        fields:
+          -
+            handle: stock
+            field:
+              type: integer
+              display: 'Antall på lager'
+              instructions: 'La stå tom for å hoppe over lagerstyring. Cargo trekker fra automatisk ved bestillinger.'
+  organization:
+    display: Organisering
+    sections:
+      -
+        fields:
+          -
+            handle: category
+            field:
+              type: terms
+              display: Kategori
+              taxonomies:
+                - categories
+              max_items: 1
+              mode: select
+              create: false
+          -
+            handle: related_products
+            field:
+              type: entries
+              display: 'Relaterte produkter'
+              collections:
+                - products
+              max_items: 4
+              mode: select
+              instructions: 'Vises som "Se også" nederst på produktsiden.'
+  seo:
+    display: SEO
+    sections:
+      -
+        fields:
+          -
+            handle: seo_title
+            field:
+              type: text
+              display: 'SEO-tittel'
+              instructions: 'Overstyrer produktnavn i <title>-taggen.'
+              localizable: true
+          -
+            handle: seo_description
+            field:
+              type: textarea
+              display: 'Meta-beskrivelse'
+              character_limit: 160
+              localizable: true

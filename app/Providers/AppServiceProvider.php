@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Mail\OrderConfirmation;
+use DuncanMcClean\Cargo\Events\OrderPaymentReceived;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +23,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Event::listen(OrderPaymentReceived::class, function ($event) {
+            Mail::to($event->order->customer())
+                ->locale($event->order->site()->shortLocale())
+                ->send(new OrderConfirmation($event->order));
+        });
+
         //
     }
 }

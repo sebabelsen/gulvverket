@@ -1,3 +1,7 @@
 tree:
   -
     entry: home
+  -
+    entry: page-produkter
+  -
+    entry: page-handlekurv

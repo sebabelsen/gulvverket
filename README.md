@@ -1,48 +1,77 @@
-<p align="center">
-<picture>
-    <source srcset="https://statamic.com/assets/branding/squircle/statamic-logo-lime-white.svg" media="(prefers-color-scheme: dark)">
-    <img align="center" width="350" alt="Statamic Logo" src="https://statamic.com/assets/branding/squircle/statamic-logo-lime.svg">
-</picture>
-</p>
+# Gulvverket – ren startpakke
 
-## About Statamic
+Dette er den autoritative versjonen. Hvis det er noen forskjell mellom denne pakken og hva som ligger i prosjektet ditt, er denne pakken fasit.
 
-Statamic is the flat-first, Laravel + Git powered CMS designed for building beautiful, easy to manage websites.
+## Slett først
 
-> [!NOTE]
-> This repository contains the code for a fresh Statamic project that is installed via the Statamic CLI tool.
->
-> The code for the Statamic Composer package itself can be found at the [Statamic core package repository][cms-repo].
+```bash
+rm -f resources/blueprints/taxonomies/categories/category
+rm -f content/collections/products/gulvolje-natur.md
+rm -f content/collections/products/yooka-laylee.md
+rm -f content/collections/products/parkett-rens.md
+rm -f content/collections/products/mopp-pad-mikrofiber.md
+```
 
+(De siste to er for å fjerne eventuelle gamle seed-produkter med feil tax_class.)
 
-## Learning Statamic
+## Pakk ut
 
-Statamic has extensive [documentation][docs]. We dedicate a significant amount of time and energy every day to improving them, so if something is unclear, feel free to open issues for anything you find confusing or incomplete. We are happy to consider anything you feel will make the docs and CMS better.
+```bash
+unzip -o gulvverket-clean.zip
+```
 
-## Support
+## Hva pakken inneholder (komplett liste)
 
-We provide official developer support on [Statamic Pro](https://statamic.com/pricing) projects. Community-driven support is available via [GitHub Discussions](https://github.com/statamic/cms/discussions) and in [Discord][discord].
+**Blueprints**
+- `resources/blueprints/collections/products/product.yaml`
+- `resources/blueprints/taxonomies/categories/category.yaml`
 
+**Innhold**
+- `content/cargo/tax-classes.yaml` (kun `general`, satser kommer på tax zones)
+- `content/collections/products.yaml`
+- `content/collections/products/parkett-rens.md` (ett seed-produkt)
+- `content/collections/pages/home.md`
+- `content/collections/pages/produkter.md`
+- `content/collections/pages/handlekurv.md`
+- `content/taxonomies/categories.yaml`
+- `content/taxonomies/categories/{7 kategorier}.yaml`
+- `content/trees/collections/pages.yaml`
 
-## Contributing
+**Templates**
+- `resources/views/layout.antlers.html`
+- `resources/views/home.antlers.html`
+- `resources/views/products/index.antlers.html`
+- `resources/views/products/show.antlers.html`
+- `resources/views/cart/index.antlers.html`
+- `resources/views/partials/_product-card.antlers.html`
 
-Thank you for considering contributing to Statamic! We simply ask that you review the [contribution guide][contribution] before you open issues or send pull requests.
+## Cache-rens
 
+```bash
+ddev exec php artisan cache:clear
+ddev exec php artisan view:clear
+```
 
-## Code of Conduct
+## Sjekk i denne rekkefølgen
 
-In order to ensure that the Statamic community is welcoming to all and generally a rad place to belong, please review and abide by the [Code of Conduct](https://github.com/statamic/cms/wiki/Code-of-Conduct).
+1. `/cp/collections` lastes uten 500-feil
+2. `/cp/collections/products` viser produkter
+3. Åpne `parkett-rens` i CP – verifiser at Cargo har injisert Price + Tax Class felter automatisk
+4. `/` viser hjemmesiden med produktet
+5. `/produkter` viser produktlisten og kategori-pills
+6. `/produkter/parkett-rens` viser produktdetalj med "Legg i handlekurv"
+7. Legg i kurven – kurv-teller i nav skal vise `1`
+8. `/handlekurv` viser produktet med pris og totalsum
 
+## Hva som mangler bevisst
 
-## Important Links
+- Tax zone for Norge (CP → Store → Tax Zones, 25 % for General-klassen)
+- Faktura-gateway
+- Faste fraktsatser
+- Designsystem (Tailwind-default brukes som plassholder)
+- Blogg, FAQ, guider
+- SEO/JSON-LD utover blueprint-feltene
 
-- [Statamic Main Site](https://statamic.com)
-- [Statamic Documentation][docs]
-- [Statamic Core Package Repo][cms-repo]
-- [Statamic Migrator](https://github.com/statamic/migrator)
-- [Statamic Discord][discord]
+## Hvis noe brekker
 
-[docs]: https://statamic.dev/
-[discord]: https://statamic.com/discord
-[contribution]: https://github.com/statamic/cms/blob/master/CONTRIBUTING.md
-[cms-repo]: https://github.com/statamic/cms
+Send feilmeldingen. Jeg har lest Cargos docs på `builtwithcargo.dev` denne gangen, så `cart:add`, `cart:remove`, `line_items`, `format_money` osv. er verifiserte mot kildedokumentasjonen. Blueprint-feltene er Statamic-native (`text`, `textarea`, `bard`, `assets`, `toggle`, `integer`, `terms`, `entries`).

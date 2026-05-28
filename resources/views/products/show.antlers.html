@@ -1,0 +1,89 @@
+<article class="max-w-6xl mx-auto px-4 py-12">
+
+    <nav class="text-sm text-stone-500 mb-8">
+        <a href="/" class="hover:text-stone-700">Hjem</a>
+        <span class="mx-2">/</span>
+        <a href="/produkter" class="hover:text-stone-700">Produkter</a>
+        <span class="mx-2">/</span>
+        <span class="text-stone-700">{{ title }}</span>
+    </nav>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
+
+        <div class="space-y-3">
+            {{ if gallery }}
+                {{ gallery limit="1" }}
+                    <div class="aspect-square bg-stone-100 rounded-2xl overflow-hidden">
+                        <img src="{{ url }}" alt="{{ alt ?? title }}" class="w-full h-full object-cover">
+                    </div>
+                {{ /gallery }}
+                {{ if gallery | length > 1 }}
+                    <div class="grid grid-cols-4 gap-2">
+                        {{ gallery offset="1" }}
+                            <div class="aspect-square bg-stone-100 rounded-lg overflow-hidden">
+                                <img src="{{ url }}" alt="{{ alt ?? title }}" class="w-full h-full object-cover">
+                            </div>
+                        {{ /gallery }}
+                    </div>
+                {{ /if }}
+            {{ else }}
+                <div class="aspect-square bg-stone-100 rounded-2xl flex items-center justify-center text-stone-400">
+                    Ingen bilde
+                </div>
+            {{ /if }}
+        </div>
+
+        <div>
+            {{ if category }}
+                {{ category }}
+                    <a href="{{ url }}" class="text-sm text-stone-500 uppercase tracking-wide hover:text-stone-700">{{ title }}</a>
+                {{ /category }}
+            {{ /if }}
+
+            <h1 class="text-3xl md:text-4xl font-semibold tracking-tight text-stone-950 mt-2 mb-3">{{ title }}</h1>
+
+            {{ if we_use_this_ourselves }}
+                <p class="inline-flex items-center gap-2 text-sm font-medium text-stone-700 mb-4">
+                    <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                    Vi bruker dette selv
+                </p>
+            {{ /if }}
+
+            {{ if short_description }}
+                <p class="text-lg text-stone-700 mb-6">{{ short_description }}</p>
+            {{ /if }}
+
+            <p class="text-3xl font-semibold text-stone-950 mb-2">{{ price  }}</p>
+            <p class="text-sm text-stone-500 mb-8">Inkl. mva. Frakt beregnes i kassen.</p>
+
+            {{ cart:add }}
+                <div class="flex items-stretch gap-3">
+                    <label class="sr-only" for="quantity">Antall</label>
+                    <input id="quantity" type="number" name="quantity" value="1" min="1" required class="w-20 px-3 py-3 border border-stone-300 rounded-lg text-center focus:border-stone-500 focus:outline-none">
+                    <button type="submit" class="flex-1 px-6 py-3 bg-stone-900 text-white rounded-lg font-medium hover:bg-stone-800 transition">
+                        Legg i handlekurv
+                    </button>
+                </div>
+            {{ /cart:add }}
+
+            {{ if description }}
+                <div class="prose prose-stone mt-10 max-w-none border-t border-stone-200 pt-8">
+                    {{ description }}
+                </div>
+            {{ /if }}
+        </div>
+
+    </div>
+
+    {{ if related_products }}
+        <section class="mt-20 pt-12 border-t border-stone-200">
+            <h2 class="text-2xl font-semibold text-stone-950 mb-8">Se også</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {{ related_products }}
+                    {{ partial:product-card }}
+                {{ /related_products }}
+            </div>
+        </section>
+    {{ /if }}
+
+</article>

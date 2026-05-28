@@ -1,0 +1,29 @@
+title: Kategori
+tabs:
+  main:
+    display: Hovedinnhold
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              display: Navn
+              localizable: true
+          -
+            handle: description
+            field:
+              type: textarea
+              display: Beskrivelse
+              instructions: 'Kort intro vist på kategori-siden.'
+              localizable: true
+          -
+            handle: image
+            field:
+              type: assets
+              display: Bilde
+              container: assets
+              max_files: 1
+              mode: list
