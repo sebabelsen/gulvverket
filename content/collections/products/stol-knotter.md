@@ -13,7 +13,7 @@ description:
 gallery:
   - undefined-imgur.jpg
 we_use_this_ourselves: false
-stock: 3
+stock: 0
 category: vedlikehold
 related_products:
   - b8a1c3d4-5678-90ab-cdef-000000000001

@@ -12,12 +12,13 @@ tabs:
               required: true
               display: Produktnavn
               localizable: true
-              input_type: text
+              validate:
+                - required
           -
             handle: short_description
             field:
               type: textarea
-              display: Kort beskrivelse
+              display: 'Kort beskrivelse'
               instructions: 'Vises på produktkort og i søkeresultater. Maks ~160 tegn anbefalt.'
               character_limit: 200
               localizable: true
@@ -40,25 +41,19 @@ tabs:
                 - link
                 - image
                 - table
-              save_html: false
-              toolbar_mode: fixed
           -
             handle: gallery
             field:
               type: assets
               display: Produktbilder
               container: assets
-              mode: list
               instructions: 'Første bilde brukes som hovedbilde på produktkort og i header.'
-              allow_uploads: true
-              restrict: false
           -
-            handle: we_use_this_ourselves
+            handle: recommended
             field:
               type: toggle
-              display: 'Vi bruker dette selv'
+              display: Anbefalt
               instructions: 'Vis et badge på produktet som signaliserer at HGS bruker det i daglig arbeid.'
-              default: false
               localizable: true
   inventory:
     display: Lager
@@ -105,13 +100,52 @@ tabs:
             handle: seo_title
             field:
               type: text
-              display: 'SEO-tittel'
+              display: SEO-tittel
               instructions: 'Overstyrer produktnavn i <title>-taggen.'
               localizable: true
           -
             handle: seo_description
             field:
               type: textarea
-              display: 'Meta-beskrivelse'
+              display: Meta-beskrivelse
               character_limit: 160
               localizable: true
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: categories
+            field:
+              type: terms
+              taxonomies:
+                - categories
+              display: Kategorier
+              mode: select
+          -
+            handle: price
+            field:
+              type: money
+              display: Price
+              instructions: 'Enter the price of the product, inclusive of tax.'
+              listable: hidden
+              validate: required
+          -
+            handle: tax_class
+            field:
+              type: tax_classes
+              display: 'Tax Class'
+              instructions: 'Determines how this product is taxed.'
+              listable: hidden
+              max_items: 1
+              create: true
+              validate: required
+              default: general
+              mode: select

@@ -250,6 +250,7 @@ return [
 
         'methods' => [
             'free_shipping' => [],
+            'standard_shipping' => [],
         ],
 
     ],

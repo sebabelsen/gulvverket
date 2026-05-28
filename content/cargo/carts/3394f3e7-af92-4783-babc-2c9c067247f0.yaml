@@ -1,0 +1,40 @@
+updated_at: 1780010505
+fingerprint: df8c4892f24834891b298f5c1c6d7f0c410a284e
+shipping_address:
+  name: Sebastian
+  line_1: hee
+  line_2: null
+  city: oslo
+  postcode: '5055'
+  country: NOR
+  state: '06'
+shipping_method: free_shipping
+shipping_option:
+  name: 'Free Shipping'
+  handle: free_shipping
+  price: 0
+  accepts_payment_on_delivery: true
+billing_address:
+  name: Sebastian
+  line_1: hee
+  line_2: null
+  city: oslo
+  postcode: '5055'
+  country: NOR
+  state: '06'
+shipping_tax_total: 0
+id: 3394f3e7-af92-4783-babc-2c9c067247f0
+customer: db163cda-ce66-44d8-8bee-faa25fcd0ff9
+line_items:
+  -
+    id: 3f32ec3f-03a8-411d-9cdc-4338799410dd
+    product: b8a1c3d4-5678-90ab-cdef-000000000001
+    quantity: 1
+    unit_price: 24900
+    sub_total: 24900
+    total: 24900
+grand_total: 24900
+sub_total: 24900
+discount_total: 0
+tax_total: 0
+shipping_total: 0

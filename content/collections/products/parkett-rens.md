@@ -9,7 +9,8 @@ we_use_this_ourselves: true
 categories:
   - rengjoring
 updated_by: db163cda-ce66-44d8-8bee-faa25fcd0ff9
-updated_at: 1779903046
+updated_at: 1779980962
+recommended: true
 ---
 En profesjonell pH-nøytral renser utviklet for daglig vedlikehold av tregulv. Brukes fortynnet i lunkent vann.
 
