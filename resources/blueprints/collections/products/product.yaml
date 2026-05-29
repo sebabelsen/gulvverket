@@ -135,7 +135,6 @@ tabs:
               type: money
               display: Price
               instructions: 'Enter the price of the product, inclusive of tax.'
-              listable: hidden
               validate: required
           -
             handle: tax_class
@@ -143,7 +142,6 @@ tabs:
               type: tax_classes
               display: 'Tax Class'
               instructions: 'Determines how this product is taxed.'
-              listable: hidden
               max_items: 1
               create: true
               validate: required

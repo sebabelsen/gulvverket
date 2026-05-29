@@ -1,7 +1,9 @@
 <section class="max-w-6xl mx-auto px-4 py-12">
     <header class="mb-10">
-        <h1 class="text-3xl md:text-4xl font-semibold tracking-tight text-stone-950 mb-2">Produkter</h1>
-        <p class="text-stone-600 max-w-xl">Produkter for rengjøring, vedlikehold og behandling av gulv – valgt ut basert på det vi selv bruker i daglig arbeid.</p>
+        <h1 class="text-5xl md:text-4xl font-bold tracking-tight text-stone-950 mb-2">Produkter</h1>
+        <!--<p class="text-stone-600 max-w-xl">Produkter for rengjøring, 
+            vedlikehold og behandling av gulv – valgt ut basert på det vi selv bruker i daglig arbeid.
+        </p> -->
     </header>
 
     <nav class="flex flex-wrap gap-2 mb-10">
@@ -11,7 +13,7 @@
         {{ /taxonomy:categories }}
     </nav>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {{ collection from="products" }}
             {{ partial:product-card }}
         {{ /collection }}

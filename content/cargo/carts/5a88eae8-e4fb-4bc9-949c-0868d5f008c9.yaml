@@ -1,0 +1,43 @@
+updated_at: 1780053434
+fingerprint: 03411c8d97006fc9d899f7b48000afb016ab6222
+shipping_address:
+  name: 'Sebastian Langøen'
+  line_1: Haygs
+  line_2: null
+  city: Haugesund
+  postcode: '4109'
+  country: NOR
+  state: '11'
+shipping_method: free_shipping
+shipping_option:
+  name: 'Free Shipping'
+  handle: free_shipping
+  price: 0
+  accepts_payment_on_delivery: true
+billing_address:
+  name: 'Sebastian Langøen'
+  line_1: Haygs
+  line_2: null
+  city: Haugesund
+  postcode: '4109'
+  country: NOR
+  state: '11'
+shipping_tax_total: 0
+id: 5a88eae8-e4fb-4bc9-949c-0868d5f008c9
+customer:
+  first_name: Sebastian
+  last_name: Langøen
+  email: seb@mail.com
+line_items:
+  -
+    id: 52d0936c-8339-46b4-a068-71f12719f1d5
+    product: b8a1c3d4-5678-90ab-cdef-000000000001
+    quantity: 2
+    unit_price: 24900
+    sub_total: 49800
+    total: 49800
+grand_total: 49800
+sub_total: 49800
+discount_total: 0
+tax_total: 0
+shipping_total: 0
