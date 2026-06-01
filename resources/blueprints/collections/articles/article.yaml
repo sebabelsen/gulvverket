@@ -1,0 +1,109 @@
+title: Artikkel
+tabs:
+  main:
+    display: Hovedinnhold
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              display: Tittel
+              localizable: true
+          -
+            handle: lead
+            field:
+              type: textarea
+              display: Ingress
+              instructions: 'Kort sammendrag som vises i artikkellisten og som meta-beskrivelse hvis SEO-feltet er tomt.'
+              character_limit: 240
+              localizable: true
+          -
+            handle: featured_image
+            field:
+              type: assets
+              display: 'Hovedbilde'
+              container: assets
+              max_files: 1
+              mode: list
+          -
+            handle: content
+            field:
+              type: bard
+              display: Innhold
+              localizable: true
+              container: assets
+              buttons:
+                - h2
+                - h3
+                - bold
+                - italic
+                - underline
+                - unorderedlist
+                - orderedlist
+                - quote
+                - link
+                - image
+                - table
+                - horizontalrule
+              save_html: false
+              toolbar_mode: fixed
+              link_noopener: false
+              link_noreferrer: false
+              target_blank: false
+  organization:
+    display: Organisering
+    sections:
+      -
+        fields:
+          -
+            handle: article_tags
+            field:
+              type: terms
+              display: 'Emner'
+              taxonomies:
+                - article_tags
+              mode: select
+              create: true
+              instructions: 'F.eks. parkett, vedlikehold, lakk, olje. Brukes som filter på blogglisten.'
+          -
+            handle: related_products
+            field:
+              type: entries
+              display: 'Produkter nevnt i denne artikkelen'
+              collections:
+                - products
+              max_items: 4
+              mode: select
+              instructions: 'Vises som "Produkter nevnt"-blokk nederst på artikkelen.'
+          -
+            handle: related_articles
+            field:
+              type: entries
+              display: 'Relaterte artikler'
+              collections:
+                - articles
+              max_items: 3
+              mode: select
+  seo:
+    display: SEO
+    sections:
+      -
+        fields:
+          -
+            handle: seo_title
+            field:
+              type: text
+              display: 'SEO-tittel'
+              instructions: 'Overstyrer artikkeltittelen i <title>-taggen.'
+              localizable: true
+          -
+            handle: seo_description
+            field:
+              type: textarea
+              display: 'Meta-beskrivelse'
+              instructions: 'La være tom for å bruke ingressen.'
+              character_limit: 160
+              localizable: true

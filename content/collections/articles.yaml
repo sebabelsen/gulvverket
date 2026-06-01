@@ -2,6 +2,7 @@ title: Articles
 icon: collections
 template: articles/show
 layout: layout
+mount: 171949d9-411e-4286-a838-4dccaabc423f
 revisions: false
 route: '/{mount}/{slug}'
 date: true

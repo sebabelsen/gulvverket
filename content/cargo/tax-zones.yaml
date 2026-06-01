@@ -1,0 +1,8 @@
+norge:
+  title: Norge
+  type: countries
+  countries:
+    - NOR
+  rates:
+    general: 25.0
+    shipping: 5.0

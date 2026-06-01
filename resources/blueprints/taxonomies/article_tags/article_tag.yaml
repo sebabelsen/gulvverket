@@ -1,0 +1,14 @@
+title: Emne
+tabs:
+  main:
+    display: Hovedinnhold
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              display: Navn
+              localizable: true

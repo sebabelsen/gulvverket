@@ -1,0 +1,43 @@
+title: Kontakt
+store: true
+email:
+  -
+    to: 'post@gulvverket.no'
+    from: '{{ config:mail:from:address }}'
+    reply_to: '{{ email }}'
+    subject: 'Ny henvendelse fra {{ name }}'
+honeypot: winnie
+fields:
+  -
+    handle: name
+    field:
+      type: text
+      required: true
+      display: Navn
+      validate:
+        - required
+        - min:2
+  -
+    handle: email
+    field:
+      type: text
+      input_type: email
+      required: true
+      display: 'E-post'
+      validate:
+        - required
+        - email
+  -
+    handle: subject
+    field:
+      type: text
+      display: Emne
+  -
+    handle: message
+    field:
+      type: textarea
+      required: true
+      display: Melding
+      validate:
+        - required
+        - min:5

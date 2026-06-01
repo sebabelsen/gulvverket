@@ -2,5 +2,6 @@ default:
   name: '{{ config:app:name }}'
   url: /
   locale: '{{ config:app:locale }}'
+  lang: 'no'
   attributes:
     currency: NOK

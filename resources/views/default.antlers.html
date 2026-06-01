@@ -1,1 +1,11 @@
-{{ content }}
+<article class="max-w-3xl mx-auto px-4 py-12">
+
+    {{ partial:page-header }}
+
+    {{ if content }}
+        <div class="prose prose-stone prose-lg max-w-none">
+            {{ content }}
+        </div>
+    {{ /if }}
+
+</article>

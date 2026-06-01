@@ -1,67 +1,66 @@
-{{ title /}}
-{{ content /}}
-{{ author }}
-    {{ name /}}
-    {{ email /}}
-    {{ roles }}
-        {{ handle /}}
-        {{ title /}}
-    {{ /roles }}
-    {{ groups }}
-        {{ handle /}}
-        {{ title /}}
-    {{ /groups }}
-    {{ avatar }}
-        {{ alt /}}
-        {{ id /}}
-        {{ title /}}
-        {{ path /}}
-        {{ filename /}}
-        {{ basename /}}
-        {{ extension /}}
-        {{ is_asset /}}
-        {{ is_audio /}}
-        {{ is_previewable /}}
-        {{ is_image /}}
-        {{ is_svg /}}
-        {{ is_video /}}
-        {{ blueprint /}}
-        {{ edit_url /}}
-        {{ container /}}
-        {{ folder /}}
-        {{ url /}}
-        {{ permalink /}}
-        {{ api_url /}}
+<article class="max-w-3xl mx-auto px-4 py-12">
 
-        {{# Available, if the asset exists: #}}
-        {{ size /}}
-        {{ size_bytes /}}
-        {{ size_kilobytes /}}
-        {{ size_megabytes /}}
-        {{ size_gigabytes /}}
-        {{ size_b /}}
-        {{ size_kb /}}
-        {{ size_mb /}}
-        {{ size_gb /}}
-        {{ last_modified /}}
-        {{ last_modified_timestamp /}}
-        {{ last_modified_instance /}}
-        {{ focus /}}
-        {{ has_focus /}}
-        {{ focus_css /}}
-        {{ height /}}
-        {{ width /}}
-        {{ orientation /}}
-        {{ ratio /}}
-        {{ mime_type /}}
-        {{ duration /}}
-        {{ duration_seconds /}}
-        {{ duration_minutes /}}
-        {{ duration_sec /}}
-        {{ duration_min /}}
-        {{ playtime /}}
-    {{ /avatar }}
-{{ /author }}
-{{ template /}}
-{{ slug /}}
-{{ date /}}
+    <nav class="text-sm text-stone-500 mb-8">
+        <a href="/" class="hover:text-stone-700">Hjem</a>
+        <span class="mx-2">/</span>
+        <a href="/blogg" class="hover:text-stone-700">Blogg</a>
+        <span class="mx-2">/</span>
+        <span class="text-stone-700">{{ title }}</span>
+    </nav>
+
+    <header class="mb-10">
+        {{ if article_tags }}
+            <div class="flex flex-wrap gap-2 mb-3">
+                {{ article_tags }}
+                    <a href="{{ url }}" class="text-xs uppercase tracking-wide text-stone-500 hover:text-stone-700">{{ title }}</a>
+                {{ /article_tags }}
+            </div>
+        {{ /if }}
+
+        <h1 class="text-3xl md:text-4xl font-semibold tracking-tight text-stone-950 mb-4">{{ title }}</h1>
+
+        {{ if lead }}
+            <p class="text-xl text-stone-700 leading-relaxed">{{ lead }}</p>
+        {{ /if }}
+
+        <p class="mt-5 text-sm text-stone-500">{{ date format="j. F Y" }}</p>
+    </header>
+
+    {{ if featured_image }}
+        {{ featured_image }}
+            <div class="aspect-[16/9] bg-stone-100 rounded-2xl overflow-hidden mb-10">
+                <img src="{{ url }}" alt="{{ alt ?? title }}" class="w-full h-full object-cover">
+            </div>
+        {{ /featured_image }}
+    {{ /if }}
+
+    <div class="prose prose-stone prose-lg max-w-none">
+        {{ content }}
+    </div>
+
+    {{# Products mentioned #}}
+    {{ if related_products }}
+        <section class="mt-16 pt-10 border-t border-stone-200">
+            <h2 class="text-2xl font-semibold text-stone-950 mb-2">Produkter nevnt i denne artikkelen</h2>
+            <p class="text-stone-600 mb-8">Produktene vi selv bruker for å løse dette.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {{ related_products }}
+                    {{ partial:product-card }}
+                {{ /related_products }}
+            </div>
+        </section>
+    {{ /if }}
+
+    {{# Related articles #}}
+    {{ if related_articles }}
+        <section class="mt-16 pt-10 border-t border-stone-200">
+            <h2 class="text-2xl font-semibold text-stone-950 mb-8">Les også</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                {{ related_articles }}
+                    {{ partial:article-card }}
+                {{ /related_articles }}
+            </div>
+        </section>
+    {{ /if }}
+
+</article>

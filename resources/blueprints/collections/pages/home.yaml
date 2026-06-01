@@ -1,0 +1,137 @@
+title: Hjemmeside
+tabs:
+  hero:
+    display: Hero
+    sections:
+      -
+        fields:
+          -
+            handle: hero_title
+            field:
+              type: text
+              required: true
+              display: 'Overskrift'
+              localizable: true
+          -
+            handle: hero_intro
+            field:
+              type: textarea
+              display: 'Intro-tekst'
+              character_limit: 240
+              localizable: true
+          -
+            handle: hero_image
+            field:
+              type: assets
+              display: 'Hovedbilde'
+              container: assets
+              max_files: 1
+              mode: list
+          -
+            handle: hero_cta_label
+            field:
+              type: text
+              display: 'Knappetekst'
+              default: 'Se produkter'
+              localizable: true
+          -
+            handle: hero_cta_url
+            field:
+              type: text
+              display: 'Knapp lenker til'
+              default: '/produkter'
+  values:
+    display: Verdier
+    sections:
+      -
+        fields:
+          -
+            handle: values_heading
+            field:
+              type: text
+              display: 'Seksjon-overskrift'
+              default: 'Hvorfor Gulvverket'
+              localizable: true
+          -
+            handle: value_1_title
+            field:
+              type: text
+              display: 'Verdi 1 – Tittel'
+              localizable: true
+          -
+            handle: value_1_body
+            field:
+              type: textarea
+              display: 'Verdi 1 – Beskrivelse'
+              character_limit: 220
+              localizable: true
+          -
+            handle: value_2_title
+            field:
+              type: text
+              display: 'Verdi 2 – Tittel'
+              localizable: true
+          -
+            handle: value_2_body
+            field:
+              type: textarea
+              display: 'Verdi 2 – Beskrivelse'
+              character_limit: 220
+              localizable: true
+          -
+            handle: value_3_title
+            field:
+              type: text
+              display: 'Verdi 3 – Tittel'
+              localizable: true
+          -
+            handle: value_3_body
+            field:
+              type: textarea
+              display: 'Verdi 3 – Beskrivelse'
+              character_limit: 220
+              localizable: true
+  story:
+    display: 'HGS-fortelling'
+    sections:
+      -
+        fields:
+          -
+            handle: story_heading
+            field:
+              type: text
+              display: 'Overskrift'
+              default: 'Produktene vi selv bruker'
+              localizable: true
+          -
+            handle: story_body
+            field:
+              type: textarea
+              display: 'Brødtekst'
+              localizable: true
+          -
+            handle: story_image
+            field:
+              type: assets
+              display: 'Bilde'
+              container: assets
+              max_files: 1
+              mode: list
+  seo:
+    display: SEO
+    sections:
+      -
+        fields:
+          -
+            handle: seo_title
+            field:
+              type: text
+              display: 'SEO-tittel'
+              localizable: true
+          -
+            handle: seo_description
+            field:
+              type: textarea
+              display: 'Meta-beskrivelse'
+              character_limit: 160
+              localizable: true

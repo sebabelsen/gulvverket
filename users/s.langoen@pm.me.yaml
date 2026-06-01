@@ -9,3 +9,7 @@ preferences:
     products:
       view: list
       after_save: listing
+    articles:
+      view: list
+    faqs:
+      view: list

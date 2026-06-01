@@ -5,7 +5,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ seo_title ?? title }}{{ unless title == site:name }} — {{ site:name }}{{ /unless }}</title>
-        {{ if seo_description }}<meta name="description" content="{{ seo_description }}">{{ /if }}
+        {{ if seo_description }}
+            <meta name="description" content="{{ seo_description }}">
+        {{ elseif lead }}
+            <meta name="description" content="{{ lead }}">
+        {{ /if }}
         {{ vite src="resources/js/site.js|resources/css/site.css" }}
     </head>
     <body class="bg-stone-50 font-sans leading-normal text-stone-800 min-h-screen flex flex-col">
@@ -14,8 +18,10 @@
             <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
                 <a href="/" class="text-xl font-semibold tracking-tight">Gulvverket</a>
                 <nav class="flex items-center gap-6 text-sm">
-                    <a href="/" class="hover:text-stone-950">Hjem</a>
                     <a href="/produkter" class="hover:text-stone-950">Produkter</a>
+                    <a href="/blogg" class="hover:text-stone-950">Blogg</a>
+                    <a href="/om-oss" class="hover:text-stone-950">Om oss</a>
+                    <a href="/kontakt" class="hover:text-stone-950">Kontakt</a>
                     <a href="/handlekurv" class="hover:text-stone-950 flex items-center gap-1.5">
                         Handlekurv
                         {{ unless {cart:is_empty} }}
@@ -31,8 +37,35 @@
         </main>
 
         <footer class="border-t border-stone-200 bg-white mt-16">
-            <div class="max-w-6xl mx-auto px-4 py-8 text-sm text-stone-600">
-                <p class="text-center">© Gulvverket {{ now format="Y" }}</p>
+            <div class="max-w-6xl mx-auto px-4 py-10">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+
+                    <div>
+                        <h3 class="font-semibold text-stone-950 mb-3">Gulvverket</h3>
+                        <p class="text-stone-600">Produktene vi selger er produkter vi selv bruker og anbefaler gjennom daglig arbeid med gulvfornying hos <a href="https://haugesundgulvservice.no" class="underline hover:text-stone-900">Haugesund Gulvservice</a>.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold text-stone-950 mb-3">Navigasjon</h3>
+                        <ul class="space-y-1.5 text-stone-600">
+                            <li><a href="/produkter" class="hover:text-stone-900">Produkter</a></li>
+                            <li><a href="/blogg" class="hover:text-stone-900">Blogg</a></li>
+                            <li><a href="/faq" class="hover:text-stone-900">Ofte stilte spørsmål</a></li>
+                            <li><a href="/om-oss" class="hover:text-stone-900">Om oss</a></li>
+                            <li><a href="/kontakt" class="hover:text-stone-900">Kontakt</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold text-stone-950 mb-3">Kontakt</h3>
+                        <ul class="space-y-1.5 text-stone-600">
+                            <li><a href="mailto:post@gulvverket.no" class="hover:text-stone-900">post@gulvverket.no</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <p class="mt-10 pt-6 border-t border-stone-200 text-xs text-stone-500">© {{ now format="Y" }} Gulvverket. Drevet av Haugesund Gulvservice.</p>
             </div>
         </footer>
 

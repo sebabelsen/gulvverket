@@ -1,0 +1,80 @@
+title: Side
+tabs:
+  main:
+    display: Hovedinnhold
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              display: Tittel
+              localizable: true
+          -
+            handle: lead
+            field:
+              type: textarea
+              display: Ingress
+              instructions: 'Valgfri kort intro under tittelen.'
+              character_limit: 300
+              localizable: true
+          -
+            handle: featured_image
+            field:
+              type: assets
+              display: 'Hovedbilde'
+              container: assets
+              max_files: 1
+              mode: list
+              instructions: 'Valgfritt. Vises mellom ingress og innhold.'
+          -
+            handle: content
+            field:
+              type: bard
+              display: Innhold
+              localizable: true
+              container: assets
+              buttons:
+                - h2
+                - h3
+                - bold
+                - italic
+                - underline
+                - unorderedlist
+                - orderedlist
+                - quote
+                - link
+                - image
+                - table
+                - horizontalrule
+              save_html: false
+              toolbar_mode: fixed
+              link_noopener: false
+              link_noreferrer: false
+              target_blank: false
+          -
+            handle: template
+            field:
+              type: template
+              display: Template
+              localizable: true
+  seo:
+    display: SEO
+    sections:
+      -
+        fields:
+          -
+            handle: seo_title
+            field:
+              type: text
+              display: 'SEO-tittel'
+              localizable: true
+          -
+            handle: seo_description
+            field:
+              type: textarea
+              display: 'Meta-beskrivelse'
+              character_limit: 160
+              localizable: true
