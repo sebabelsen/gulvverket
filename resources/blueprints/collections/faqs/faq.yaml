@@ -1,0 +1,46 @@
+title: 'Spørsmål'
+tabs:
+  main:
+    display: Hovedinnhold
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              display: 'Spørsmål'
+              localizable: true
+              instructions: 'Selve spørsmålet. Brukes som tittel og overskrift.'
+          -
+            handle: answer
+            field:
+              type: bard
+              display: 'Svar'
+              required: true
+              localizable: true
+              container: assets
+              buttons:
+                - bold
+                - italic
+                - link
+                - unorderedlist
+                - orderedlist
+              save_html: false
+              toolbar_mode: fixed
+          -
+            handle: faq_group
+            field:
+              type: select
+              display: 'Gruppe'
+              instructions: 'Brukes for å gruppere spørsmål på FAQ-siden.'
+              options:
+                generelt: Generelt
+                bestilling: Bestilling
+                betaling: 'Betaling og faktura'
+                frakt: 'Frakt og levering'
+                produkter: Produkter
+                vedlikehold: Vedlikehold
+              default: generelt
+              clearable: false
