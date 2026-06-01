@@ -1,0 +1,10 @@
+title: FAQ
+icon: collections
+template: 'default'
+layout: layout
+revisions: false
+sort_dir: asc
+sort_by: order
+structure:
+  root: true
+  max_depth: 1
