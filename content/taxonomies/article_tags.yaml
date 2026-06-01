@@ -1,0 +1,6 @@
+title: Emner
+preview_targets:
+  -
+    label: Entry
+    url: '{permalink}'
+    refresh: true
