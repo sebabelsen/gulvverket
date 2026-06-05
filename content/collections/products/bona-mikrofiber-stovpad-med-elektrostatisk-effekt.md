@@ -95,7 +95,6 @@ related_products:
   - 8ff5eba1-c9e7-4b19-88aa-550a64aa06f1
 seo_title: 'Bona mikrofiber støvpad med elektrostatisk effekt'
 seo_description: 'Bona Microfiber Dusting Pad er en støvtørkende pad med elektrostatisk effekt som aktivt trekker til seg støv, hår og småpartikler.'
-categories:
   - vedlikehold
 price: 13900
 tax_class: general

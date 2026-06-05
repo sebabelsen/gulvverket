@@ -122,14 +122,6 @@ tabs:
               localizable: true
               validate: 'max:200'
           -
-            handle: categories
-            field:
-              type: terms
-              taxonomies:
-                - categories
-              display: Kategorier
-              mode: select
-          -
             handle: price
             field:
               type: money

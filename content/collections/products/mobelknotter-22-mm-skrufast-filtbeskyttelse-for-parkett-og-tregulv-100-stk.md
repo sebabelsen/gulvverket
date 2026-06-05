@@ -129,7 +129,6 @@ description:
         type: text
         text: '✔ Enkel montering'
 recommended: false
-categories:
   - tilbehor
 price: 64900
 tax_class: general

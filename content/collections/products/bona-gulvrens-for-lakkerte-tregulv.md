@@ -99,7 +99,6 @@ description:
 gallery:
   - bona-wood-floor-cleaner.webp
 recommended: false
-categories:
   - rengjoring
 price: 18900
 tax_class: general
