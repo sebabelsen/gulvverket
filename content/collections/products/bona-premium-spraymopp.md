@@ -102,7 +102,6 @@ related_products:
   - 8ff5eba1-c9e7-4b19-88aa-550a64aa06f1
   - dd0dc7f0-c42a-425b-bb9f-0b588fa2098d
   - 8d796449-1ae0-4103-bd52-ca382d20ad25
-  - rengjoring
 price: 89900
 tax_class: general
 updated_by: db163cda-ce66-44d8-8bee-faa25fcd0ff9

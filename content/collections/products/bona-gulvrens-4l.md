@@ -5,7 +5,6 @@ title: 'Bona gulvrens 4L for lakkerte tregulv – økonomisk storpakning'
 short_description: 'Bona Wood Floor Cleaner 4 liter er en praktisk og økonomisk storpakning for deg som ønsker et trygt og effektivt rengjøringsmiddel til daglig bruk.'
 price: 49900
 tax_class: general
-  - rengjoring
 updated_by: db163cda-ce66-44d8-8bee-faa25fcd0ff9
 updated_at: 1780076255
 recommended: true

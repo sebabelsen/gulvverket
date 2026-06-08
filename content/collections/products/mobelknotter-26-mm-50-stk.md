@@ -146,7 +146,6 @@ related_products:
   - 6707b251-da4a-4443-af8b-ffc8fdff243a
   - a0b9f858-9718-4321-b74c-5b9fd6f5d9e4
   - 7496fd54-8644-4990-a9ee-0fa8beefa4fa
-  - tilbehor
 price: 39900
 tax_class: general
 updated_by: db163cda-ce66-44d8-8bee-faa25fcd0ff9

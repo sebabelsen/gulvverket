@@ -99,7 +99,6 @@ description:
 gallery:
   - bona-oiled-floors.webp
 recommended: false
-  - rengjoring
 price: 18400
 tax_class: general
 updated_by: db163cda-ce66-44d8-8bee-faa25fcd0ff9
