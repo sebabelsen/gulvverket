@@ -1,0 +1,291 @@
+/* ==============================
+   CARDS — base (article/blog)
+============================== */
+
+.card {
+    background: var(--color-bg-raised);
+    border-radius: var(--radius-xl);
+    border: var(--border-subtle);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition:
+        border-color var(--t) var(--ease),
+        box-shadow 300ms var(--ease);
+
+    &:focus-within {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 3px;
+    }
+
+    a {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        color: inherit;
+        text-decoration: none;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    @media (hover: hover) {
+        &:hover {
+            border-color: color-mix(
+                in srgb,
+                var(--color-primary) 35%,
+                transparent
+            );
+
+            .card-media img {
+                transform: scale(1.06);
+            }
+
+            .card-link svg {
+                transform: translateX(4px);
+            }
+        }
+    }
+}
+
+/* ── Image ── */
+.card-media {
+    overflow: hidden;
+    background: var(--surface-1);
+
+    img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        display: block;
+        transition: transform 500ms var(--ease);
+    }
+}
+
+/* Placeholder (no image) */
+.card-media-empty {
+    aspect-ratio: 16 / 9;
+    background: var(--surface-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-subtle);
+    font-size: 0.85rem;
+}
+
+/* ── Body ── */
+.card .card-body {
+    padding: 1.25rem 1.5rem 1.75rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.9rem;
+    flex-wrap: wrap;
+}
+
+.card .card-tag {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+}
+
+.card .card-date {
+    font-size: 0.82rem;
+    color: var(--color-text-muted-strong);
+    margin-left: auto;
+}
+
+.card h2,
+.card h3 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 0.6rem;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+}
+
+.card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ── Read more link ── */
+.card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary-text);
+
+    svg {
+        width: 1.15em;
+        height: 1.15em;
+        transition: transform var(--t) var(--ease);
+    }
+}
+
+/* ==============================
+   PRODUCT CARD — Gulvverket
+============================== */
+
+.product-card {
+    background: var(--color-bg-overlay);
+    border-radius: var(--radius-xl);
+    border: var(--border-subtle);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition:
+        transform var(--t) var(--ease),
+        border-color var(--t) var(--ease),
+        box-shadow 300ms var(--ease);
+
+    &:focus-within {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 3px;
+    }
+
+    a {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        color: inherit;
+        text-decoration: none;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    @media (hover: hover) {
+        &:hover {
+            transform: translateY(-4px);
+            border-color: color-mix(
+                in srgb,
+                var(--color-primary) 35%,
+                transparent
+            );
+            box-shadow: var(--shadow-md);
+
+            .product-media img {
+                transform: scale(1.05);
+            }
+        }
+    }
+}
+
+.product-media {
+    overflow: hidden;
+    background: var(--surface-1);
+
+    img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
+        padding: 1.5rem;
+        display: block;
+        transition: transform 500ms var(--ease);
+    }
+}
+
+.product-media-empty {
+    aspect-ratio: 1 / 1;
+    background: var(--surface-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-subtle);
+    font-size: 0.85rem;
+}
+
+.product-body {
+    padding: 1.25rem 1.4rem 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-title {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0 0 0.5rem;
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+}
+
+.product-meta {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0 0 1rem;
+    flex: 1;
+}
+
+.product-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-top: auto;
+}
+
+.product-price-old {
+    font-size: 0.9rem;
+    text-decoration: line-through;
+    color: var(--color-text-subtle);
+    margin-right: 0.5rem;
+    font-weight: 400;
+}
+
+/* ==============================
+   CONTACT CARD
+============================== */
+
+.contact-card {
+    background: var(--color-bg-raised);
+    border: var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+
+    @media (min-width: 900px) {
+        padding: 2.25rem;
+    }
+
+    h3 {
+        font-family: var(--font-serif);
+        letter-spacing: -0.02em;
+        font-size: 1.5rem;
+        margin: 0 0 0.75rem;
+        color: var(--color-text);
+    }
+
+    p {
+        margin: 0 0 1rem;
+        color: var(--color-text-muted);
+        line-height: 1.75;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

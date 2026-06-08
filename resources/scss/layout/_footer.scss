@@ -1,0 +1,114 @@
+/* ==============================
+   FOOTER
+============================== */
+
+.site-footer {
+    background: var(--surface-1);
+    color: var(--color-text);
+    border-top: 1px solid var(--border-default);
+    margin-top: 2rem;
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr 1fr;
+        gap: 2.25rem;
+        padding: 3.25rem 0 2.75rem;
+        align-items: start;
+
+        @media (max-width: 980px) {
+            grid-template-columns: 1fr 1fr;
+            gap: 1.75rem;
+            padding: 3rem 0 2.25rem;
+        }
+
+        @media (max-width: 600px) {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            padding: 2.25rem 0 1.75rem;
+        }
+    }
+
+    /* Titles */
+    .footer-title {
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
+        margin: 0.35rem 0 1rem;
+    }
+
+    /* Links */
+    .footer-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li + li {
+            margin-top: 0.75rem;
+        }
+
+        a {
+            color: var(--color-text);
+            text-decoration: none;
+            opacity: 0.9;
+
+            &:hover {
+                opacity: 1;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    /* Brand */
+    .footer-brand {
+        @media (max-width: 980px) {
+            grid-column: 1 / -1;
+        }
+    }
+
+    .footer-brand-top {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.85rem;
+        text-decoration: none;
+        color: inherit;
+        margin-bottom: 0.9rem;
+    }
+
+    .footer-logo {
+        width: 36px;
+        height: 36px;
+        display: block;
+        object-fit: contain;
+    }
+
+    .footer-brand-name {
+        font-size: 1.05rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+    }
+
+    .footer-lead {
+        margin: 0 0 1.25rem;
+        max-width: 38ch;
+        line-height: 1.7;
+        color: var(--color-text-muted);
+    }
+
+    /* Bottom bar */
+    .footer-bottom {
+        border-top: 1px solid var(--border-default);
+        padding: 1.35rem 0;
+
+        display: flex;
+        justify-content: center;
+        text-align: center;
+
+        color: var(--color-text-muted);
+        font-size: 1rem;
+
+        @media (max-width: 600px) {
+            padding: 1.25rem 0 1.5rem;
+        }
+    }
+}

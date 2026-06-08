@@ -10,74 +10,21 @@
         {{ elseif lead }}
             <meta name="description" content="{{ lead }}">
         {{ /if }}
-        {{ vite src="resources/js/site.js|resources/css/site.css" }}
+
+        {{# Fonts #}}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+        {{ vite src="resources/js/site.js|resources/css/site.css|resources/scss/site.scss" }}
     </head>
-    <body class="bg-stone-50 font-sans leading-normal text-stone-800 min-h-screen flex flex-col">
+    <body class="theme-light">
 
-        <header class="border-b border-stone-200 bg-white">
-            <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-                <a href="/" class="text-xl font-semibold tracking-tight">Gulvverket</a>
-                <nav class="flex items-center gap-6 text-sm">
-                    <a href="/produkter" class="hover:text-stone-950">Produkter</a>
-                    <a href="/blogg" class="hover:text-stone-950">Blogg</a>
-                    <a href="/om-oss" class="hover:text-stone-950">Om oss</a>
-                    <a href="/kontakt" class="hover:text-stone-950">Kontakt</a>
-                    <a href="/handlekurv" class="hover:text-stone-950 flex items-center gap-1.5">
-                        Handlekurv
-                        {{ unless {cart:is_empty} }}
-                            <span class="inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 text-xs font-medium bg-stone-900 text-white rounded-full">{{ {cart:line_items} | count }}</span>
-                        {{ /unless }}
-                    </a>
-                </nav>
-            </div>
-        </header>
-
-        <main class="flex-1">
+    {{ partial:nav }}
+        <main>
             {{ template_content }}
         </main>
-
-        <footer class="border-t border-stone-200 bg-white mt-16">
-            <div class="max-w-6xl mx-auto px-4 py-10">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
-
-                    <div>
-                        <h3 class="font-semibold text-stone-950 mb-3">Gulvverket</h3>
-                        <p class="text-stone-600">Produktene vi selger er produkter vi selv bruker og anbefaler gjennom daglig arbeid med gulvfornying hos <a href="https://haugesundgulvservice.no" class="underline hover:text-stone-900">Haugesund Gulvservice</a>.</p>
-                    </div>
-
-                    <div>
-                        <h3 class="font-semibold text-stone-950 mb-3">Butikk</h3>
-                        <ul class="space-y-1.5 text-stone-600">
-                            <li><a href="/produkter" class="hover:text-stone-900">Produkter</a></li>
-                            <li><a href="/blogg" class="hover:text-stone-900">Blogg</a></li>
-                            <li><a href="/faq" class="hover:text-stone-900">Ofte stilte spørsmål</a></li>
-                            <li><a href="/om-oss" class="hover:text-stone-900">Om oss</a></li>
-                            <li><a href="/kontakt" class="hover:text-stone-900">Kontakt</a></li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 class="font-semibold text-stone-950 mb-3">Juridisk</h3>
-                        <ul class="space-y-1.5 text-stone-600">
-                            <li><a href="/vilkar" class="hover:text-stone-900">Vilkår for kjøp</a></li>
-                            <li><a href="/angrerett" class="hover:text-stone-900">Angrerett og retur</a></li>
-                            <li><a href="/personvern" class="hover:text-stone-900">Personvernerklæring</a></li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 class="font-semibold text-stone-950 mb-3">Kontakt</h3>
-                        <ul class="space-y-1.5 text-stone-600">
-                            <li><a href="mailto:kontakt@gulvverket.no" class="hover:text-stone-900">kontakt@gulvverket.no</a></li>
-                            <li class="pt-2">Norevegen 14<br>5542 Karmsund</li>
-                        </ul>
-                    </div>
-
-                </div>
-
-                <p class="mt-10 pt-6 border-t border-stone-200 text-xs text-stone-500">© {{ now format="Y" }} Gulvverket AS. Drevet av Haugesund Gulvservice.</p>
-            </div>
-        </footer>
+    {{ partial:footer }}
 
     </body>
 </html>

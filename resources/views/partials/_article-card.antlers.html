@@ -1,29 +1,46 @@
-<a href="{{ url }}" class="group block">
-    {{ if featured_image }}
-        {{ featured_image }}
-            <div class="aspect-[16/10] bg-stone-100 rounded-xl overflow-hidden mb-4">
-                <img src="{{ url }}" alt="{{ alt ?? title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-            </div>
-        {{ /featured_image }}
-    {{ else }}
-        <div class="aspect-[16/10] bg-stone-100 rounded-xl mb-4 flex items-center justify-center text-stone-400 text-sm">
-            Ingen bilde
+<article class="card">
+    <a href="{{ url }}">
+
+        {{ if featured_image }}
+            {{ featured_image }}
+                <div class="card-media">
+                    <img src="{{ url }}" alt="{{ alt ?? title }}" loading="lazy">
+                </div>
+            {{ /featured_image }}
+        {{ else }}
+            <div class="card-media-empty">Ingen bilde</div>
+        {{ /if }}
+
+        <div class="card-body">
+
+            {{ if article_tags || date }}
+                <div class="card-meta">
+                    {{ if article_tags }}
+                        {{ article_tags limit="1" }}
+                            <span class="card-tag">{{ title }}</span>
+                        {{ /article_tags }}
+                    {{ /if }}
+                    {{ if date }}
+                        <span class="card-date">{{ date format="j. F Y" }}</span>
+                    {{ /if }}
+                </div>
+            {{ /if }}
+
+            <h2>{{ title }}</h2>
+
+            {{ if lead }}
+                <p>{{ lead }}</p>
+            {{ /if }}
+
+            <span class="card-link">
+                Les artikkelen
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </span>
+
         </div>
-    {{ /if }}
 
-    {{ if article_tags }}
-        <div class="flex flex-wrap gap-2 mb-2">
-            {{ article_tags limit="2" }}
-                <span class="text-xs uppercase tracking-wide text-stone-500">{{ title }}</span>
-            {{ /article_tags }}
-        </div>
-    {{ /if }}
-
-    <h2 class="text-xl font-semibold text-stone-950 group-hover:underline mb-2">{{ title }}</h2>
-
-    {{ if lead }}
-        <p class="text-stone-600 line-clamp-3">{{ lead }}</p>
-    {{ /if }}
-
-    <p class="mt-3 text-xs text-stone-500">{{ date format="j. F Y" }}</p>
-</a>
+    </a>
+</article>

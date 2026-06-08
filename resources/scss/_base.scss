@@ -1,0 +1,59 @@
+/* ==============================
+   BASE
+============================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-text);
+    padding-top: var(--header-offset);
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+}
+
+p {
+    margin: 0 0 1rem;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    margin: 0 0 0.75rem;
+}
+
+.footer-links,
+.social-links,
+.contact-list,
+nav ul {
+    list-style: none;
+}
+
+/* Layout helper */
+.container {
+    max-width: var(--container);
+    padding: 0 var(--container-padding);
+    margin: 0 auto;
+}
+
+.lead {
+    color: var(--color-text-muted);
+}
