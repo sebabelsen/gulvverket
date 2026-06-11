@@ -1,0 +1,70 @@
+/* ==============================
+   LINKS
+============================== */
+
+.link,
+:where(.prose, article:not(.product-card, .card))
+    a:not(.btn, .nav-cta, [class*="card-"], [class*="product-"]) {
+    color: var(--color-primary-text);
+    text-decoration: none;
+
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1.5px;
+
+    transition:
+        background-size var(--t-slow) var(--ease-out),
+        color var(--t-fast) var(--ease);
+
+    &:hover {
+        background-size: 100% 1.5px;
+    }
+
+    &:focus-visible {
+        outline: none;
+        background-size: 100% 1.5px;
+        box-shadow: var(--focus-ring);
+        border-radius: 2px;
+    }
+}
+
+.link-subtle {
+    color: var(--color-text-muted);
+    text-decoration: none;
+
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+
+    transition:
+        background-size var(--t-slow) var(--ease-out),
+        color var(--t-fast) var(--ease);
+
+    &:hover {
+        color: var(--color-text);
+        background-size: 100% 1px;
+    }
+}
+
+.link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    color: var(--color-primary-text);
+    text-decoration: none;
+    font-weight: var(--font-medium);
+
+    & > .arrow,
+    & > svg {
+        transition: transform var(--t) var(--ease);
+    }
+
+    &:hover {
+        & > .arrow,
+        & > svg {
+            transform: translateX(4px);
+        }
+    }
+}

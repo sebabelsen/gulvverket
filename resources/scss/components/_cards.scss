@@ -1,22 +1,18 @@
 /* ==============================
-   CARDS — base (article/blog)
+   CARDS — article / blog
 ============================== */
 
 .card {
-    background: var(--color-bg-raised);
+    position: relative;
+    background: var(--color-bg-overlay);
     border-radius: var(--radius-xl);
     border: var(--border-subtle);
     overflow: hidden;
     display: flex;
     flex-direction: column;
     transition:
-        border-color var(--t) var(--ease),
-        box-shadow 300ms var(--ease);
-
-    &:focus-within {
-        outline: 2px solid var(--color-primary);
-        outline-offset: 3px;
-    }
+        box-shadow var(--t-slow) var(--ease-out),
+        transform var(--t-slow) var(--ease-out);
 
     a {
         display: flex;
@@ -30,16 +26,22 @@
         }
     }
 
+    &:focus-within {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 3px;
+    }
+
     @media (hover: hover) {
         &:hover {
-            border-color: color-mix(
-                in srgb,
-                var(--color-primary) 35%,
-                transparent
-            );
+            box-shadow: var(--shadow-md);
 
             .card-media img {
-                transform: scale(1.06);
+                transform: scale(1.05);
+            }
+
+            .card-link {
+                opacity: 1;
+                transform: translateX(0);
             }
 
             .card-link svg {
@@ -49,7 +51,6 @@
     }
 }
 
-/* ── Image ── */
 .card-media {
     overflow: hidden;
     background: var(--surface-1);
@@ -59,11 +60,10 @@
         aspect-ratio: 16 / 9;
         object-fit: cover;
         display: block;
-        transition: transform 500ms var(--ease);
+        transition: transform 600ms var(--ease-out);
     }
 }
 
-/* Placeholder */
 .card-media-empty {
     aspect-ratio: 16 / 9;
     background: var(--surface-1);
@@ -71,12 +71,13 @@
     align-items: center;
     justify-content: center;
     color: var(--color-text-subtle);
-    font-size: 0.85rem;
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
 }
 
-/* ── Body ── */
 .card .card-body {
-    padding: 1.25rem 1.5rem 1.75rem;
+    padding: var(--space-5) var(--space-5) var(--space-6);
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -85,40 +86,42 @@
 .card .card-meta {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    margin-bottom: 0.9rem;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
     flex-wrap: wrap;
 }
 
 .card .card-tag {
-    font-size: 0.72rem;
+    font-size: var(--text-xs);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-text-muted);
+    letter-spacing: var(--tracking-widest);
+    color: var(--color-primary-text);
+    font-weight: var(--font-medium);
 }
 
 .card .card-date {
-    font-size: 0.82rem;
-    color: var(--color-text-muted-strong);
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
     margin-left: auto;
+    letter-spacing: var(--tracking-wide);
 }
 
 .card h2,
 .card h3 {
     font-family: var(--font-serif);
-    font-size: 1.4rem;
-    font-weight: 700;
-    line-height: 1.3;
-    margin: 0 0 0.6rem;
+    font-size: var(--text-xl);
+    font-weight: var(--font-medium);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-snug);
+    margin: 0 0 var(--space-3);
     color: var(--color-text);
-    letter-spacing: -0.02em;
 }
 
 .card p {
     margin: 0;
     color: var(--color-text-muted);
-    font-size: 0.9rem;
-    line-height: 1.6;
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
     display: -webkit-box;
     line-clamp: 3;
     -webkit-line-clamp: 3;
@@ -126,135 +129,135 @@
     overflow: hidden;
 }
 
-/* ── Read more link ── */
 .card-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: var(--space-2);
     margin-top: auto;
-    padding-top: 1.5rem;
-    font-size: 0.85rem;
-    font-weight: 600;
+    padding-top: var(--space-5);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
     color: var(--color-primary-text);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition:
+        opacity var(--t-slow) var(--ease-out),
+        transform var(--t-slow) var(--ease-out);
 
     svg {
-        width: 1.15em;
-        height: 1.15em;
+        width: 1.1em;
+        height: 1.1em;
         transition: transform var(--t) var(--ease);
     }
 }
 
+@media (hover: none) {
+    .card-link {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 /* ==============================
-   PRODUCT CARD — Gulvverket
+   PRODUCT CARD — minimal
+   No container styling. Just image, title, price.
 ============================== */
 
 .product-card {
-    background: var(--color-bg-overlay);
-    border-radius: var(--radius-xl);
-    border: var(--border-subtle);
-    overflow: hidden;
+    position: relative;
     display: flex;
     flex-direction: column;
-    transition:
-        transform var(--t) var(--ease),
-        border-color var(--t) var(--ease),
-        box-shadow 300ms var(--ease);
 
-    &:focus-within {
-        outline: 2px solid var(--color-primary);
-        outline-offset: 3px;
-    }
-
+    /* Important: kill the auto-underline from _links.scss
+       that targets `<article> a` */
     a {
         display: flex;
         flex-direction: column;
         flex: 1;
         color: inherit;
         text-decoration: none;
+        background-image: none !important;
 
-        &:focus {
-            outline: none;
+        &:focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 4px;
+            border-radius: var(--radius-md);
         }
     }
 
     @media (hover: hover) {
-        &:hover {
-            transform: translateY(-4px);
-            border-color: color-mix(
-                in srgb,
-                var(--color-primary) 35%,
-                transparent
-            );
-            box-shadow: var(--shadow-md);
-
-            .product-media img {
-                transform: scale(1.05);
-            }
+        &:hover .product-media img {
+            transform: scale(1.02);
         }
     }
 }
 
 .product-media {
     overflow: hidden;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-md);
     background: var(--surface-1);
 
     img {
         width: 100%;
-        aspect-ratio: 1 / 1;
-        object-fit: contain;
-        padding: 1.5rem;
+        height: 100%;
+        object-fit: cover;
         display: block;
-        transition: transform 500ms var(--ease);
+        transition: transform 600ms var(--ease-out);
     }
 }
 
 .product-media-empty {
     aspect-ratio: 1 / 1;
+    border-radius: var(--radius-md);
     background: var(--surface-1);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--color-text-subtle);
-    font-size: 0.85rem;
-}
-
-.product-body {
-    padding: 1.25rem 1.4rem 1.5rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
 }
 
 .product-title {
-    font-family: var(--font-serif);
-    font-size: 1.1rem;
-    font-weight: 600;
-    line-height: 1.3;
-    margin: 0 0 0.5rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: var(--font-regular);
+    line-height: var(--leading-snug);
+    margin: var(--space-4) 0 var(--space-2);
     color: var(--color-text);
-    letter-spacing: -0.01em;
-}
-
-.product-meta {
-    font-size: 0.82rem;
-    color: var(--color-text-muted);
-    margin: 0 0 1rem;
-    flex: 1;
 }
 
 .product-price {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--color-text);
-    margin-top: auto;
+    font-size: var(--text-sm);
+    font-weight: var(--font-regular);
+    color: var(--color-text-muted-strong);
+    margin: 0;
 }
 
-.product-price-old {
-    font-size: 0.9rem;
-    text-decoration: line-through;
-    color: var(--color-text-subtle);
-    margin-right: 0.5rem;
-    font-weight: 400;
+
+.product-badge {
+    position: absolute;
+    top: var(--space-3);
+    left: var(--space-3);
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-3);
+    background: var(--color-primary);
+    color: #fff;
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    letter-spacing: var(--tracking-wide);
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-sm);
+
+    svg {
+        width: 0.9em;
+        height: 0.9em;
+    }
 }
 
 /* ==============================
@@ -262,27 +265,27 @@
 ============================== */
 
 .contact-card {
-    background: var(--color-bg-raised);
+    background: var(--color-bg-overlay);
     border: var(--border-subtle);
     border-radius: var(--radius-xl);
-    padding: 1.5rem;
+    padding: var(--space-6);
 
     @media (min-width: 900px) {
-        padding: 2.25rem;
+        padding: var(--space-7);
     }
 
     h3 {
         font-family: var(--font-serif);
-        letter-spacing: -0.02em;
-        font-size: 1.5rem;
-        margin: 0 0 0.75rem;
+        font-size: var(--text-2xl);
+        letter-spacing: var(--tracking-tight);
+        margin: 0 0 var(--space-3);
         color: var(--color-text);
     }
 
     p {
-        margin: 0 0 1rem;
+        margin: 0 0 var(--space-4);
         color: var(--color-text-muted);
-        line-height: 1.75;
+        line-height: var(--leading-relaxed);
 
         &:last-child {
             margin-bottom: 0;

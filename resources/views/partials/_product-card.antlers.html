@@ -1,26 +1,24 @@
 <article class="product-card">
     <a href="{{ url }}">
 
-        {{ if gallery }}
-            {{ gallery limit="1" }}
-                <div class="product-media">
-                    <img src="{{ url }}" alt="{{ alt ?? title }}" loading="lazy">
-                </div>
-            {{ /gallery }}
-        {{ else }}
-            <div class="product-media-empty">Ingen bilde</div>
+        {{ if recommended }}
+        <span class="product-badge" title="Vi bruker dette produktet selv">
+            Anbefalt
+        </span>
         {{ /if }}
 
-        <div class="product-body">
-            <h3 class="product-title">{{ title }}</h3>
-
-           <!-- {{ if short_description }}
-                <p class="product-meta">{{ short_description }}</p>
-            {{ /if }} 
-            -->
-
-            <div class="product-price">{{ price }}</div>
+        {{ if gallery }}
+        {{ gallery limit="1" }}
+        <div class="product-media">
+            <img src="{{ url }}" alt="{{ alt ?? title }}" loading="lazy">
         </div>
+        {{ /gallery }}
+        {{ else }}
+        <div class="product-media-empty">Ingen bilde</div>
+        {{ /if }}
+
+        <h3 class="product-title">{{ title }}</h3>
+        <div class="product-price">{{ price }}</div>
 
     </a>
 </article>
