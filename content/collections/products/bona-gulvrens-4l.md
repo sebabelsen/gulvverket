@@ -6,7 +6,7 @@ short_description: 'Bona Wood Floor Cleaner 4 liter er en praktisk og økonomisk
 price: 49900
 tax_class: general
 updated_by: db163cda-ce66-44d8-8bee-faa25fcd0ff9
-updated_at: 1780076255
+updated_at: 1781176883
 recommended: true
 description:
   -
