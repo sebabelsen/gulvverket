@@ -3,11 +3,10 @@
     @desc Renders address form fields.
     @param* type The type of address. Options: shipping, billing.
 #}}
-
 <div x-data="{{ type | ucfirst }}Address" class="flex flex-col space-y-6">
     {{#{{ partial:checkout/components/combobox
         name="{type}_address[country]"
-        label="Country"
+        label="Land"
         autocomplete="{type} country"
         required="true"
         model="country"
@@ -16,53 +15,61 @@
         display_key="label"
         placeholder="Select a country"
     }}#}}
-
     {{ partial:checkout/components/input
         name="{type}_address[name]"
-        label="{type | ucfirst} Navn"
+        label="Navn"
         type="text"
         xBindValue="cart.{type}_address?.name || cart.customer?.name"
         autocomplete="{type} name"
         required="true"
     }}
-
+    {{ partial:checkout/components/input
+        name="{type}_address[company]"
+        label="Bedrift (valgfritt)"
+        type="text"
+        xBindValue="cart.{type}_address?.company"
+        autocomplete="{type} organization"
+    }}
     {{ partial:checkout/components/input
         name="{type}_address[line_1]"
-        label="{type | ucfirst} Line 1"
+        label="Adresse"
         type="text"
         xBindValue="cart.{type}_address?.line_1"
         autocomplete="{type} address-line1"
         required="true"
     }}
-
     {{ partial:checkout/components/input
         name="{type}_address[line_2]"
-        label="{type | ucfirst} Line 2"
+        label="Leilighet, etasje osv. (valgfritt)"
         type="text"
         xBindValue="cart.{type}_address?.line_2"
         autocomplete="{type} address-line2"
     }}
-
     <div class="grid sm:grid-cols-2 gap-6">
         {{ partial:checkout/components/input
-            name="{type}_address[city]"
-            label="Town/City"
-            type="text"
-            xBindValue="cart.{type}_address?.city"
-            autocomplete="{type} address-level1"
-            required="true"
-        }}
-
-        {{ partial:checkout/components/input
             name="{type}_address[postcode]"
-            label="Postcode"
+            label="Postnummer"
             type="text"
             xBindValue="cart.{type}_address?.postcode"
             autocomplete="{type} postal-code"
             required="true"
         }}
+        {{ partial:checkout/components/input
+            name="{type}_address[city]"
+            label="By"
+            type="text"
+            xBindValue="cart.{type}_address?.city"
+            autocomplete="{type} address-level1"
+            required="true"
+        }}
     </div>
-
+    {{ partial:checkout/components/input
+        name="{type}_address[phone]"
+        label="Telefon (valgfritt)"
+        type="tel"
+        xBindValue="cart.{type}_address?.phone"
+        autocomplete="{type} tel"
+    }}
     <template x-if="states.length">
         {{ partial:checkout/components/combobox
             name="{type}_address[state]"
@@ -77,7 +84,6 @@
         }}
     </template>
 </div>
-
 {{ push:footer_scripts }}
     <script>
         document.addEventListener('alpine:init', () => {
@@ -90,22 +96,17 @@
                     {{ /dictionary:countries }}
                 ],
                 states: [],
-
                 init() {
                     this.country = this.cart.{{ type }}_address?.country?.value;
                     this.state = this.cart.{{ type }}_address?.state?.code;
-
                     if (this.country) this.fetchStates();
-
                     this.$watch('country', () => {
                         this.state = null;
                         this.fetchStates();
                     });
                 },
-
                 fetchStates() {
                     this.states = [];
-
                     fetch(`{{ route:statamic.cargo.states }}?country=${this.country}`)
                         .then(response => response.json())
                         .then(data => this.states = data);

@@ -57,3 +57,29 @@ nav ul {
 .lead {
     color: var(--color-text-muted);
 }
+
+@media (min-width: 720px) {
+    .hero-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 3rem !important;
+    }
+
+    .articles-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .story-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 4rem !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}

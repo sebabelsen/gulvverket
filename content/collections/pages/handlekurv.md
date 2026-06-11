@@ -1,6 +1,6 @@
 ---
 id: page-handlekurv
-blueprint: pages
+blueprint: page
 title: Handlekurv
 template: cart/index
 ---

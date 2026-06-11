@@ -1,6 +1,6 @@
 ---
 id: page-produkter
-blueprint: pages
+blueprint: page
 title: Produkter
 template: products/index
 ---

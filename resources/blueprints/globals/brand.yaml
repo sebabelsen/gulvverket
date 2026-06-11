@@ -1,0 +1,37 @@
+title: Brand
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: logo
+            field:
+              container: assets
+              max_files: 1
+              min_files: 1
+              type: assets
+              display: Logo
+          -
+            handle: company_name
+            field:
+              type: text
+              display: 'Company name'
+          -
+            handle: telephone
+            field:
+              input_type: tel
+              type: text
+              display: telephone
+          -
+            handle: email
+            field:
+              input_type: email
+              type: text
+              display: email
+          -
+            handle: address
+            field:
+              type: text
+              display: Address

@@ -78,7 +78,7 @@
             <template x-for="discount in cart.discounts" :key="discount.id">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-1">
-                        <span>{{ 'Discount' | trans }}</span>
+                        <span>{{ 'Rabatt' | trans }}</span>
                         <span class="text-xs text-gray-500" x-text="`(${discount.discount_code ?? discount.title})`"></span>
                         <template x-if="discount.discount_code !== null">
                             {{ cart:update class="flex items-center" x-data="RemoveDiscountCodeForm" @submit.prevent="removeDiscountCode" }}
@@ -100,7 +100,7 @@
         {{ if {cart:has_physical_products} }}
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-1">
-                    <span>{{ 'Shipping' | trans }}</span>
+                    <span>{{ 'Levering' | trans }}</span>
                     <template x-if="cart.shipping_option">
                         <span class="text-xs text-gray-500" x-text="`(${cart.shipping_option.name})`"></span>
                     </template>
@@ -111,14 +111,14 @@
                 </template>
 
                 <template x-if="!cart.shipping_option">
-                    <span class="text-gray-500">{{ 'Enter shipping address' | trans }}</span>
+                    <span class="text-gray-500">{{ 'Legg inn leveringsadresse' | trans }}</span>
                 </template>
             </div>
         {{ /if }}
 
         {{ if !config:statamic:cargo:taxes:price_includes_tax }}
             <div class="flex items-center justify-between">
-                <span>{{ 'Taxes' | trans }}</span>
+                <span>{{ 'Skatt' | trans }}</span>
                 <span x-text="cart.tax_total"></span>
             </div>
         {{ /if }}
@@ -131,7 +131,7 @@
 
             {{ if config:statamic:cargo:taxes:price_includes_tax }}
                 <div class="mt-1 text-xs font-normal text-gray-500">
-                    {{ trans key="Including :amount in taxes" amount="<span x-text='cart.tax_total'></span>" }}
+                    {{ trans key="Inkludert :mengde i skatt" amount="<span x-text='cart.tax_total'></span>" }}
                 </div>
             {{ /if }}
         </div>

@@ -249,7 +249,7 @@ return [
         */
 
         'methods' => [
-            'free_shipping' => [],
+            //'free_shipping' => [],
             'standard_shipping' => [],
         ],
 
@@ -268,7 +268,8 @@ return [
         */
 
         'gateways' => [
-            'dummy' => [],
+            //'dummy' => [],
+            'pay_on_delivery' => [],
 
             // 'stripe' => [
             //     'key' => env('STRIPE_KEY'),

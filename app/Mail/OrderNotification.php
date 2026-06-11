@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OrderConfirmation extends Mailable implements ShouldQueue
+class OrderNotification extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -25,7 +25,7 @@ class OrderConfirmation extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: "Ny bestilling #{$this->order->orderNumber()}.",
+            subject: "Ny bestilling #{$this->order->orderNumber()}",
         );
     }
 
@@ -35,7 +35,7 @@ class OrderConfirmation extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.order-confirmation',
+            markdown: 'emails.order-notification',
         );
     }
 

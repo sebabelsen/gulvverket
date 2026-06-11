@@ -8,7 +8,7 @@
     You can find the payment forms for each gateway under `resources/views/checkout/payment-forms/`.
 #}}
 
-{{ partial:checkout/components/step title="Payment" formless="true" x-data="Payment" }}
+{{ partial:checkout/components/step title="Betaling" formless="true" x-data="Payment" }}
     <template x-if="cart.is_free">
         <form action="{{ route:statamic.cargo.cart.checkout }}" method="get">
             <p class="mb-6">{{ 'No payment required. Continue to checkout.' | trans }}</p>
@@ -23,7 +23,7 @@
     <template x-if="!cart.is_free && !isFetchingPaymentGateways && paymentGateways.length > 0">
         <div class="flex flex-col space-y-6">
             <div x-show="paymentGateways.length > 1">
-                {{ partial:checkout/components/select name="payment_gateway" label="Payment Method" x-model="selectedPaymentGateway" required="true" }}
+                {{ partial:checkout/components/select name="payment_gateway" label="Betalingsmetode" x-model="selectedPaymentGateway" required="true" }}
                     <template x-for="paymentGateway in paymentGateways">
                         <option :value="paymentGateway.handle" x-text="paymentGateway.name"></option>
                     </template>

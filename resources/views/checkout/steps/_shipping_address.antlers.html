@@ -3,11 +3,11 @@
 #}}
 
 {{ if {cart:has_physical_products} }}
-    {{ partial:checkout/components/step title="Shipping Address" }}
+    {{ partial:checkout/components/step title="Leveringsadresse" }}
         {{ partial:checkout/components/address type="shipping" }}
 
         {{ slot:footer }}
-            {{ partial:checkout/components/button label="Continue →" type="submit" }}
+            {{ partial:checkout/components/button label="Fortsett →" type="submit" }}
         {{ /slot:footer }}
     {{ /partial:checkout/components/step }}
 {{ /if }}

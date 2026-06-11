@@ -1,0 +1,98 @@
+#ddev-generated
+# If you remove the ddev-generated line above you
+# are responsible for maintaining this file. DDEV will not then
+# update it, for example if you add `additional_hostnames`, etc.
+
+http:
+  routers:
+    nettbutikk-web-80-http:
+      entrypoints:
+        - http-33000
+      rule: HostRegexp(`^nettbutikk\.ddev\.site$`)
+      
+      service: "nettbutikk-web-80"
+      tls: false
+      # middlewares:
+      #   - "nettbutikk-redirectHttps"
+    nettbutikk-web-8025-http:
+      entrypoints:
+        - http-8025
+      rule: HostRegexp(`^nettbutikk\.ddev\.site$`)
+      
+      service: "nettbutikk-web-8025"
+      tls: false
+      # middlewares:
+      #   - "nettbutikk-redirectHttps"
+    nettbutikk-xhgui-80-http:
+      entrypoints:
+        - http-8143
+      rule: HostRegexp(`^nettbutikk\.ddev\.site$`)
+      
+      service: "nettbutikk-xhgui-80"
+      tls: false
+      # middlewares:
+      #   - "nettbutikk-redirectHttps"
+    
+    
+    
+    nettbutikk-web-80-https:
+      entrypoints:
+        - http-443
+      rule: HostRegexp(`^nettbutikk\.ddev\.site$`)
+      
+      service: "nettbutikk-web-80"
+      
+      tls: true
+      
+    nettbutikk-web-8025-https:
+      entrypoints:
+        - http-8026
+      rule: HostRegexp(`^nettbutikk\.ddev\.site$`)
+      
+      service: "nettbutikk-web-8025"
+      
+      tls: true
+      
+    
+    nettbutikk-xhgui-80-https:
+      entrypoints:
+        - http-8142
+      rule: HostRegexp(`^nettbutikk\.ddev\.site$`)
+      
+      service: "nettbutikk-xhgui-80"
+      
+      tls: true
+      
+    
+
+  middlewares:
+    nettbutikk-redirectHttps:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+  services:
+    nettbutikk-web-80:
+      loadbalancer:
+        servers:
+          - url: http://ddev-nettbutikk-web:80
+        
+    nettbutikk-web-8025:
+      loadbalancer:
+        servers:
+          - url: http://ddev-nettbutikk-web:8025
+        
+    
+    
+    nettbutikk-xhgui-80:
+      loadbalancer:
+        servers:
+          - url: http://ddev-nettbutikk-xhgui:80
+        
+    
+    
+
+tls:
+  certificates:
+    - certFile: /mnt/ddev-global-cache/traefik/certs/nettbutikk.crt
+      keyFile: /mnt/ddev-global-cache/traefik/certs/nettbutikk.key

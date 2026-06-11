@@ -7,14 +7,20 @@ use DuncanMcClean\Cargo\Shipping\ShippingMethod;
 use DuncanMcClean\Cargo\Shipping\ShippingOption;
 use Illuminate\Support\Collection;
 
-class RoyalMail extends ShippingMethod
+class StandardShipping extends ShippingMethod
 {
     public function options(Cart $cart): Collection
     {
         return collect([
             ShippingOption::make($this)
-                ->name(__('Free Shipping'))
-                ->price(0),
+                ->name(__('Standard pakke'))
+                ->price(9900)
+                ->acceptsPaymentOnDelivery(true),
+
+            ShippingOption::make($this)
+                ->name(__('Stor pakke'))
+                ->price(19900)
+                ->acceptsPaymentOnDelivery(true),
         ]);
     }
 }
