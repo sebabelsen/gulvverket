@@ -27,7 +27,7 @@
                         this.focusInitialInput();
                     })
                     .catch(error => {
-                        alert(`{{ 'Something went wrong while getting your cart. Please try again later.' | trans }} ${error}`);
+                        alert(`{{ 'Noe gikk galt da vi hentet handlekurven din. Prøv igjen senere.' | trans }} ${error}`);
                     });
             },
 
@@ -88,7 +88,7 @@
                             return;
                         }
 
-                        alert(`{{ 'Something went wrong while submitting the form. Please try again later.' | trans }}`);
+                        alert(`{{ 'Noe gikk galt da vi sendte inn skjemaet. Prøv igjen senere.' | trans }}`);
                     })
                     .finally(() => this.busy = false);
             },

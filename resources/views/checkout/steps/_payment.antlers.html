@@ -11,14 +11,14 @@
 {{ partial:checkout/components/step title="Betaling" formless="true" x-data="Payment" }}
     <template x-if="cart.is_free">
         <form action="{{ route:statamic.cargo.cart.checkout }}" method="get">
-            <p class="mb-6">{{ 'No payment required. Continue to checkout.' | trans }}</p>
+            <p class="mb-6">{{ 'Ingen betaling kreves. Fortsett til utsjekk.' | trans }}</p>
 
-            {{ partial:checkout/components/button label="Complete Order" type="submit" }}
+            {{ partial:checkout/components/button label="Fullfør bestilling" type="submit" }}
         </form>
     </template>
 
-    <p x-show="!cart.is_free && isFetchingPaymentGateways">{{ 'Loading...' | trans }}</p>
-    <p x-show="!cart.is_free && !isFetchingPaymentGateways && paymentGateways.length === 0">{{ 'Loading...' | trans }}</p>
+    <p x-show="!cart.is_free && isFetchingPaymentGateways">{{ 'Laster inn...' | trans }}</p>
+    <p x-show="!cart.is_free && !isFetchingPaymentGateways && paymentGateways.length === 0">{{ 'Laster inn...' | trans }}</p>
 
     <template x-if="!cart.is_free && !isFetchingPaymentGateways && paymentGateways.length > 0">
         <div class="flex flex-col space-y-6">
@@ -82,7 +82,7 @@
                             this.isFetchingPaymentGateways = false;
                         })
                         .catch(error => {
-                            alert(`{{ 'Something went wrong while fetching payment gateways. Please try again later.' | trans }}`);
+                            alert(`{{ 'En feil oppstod ved henting av betalingsmetoder. Prøv igjen senere.' | trans }}`);
                         });
                 },
             }));
