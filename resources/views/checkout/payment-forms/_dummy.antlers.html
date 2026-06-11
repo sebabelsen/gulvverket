@@ -2,7 +2,7 @@
     <div class="flex flex-col space-y-6 mb-6">
         {{ partial:checkout/components/input
             name="cardholder"
-            label="Name on Card"
+            label="Navn på kortet"
             xBindValue="cart.customer?.name"
             autocomplete="cc-name"
             required="true"
@@ -10,7 +10,7 @@
 
         {{ partial:checkout/components/input
             name="card_number"
-            label="Card Number"
+            label="Kort nummer"
             value="4242 4242 4242 4242"
             autocomplete="cc-number"
             required="true"
@@ -19,7 +19,7 @@
         <div class="grid grid-cols-2 gap-x-6">
             {{ partial:checkout/components/input
                 name="card_expiry"
-                label="Expiry Date"
+                label="Utløpsdato"
                 value="{ now format="m" }/{ now format="y" | add:1 }"
                 autocomplete="cc-exp"
                 required="true"
@@ -36,6 +36,6 @@
     </div>
 
     <div>
-        {{ partial:checkout/components/button label="Pay Now" type="submit" }}
+        {{ partial:checkout/components/button label="Legg inn bestilling" type="submit" }}
     </div>
 </form>
