@@ -16,8 +16,10 @@
             <input type="hidden" name="billing_address[name]" :value="cart.shipping_address?.name">
             <input type="hidden" name="billing_address[line_1]" :value="cart.shipping_address?.line_1">
             <input type="hidden" name="billing_address[line_2]" :value="cart.shipping_address?.line_2">
+            <input type="hidden" name="billing_address[company]" :value="cart.shipping_address?.company">
             <input type="hidden" name="billing_address[city]" :value="cart.shipping_address?.city">
             <input type="hidden" name="billing_address[postcode]" :value="cart.shipping_address?.postcode">
+            <input type="hidden" name="billing_address[phone]" :value="cart.shipping_address?.phone">
             <input type="hidden" name="billing_address[state]" :value="cart.shipping_address?.state?.code">
             <input type="hidden" name="billing_address[country]" :value="cart.shipping_address?.country?.value">
         </div>
@@ -39,7 +41,7 @@
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('BillingAddressStep', () => ({
-                useShippingAddressForBilling: {{ {cart:has_physical_products} ? 'true' : 'false' }},
+                useShippingAddressForBilling: {{ {cart:has_physical_products} ? true : false }},
 
                 init() {
                     // When the cart has a shipping address AND billing address, check if they're different.
