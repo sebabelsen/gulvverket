@@ -1,4 +1,4 @@
-title: 'Spørsmål'
+title: Spørsmål
 tabs:
   main:
     display: Hovedinnhold
@@ -10,15 +10,16 @@ tabs:
             field:
               type: text
               required: true
-              display: 'Spørsmål'
+              display: Spørsmål
               localizable: true
               instructions: 'Selve spørsmålet. Brukes som tittel og overskrift.'
+              validate:
+                - required
           -
             handle: answer
             field:
               type: bard
-              display: 'Svar'
-              required: true
+              display: Svar
               localizable: true
               container: assets
               buttons:
@@ -27,13 +28,15 @@ tabs:
                 - link
                 - unorderedlist
                 - orderedlist
-              save_html: false
-              toolbar_mode: fixed
+              validate:
+                - required
+              placeholder: 'Legg inn svar'
+              remove_empty_nodes: false
           -
             handle: faq_group
             field:
               type: select
-              display: 'Gruppe'
+              display: Gruppe
               instructions: 'Brukes for å gruppere spørsmål på FAQ-siden.'
               options:
                 generelt: Generelt
@@ -43,4 +46,14 @@ tabs:
                 produkter: Produkter
                 vedlikehold: Vedlikehold
               default: generelt
-              clearable: false
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
