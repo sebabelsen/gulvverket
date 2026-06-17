@@ -83,7 +83,10 @@ return [
         */
 
         'presets' => [
-            // 'small' => ['w' => 200, 'h' => 200, 'q' => 75, 'fit' => 'crop'],
+            // Product gallery
+            'product_thumb' => ['w' => 160, 'h' => 160, 'fit' => 'crop', 'q' => 70, 'fm' => 'webp'],
+            'product_main'  => ['w' => 1000, 'h' => 1000, 'fit' => 'crop', 'q' => 80, 'fm' => 'webp'],
+            'product_zoom'  => ['w' => 1600, 'fit' => 'max', 'q' => 82, 'fm' => 'webp'],
         ],
 
         /*
