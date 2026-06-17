@@ -34,23 +34,26 @@
 
             <div>
                 <label for="name" class="field-label">Navn <span class="field-required">*</span></label>
-                <input id="name" type="text" name="name" value="{{ old:name }}" required class="field-input">
+                <input id="name" type="text" name="name" value="{{ old:name }}" autocomplete="name"
+                    placeholder="Navnet ditt" required class="field-input">
             </div>
 
             <div>
                 <label for="email" class="field-label">E-post <span class="field-required">*</span></label>
-                <input id="email" type="email" name="email" value="{{ old:email }}" required class="field-input">
+                <input id="email" type="email" name="email" value="{{ old:email }}" autocomplete="email"
+                    placeholder="navn@eksempel.no" required class="field-input">
             </div>
 
             <div>
-                <label for="subject" class="field-label">Emne</label>
-                <input id="subject" type="text" name="subject" value="{{ old:subject }}" class="field-input">
+                <label for="phone_nr" class="field-label">Telefon <span class="field-required">*</span></label>
+                <input id="phone_nr" type="tel" name="phone_nr" value="{{ old:phone_nr }}" autocomplete="tel"
+                    maxlength="15" placeholder="123 45 678" required class="field-input">
             </div>
 
             <div>
-                <label for="message" class="field-label">Melding <span class="field-required">*</span></label>
-                <textarea id="message" name="message" rows="6" required
-                    class="field-textarea">{{ old:message }}</textarea>
+                <label for="comment" class="field-label">Melding <span class="field-required">*</span></label>
+                <textarea id="comment" name="comment" rows="6" placeholder="Hva lurer du på?" required
+                    class="field-textarea">{{ old:comment }}</textarea>
             </div>
 
             {{# Honeypot #}}
