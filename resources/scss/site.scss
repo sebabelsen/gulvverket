@@ -5,7 +5,14 @@
 @use "components/buttons";
 @use "components/cards";
 @use "components/links";
+@use "components/forms";
 
 /* Layout */
 @use "layout/nav";
 @use "layout/footer";
+
+/* pages */
+@use "pages/article";
+@use "pages/product";
+@use "pages/faq";
+@use "pages/home";
