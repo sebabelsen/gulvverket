@@ -1,0 +1,17 @@
+tree:
+  -
+    id: 18858146-4801-44f9-be23-df674e6b177b
+    entry: home
+    title: Hjem
+  -
+    id: a5498e1e-6b57-48c0-b8a4-c2c960e46d6a
+    entry: page-produkter
+  -
+    id: 98819dbe-6e74-4b00-8fb2-d9c5676550e6
+    entry: 171949d9-411e-4286-a838-4dccaabc423f
+  -
+    id: b3f0f36f-8950-4d6c-b154-f5c3c3192e3b
+    entry: page-om-oss
+  -
+    id: d7d12554-ff03-4917-b01c-43582595e1b0
+    entry: page-kontakt
