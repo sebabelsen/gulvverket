@@ -1,63 +1,63 @@
-<div class="max-w-3xl mx-auto px-4 py-12">
+<div class="page">
 
     {{ partial:page-header }}
 
     {{ if content }}
-        <div class="prose prose-stone max-w-none mb-10">
-            {{ content }}
-        </div>
+    <div class="prose page-intro">
+        {{ content }}
+    </div>
     {{ /if }}
 
     {{# Collect FAQs into 'items', then group them by faq_group #}}
     {{ collection from="faqs" as="items" }}
 
-        {{ if no_results }}
-            <p class="text-stone-500 italic py-8 text-center">Ingen spørsmål ennå.</p>
-        {{ else }}
+    {{ if no_results }}
+    <p class="faq-empty">Ingen spørsmål ennå.</p>
+    {{ else }}
 
-            {{ items | group_by('faq_group') }}
-                {{ groups }}
+    {{ items | group_by('faq_group') }}
+    {{ groups }}
 
-                    <section class="mb-10">
+    <section class="faq-group">
 
-                        <h2 class="text-2xl font-semibold text-stone-950 mb-5">
-                            {{ if key == 'generelt' }}
-                                Generelt
-                            {{ elseif key == 'bestilling' }}
-                                Bestilling
-                            {{ elseif key == 'betaling' }}
-                                Betaling og faktura
-                            {{ elseif key == 'frakt' }}
-                                Frakt og levering
-                            {{ elseif key == 'produkter' }}
-                                Produkter
-                            {{ elseif key == 'vedlikehold' }}
-                                Vedlikehold
-                            {{ else }}
-                                {{ key }}
-                            {{ /if }}
-                        </h2>
+        <h2 class="faq-group-title">
+            {{ if key == 'generelt' }}
+            Generelt
+            {{ elseif key == 'bestilling' }}
+            Bestilling
+            {{ elseif key == 'betaling' }}
+            Betaling og faktura
+            {{ elseif key == 'frakt' }}
+            Frakt og levering
+            {{ elseif key == 'produkter' }}
+            Produkter
+            {{ elseif key == 'vedlikehold' }}
+            Vedlikehold
+            {{ else }}
+            {{ key }}
+            {{ /if }}
+        </h2>
 
-                        <div class="space-y-3">
-                            {{ items }}
-                                <details class="bg-white border border-stone-200 rounded-xl overflow-hidden group">
-                                    <summary class="px-5 py-4 cursor-pointer font-medium text-stone-950 hover:bg-stone-50 flex items-center justify-between gap-3 list-none [&::-webkit-details-marker]:hidden">
-                                        <span>{{ title }}</span>
-                                        <span class="text-stone-400 group-open:rotate-45 transition-transform text-xl leading-none" aria-hidden="true">+</span>
-                                    </summary>
-                                    <div class="px-5 pb-5 prose prose-stone max-w-none">
-                                        {{ answer }}
-                                    </div>
-                                </details>
-                            {{ /items }}
-                        </div>
+        <div class="faq-list">
+            {{ items }}
+            <details class="faq-item">
+                <summary class="faq-summary">
+                    <span>{{ title }}</span>
+                    <span class="faq-icon" aria-hidden="true">+</span>
+                </summary>
+                <div class="faq-answer prose">
+                    {{ answer }}
+                </div>
+            </details>
+            {{ /items }}
+        </div>
 
-                    </section>
+    </section>
 
-                {{ /groups }}
-            {{ /items | group_by('faq_group') }}
+    {{ /groups }}
+    {{ /items | group_by('faq_group') }}
 
-        {{ /if }}
+    {{ /if }}
 
     {{ /collection }}
 

@@ -1,25 +1,25 @@
-<section class="max-w-5xl mx-auto px-4 py-12">
+<section class="blog-index">
 
-    <header class="mb-12 max-w-2xl">
-        <h1 class="text-3xl md:text-4xl font-semibold tracking-tight text-stone-950 mb-3">Nyheter</h1>
+    <header class="blog-header">
+        <h1 class="blog-title">Nyheter</h1>
     </header>
 
     {{# Tag filter pills #}}
-    {{#<nav class="flex flex-wrap gap-2 mb-10">
-        <a href="/blogg" class="px-4 py-1.5 text-sm bg-stone-900 text-white rounded-full">Alle</a>
+    {{#<nav class="pill-nav">
+        <a href="/blogg" class="pill is-active">Alle</a>
         {{ taxonomy:article_tags }}
-            <a href="{{ url }}" class="px-4 py-1.5 text-sm bg-white border border-stone-300 text-stone-700 rounded-full hover:border-stone-500 transition">{{ title }}</a>
+        <a href="{{ url }}" class="pill">{{ title }}</a>
         {{ /taxonomy:article_tags }}
     </nav>#}}
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="blog-grid">
 
         {{ collection from="articles" sort="date:desc" }}
-            {{ partial:article-card }}
+        {{ partial:article-card }}
         {{ /collection }}
 
         {{ if no_results }}
-            <p class="col-span-full text-stone-500 italic py-8 text-center">Ingen artikler ennå.</p>
+        <p class="blog-empty">Ingen artikler ennå.</p>
         {{ /if }}
 
     </div>

@@ -1,66 +1,66 @@
-<article class="max-w-3xl mx-auto px-4 py-12">
+<article class="article">
 
-    <nav class="text-sm text-stone-500 mb-8">
-        <a href="/" class="hover:text-stone-700">Hjem</a>
-        <span class="mx-2">/</span>
-        <a href="/blogg" class="hover:text-stone-700">Blogg</a>
-        <span class="mx-2">/</span>
-        <span class="text-stone-700">{{ title }}</span>
+    <nav class="breadcrumb">
+        <a href="/">Hjem</a>
+        <span class="sep">/</span>
+        <a href="/blogg">Blogg</a>
+        <span class="sep">/</span>
+        <span class="current">{{ title }}</span>
     </nav>
 
-    <header class="mb-10">
+    <header class="article-header">
         {{ if article_tags }}
-            <div class="flex flex-wrap gap-2 mb-3">
-                {{ article_tags }}
-                    <a href="{{ url }}" class="text-xs uppercase tracking-wide text-stone-500 hover:text-stone-700">{{ title }}</a>
-                {{ /article_tags }}
-            </div>
+        <div class="article-tags">
+            {{ article_tags }}
+            <a href="{{ url }}">{{ title }}</a>
+            {{ /article_tags }}
+        </div>
         {{ /if }}
 
-        <h1 class="text-3xl md:text-4xl font-semibold tracking-tight text-stone-950 mb-4">{{ title }}</h1>
+        <h1 class="article-title">{{ title }}</h1>
 
         {{ if lead }}
-            <p class="text-xl text-stone-700 leading-relaxed">{{ lead }}</p>
+        <p class="article-lead">{{ lead }}</p>
         {{ /if }}
 
-        <p class="mt-5 text-sm text-stone-500">{{ date format="j. F Y" }}</p>
+        <p class="article-date">{{ date format="j. F Y" }}</p>
     </header>
 
     {{ if featured_image }}
-        {{ featured_image }}
-            <div class="aspect-[16/9] bg-stone-100 rounded-2xl overflow-hidden mb-10">
-                <img src="{{ url }}" alt="{{ alt ?? title }}" class="w-full h-full object-cover">
-            </div>
-        {{ /featured_image }}
+    {{ featured_image }}
+    <div class="article-hero">
+        <img src="{{ url }}" alt="{{ alt ?? title }}">
+    </div>
+    {{ /featured_image }}
     {{ /if }}
 
-    <div class="prose prose-stone prose-lg max-w-none">
+    <div class="prose">
         {{ content }}
     </div>
 
     {{# Products mentioned #}}
     {{ if related_products }}
-        <section class="mt-16 pt-10 border-t border-stone-200">
-            <h2 class="text-2xl font-semibold text-stone-950 mb-2">Produkter nevnt i denne artikkelen</h2>
-            <p class="text-stone-600 mb-8">Produktene vi selv bruker for å løse dette.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {{ related_products }}
-                    {{ partial:product-card }}
-                {{ /related_products }}
-            </div>
-        </section>
+    <section class="article-related">
+        <h2 class="related-title">Produkter nevnt i denne artikkelen</h2>
+        <p class="related-sub">Produktene vi selv bruker for å løse dette.</p>
+        <div class="related-grid">
+            {{ related_products }}
+            {{ partial:product-card }}
+            {{ /related_products }}
+        </div>
+    </section>
     {{ /if }}
 
     {{# Related articles #}}
     {{ if related_articles }}
-        <section class="mt-16 pt-10 border-t border-stone-200">
-            <h2 class="text-2xl font-semibold text-stone-950 mb-8">Les også</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                {{ related_articles }}
-                    {{ partial:article-card }}
-                {{ /related_articles }}
-            </div>
-        </section>
+    <section class="article-related">
+        <h2 class="related-title">Les også</h2>
+        <div class="related-grid related-grid--articles">
+            {{ related_articles }}
+            {{ partial:article-card }}
+            {{ /related_articles }}
+        </div>
+    </section>
     {{ /if }}
 
 </article>

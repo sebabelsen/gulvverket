@@ -1,13 +1,13 @@
 {{# 1. HERO #}}
-<section style="background: var(--color-bg-overlay); border-bottom: var(--border-default);">
-    <div class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
-        <div style="display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center;" class="hero-grid">
+<section class="home-band home-band--hero">
+    <div class="container home-band-inner">
+        <div class="hero-grid">
 
-            <div style="max-width: 36rem;">
-                <h1 style="font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 1.25rem; color: var(--color-text);">{{ hero_title }}</h1>
+            <div class="hero-content">
+                <h1 class="hero-title">{{ hero_title }}</h1>
 
                 {{ if hero_intro }}
-                    <p style="font-size: 1.2rem; line-height: 1.6; color: var(--color-text-muted); margin: 0 0 2rem;">{{ hero_intro }}</p>
+                    <p class="hero-intro">{{ hero_intro }}</p>
                 {{ /if }}
 
                 {{ if hero_cta_label && hero_cta_url }}
@@ -21,14 +21,12 @@
             <div>
                 {{ if hero_image }}
                     {{ hero_image }}
-                        <div style="aspect-ratio: 4/3; background: var(--surface-1); border-radius: var(--radius-xl); overflow: hidden;">
-                            <img src="{{ url }}" alt="{{ alt ?? hero_title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="hero-media">
+                            <img src="{{ url }}" alt="{{ alt ?? hero_title }}">
                         </div>
                     {{ /hero_image }}
                 {{ else }}
-                    <div style="aspect-ratio: 4/3; background: var(--surface-1); border-radius: var(--radius-xl); display: flex; align-items: center; justify-content: center; color: var(--color-text-subtle); font-size: 0.9rem;">
-                        Last opp et hovedbilde i CP
-                    </div>
+                    <div class="hero-media-empty">Last opp et hovedbilde i CP</div>
                 {{ /if }}
             </div>
 
@@ -36,17 +34,17 @@
     </div>
 </section>
 
-{{# 3. FEATURED PRODUCTS #}}
-<section style="background: var(--surface-1); border-top: var(--border-subtle); border-bottom: var(--border-subtle);">
-    <div class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
+{{# 2. FEATURED PRODUCTS #}}
+<section class="home-band home-band--alt">
+    <div class="container home-band-inner">
 
-        <div style="display: flex; align-items: end; justify-content: space-between; margin-bottom: 2.5rem; gap: 1rem;">
-            <h2 style="font-family: var(--font-serif); font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin: 0; color: var(--color-text);">Utvalgte produkter</h2>
-            <a href="/produkter" style="font-size: 0.9rem; color: var(--color-primary-text); text-decoration: none; white-space: nowrap;">Se alle →</a>
+        <div class="section-head">
+            <h2 class="section-title">Utvalgte produkter</h2>
+            <a href="/produkter" class="section-link">Se alle →</a>
         </div>
-        
+
         {{ nocache }}
-        <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;" class="products-grid">
+        <div class="products-grid">
             {{ collection from="products" limit="3" }}
                 {{ partial:product-card }}
             {{ /collection }}
@@ -56,35 +54,33 @@
     </div>
 </section>
 
-{{# 4. HGS STORY #}}
+{{# 3. HGS STORY #}}
 {{ if story_heading || story_body }}
-    <section class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
-        <div style="display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center;" class="story-grid">
+    <section class="container home-band-inner">
+        <div class="story-grid">
 
             <div>
                 {{ if story_image }}
                     {{ story_image }}
-                        <div style="aspect-ratio: 4/5; background: var(--surface-1); border-radius: var(--radius-xl); overflow: hidden;">
-                            <img src="{{ url }}" alt="{{ alt ?? story_heading }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="story-media">
+                            <img src="{{ url }}" alt="{{ alt ?? story_heading }}">
                         </div>
                     {{ /story_image }}
                 {{ else }}
-                    <div style="aspect-ratio: 4/5; background: var(--surface-1); border-radius: var(--radius-xl); display: flex; align-items: center; justify-content: center; color: var(--color-text-subtle); font-size: 0.9rem;">
-                        Placeholder
-                    </div>
+                    <div class="story-media-empty">Placeholder</div>
                 {{ /if }}
             </div>
 
-            <div style="max-width: 28rem;">
-                <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-muted); margin: 0 0 0.75rem;">Bak Gulvverket</p>
-                <h2 style="font-family: var(--font-serif); font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 1.25rem; color: var(--color-text);">{{ story_heading }}</h2>
+            <div class="story-content">
+                <p class="story-eyebrow">Bak Gulvverket</p>
+                <h2 class="story-title">{{ story_heading }}</h2>
 
                 {{ if story_body }}
-                    <p style="color: var(--color-text-muted); line-height: 1.7; margin: 0;">{{ story_body }}</p>
+                    <p class="story-body">{{ story_body }}</p>
                 {{ /if }}
 
-                <p style="margin-top: 1.5rem;">
-                    <a href="/om-oss" class="card-link" style="margin-top: 0; padding-top: 0;">
+                <p class="story-link">
+                    <a href="/om-oss" class="link-arrow">
                         Les mer om oss
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </a>
@@ -95,34 +91,32 @@
     </section>
 {{ /if }}
 
-{{# 5. LATEST FROM BLOG #}}
-<section style="background: var(--surface-1); border-top: var(--border-subtle); border-bottom: var(--border-subtle);">
-    <div class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
+{{# 4. LATEST FROM BLOG #}}
+<section class="home-band home-band--alt">
+    <div class="container home-band-inner">
 
-        <div style="display: flex; align-items: end; justify-content: space-between; margin-bottom: 2.5rem; gap: 1rem;">
-            <div>
-                <h2 style="font-family: var(--font-serif); font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 0.5rem; color: var(--color-text);">Nyheter</h2>
-            </div>
-            <a href="/blogg" style="font-size: 0.9rem; color: var(--color-primary-text); text-decoration: none; white-space: nowrap;">Se alle →</a>
+        <div class="section-head">
+            <h2 class="section-title">Nyheter</h2>
+            <a href="/blogg" class="section-link">Se alle →</a>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;" class="articles-grid">
+        <div class="articles-grid">
             {{ collection from="articles" sort="date:desc" limit="3" }}
                 {{ partial:article-card }}
             {{ /collection }}
 
             {{ if no_results }}
-                <p style="color: var(--color-text-muted); font-style: italic;">Ingen artikler publisert ennå.</p>
+                <p class="home-empty">Ingen artikler publisert ennå.</p>
             {{ /if }}
         </div>
 
     </div>
 </section>
 
-{{# 6. CTA #}}
-<section class="container" style="padding-top: 5rem; padding-bottom: 5rem; text-align: center; max-width: 720px;">
-    <h2 style="font-family: var(--font-serif); font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 1rem; color: var(--color-text);">Trenger du faglig veiledning?</h2>
-    <p style="font-size: 1.1rem; color: var(--color-text-muted); margin: 0 auto 2rem; max-width: 32rem; line-height: 1.6;">Vi svarer gjerne på spørsmål om produkter, vedlikehold og behandling – uten kjøpspress.</p>
+{{# 5. CTA #}}
+<section class="container home-cta">
+    <h2 class="cta-title">Trenger du faglig veiledning?</h2>
+    <p class="cta-text">Vi svarer gjerne på spørsmål om produkter, vedlikehold og behandling – uten kjøpspress.</p>
     <a href="/kontakt" class="btn primary">
         Send en henvendelse
         <span aria-hidden="true">→</span>

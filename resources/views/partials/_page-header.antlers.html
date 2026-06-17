@@ -1,14 +1,14 @@
-<header class="mb-10">
-    <h1 class="text-3xl md:text-4xl font-semibold tracking-tight text-stone-950 mb-4">{{ title }}</h1>
+<header class="page-header">
+    <h1 class="page-title">{{ title }}</h1>
     {{ if lead }}
-        <p class="text-xl text-stone-700 leading-relaxed max-w-2xl">{{ lead }}</p>
+        <p class="page-lead">{{ lead }}</p>
     {{ /if }}
 </header>
 
 {{ if featured_image }}
     {{ featured_image }}
-        <div class="aspect-[16/9] bg-stone-100 rounded-2xl overflow-hidden mb-10">
-            <img src="{{ url }}" alt="{{ alt ?? title }}" class="w-full h-full object-cover">
+        <div class="page-hero">
+            <img src="{{ url }}" alt="{{ alt ?? title }}">
         </div>
     {{ /featured_image }}
 {{ /if }}

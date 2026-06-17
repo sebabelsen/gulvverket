@@ -1,67 +1,68 @@
-<div class="container" style="max-width: 720px; padding-top: 3rem; padding-bottom: 3rem;">
+<div class="page page--form">
 
     {{ partial:page-header }}
 
     {{ if content }}
-        <div style="color: var(--color-text-muted); line-height: 1.7; margin-bottom: 2.5rem;">
-            {{ content }}
-        </div>
+    <div class="page-intro">
+        {{ content }}
+    </div>
     {{ /if }}
 
     <div class="contact-card">
 
         {{ form:kontakt }}
 
-            {{ if success }}
-                <div style="background: var(--color-success-soft); border: 1px solid var(--color-success-border); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.5rem;">
-                    <p style="font-weight: 600; margin: 0 0 0.25rem; color: var(--color-text);">Takk for henvendelsen!</p>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--color-text-muted);">Vi svarer vanligvis innen én virkedag.</p>
-                </div>
-            {{ /if }}
+        {{ if success }}
+        <div class="alert alert--success">
+            <p class="alert-title">Takk for henvendelsen!</p>
+            <p class="alert-text">Vi svarer vanligvis innen én virkedag.</p>
+        </div>
+        {{ /if }}
 
-            {{ if errors }}
-                <div style="background: var(--color-error-soft); border: 1px solid var(--color-error-border); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.5rem;">
-                    <p style="font-weight: 600; margin: 0 0 0.5rem; color: var(--color-text);">Sjekk feltene under:</p>
-                    <ul style="font-size: 0.9rem; margin: 0; padding-left: 1.25rem; color: var(--color-text-muted);">
-                        {{ errors }}
-                            <li>{{ value }}</li>
-                        {{ /errors }}
-                    </ul>
-                </div>
-            {{ /if }}
+        {{ if errors }}
+        <div class="alert alert--error">
+            <p class="alert-title">Sjekk feltene under:</p>
+            <ul class="alert-list">
+                {{ errors }}
+                <li>{{ value }}</li>
+                {{ /errors }}
+            </ul>
+        </div>
+        {{ /if }}
 
-            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+        <div class="form-stack">
 
-                <div>
-                    <label for="name" style="display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.4rem;">Navn <span style="color: var(--color-error);">*</span></label>
-                    <input id="name" type="text" name="name" value="{{ old:name }}" required style="width: 100%; padding: 0.7rem 0.85rem; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text); font: inherit;">
-                </div>
-
-                <div>
-                    <label for="email" style="display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.4rem;">E-post <span style="color: var(--color-error);">*</span></label>
-                    <input id="email" type="email" name="email" value="{{ old:email }}" required style="width: 100%; padding: 0.7rem 0.85rem; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text); font: inherit;">
-                </div>
-
-                <div>
-                    <label for="subject" style="display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.4rem;">Emne</label>
-                    <input id="subject" type="text" name="subject" value="{{ old:subject }}" style="width: 100%; padding: 0.7rem 0.85rem; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text); font: inherit;">
-                </div>
-
-                <div>
-                    <label for="message" style="display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.4rem;">Melding <span style="color: var(--color-error);">*</span></label>
-                    <textarea id="message" name="message" rows="6" required style="width: 100%; padding: 0.7rem 0.85rem; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text); font: inherit; resize: vertical;">{{ old:message }}</textarea>
-                </div>
-
-                {{# Honeypot #}}
-                <div style="display: none;" aria-hidden="true">
-                    <label>Ikke fyll inn: <input type="text" name="winnie"></label>
-                </div>
-
-                <button type="submit" class="btn primary" style="align-self: flex-start;">
-                    Send melding
-                </button>
-
+            <div>
+                <label for="name" class="field-label">Navn <span class="field-required">*</span></label>
+                <input id="name" type="text" name="name" value="{{ old:name }}" required class="field-input">
             </div>
+
+            <div>
+                <label for="email" class="field-label">E-post <span class="field-required">*</span></label>
+                <input id="email" type="email" name="email" value="{{ old:email }}" required class="field-input">
+            </div>
+
+            <div>
+                <label for="subject" class="field-label">Emne</label>
+                <input id="subject" type="text" name="subject" value="{{ old:subject }}" class="field-input">
+            </div>
+
+            <div>
+                <label for="message" class="field-label">Melding <span class="field-required">*</span></label>
+                <textarea id="message" name="message" rows="6" required
+                    class="field-textarea">{{ old:message }}</textarea>
+            </div>
+
+            {{# Honeypot #}}
+            <div class="honeypot" aria-hidden="true">
+                <label>Ikke fyll inn: <input type="text" name="winnie"></label>
+            </div>
+
+            <button type="submit" class="btn primary form-submit">
+                Send melding
+            </button>
+
+        </div>
 
         {{ /form:kontakt }}
 
