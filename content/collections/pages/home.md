@@ -16,8 +16,10 @@ value_3_title: 'Trygt og enkelt'
 value_3_body: 'Faktura per e-post, ingen tredjepartsgebyrer, og faglige svar på spørsmål. Som å handle hos en lokal fagbutikk på nett.'
 story_heading: 'Produktene vi selv bruker'
 story_body: 'Nettbutikken drives av profesjonelle gulvteknikkere. Dette er produkter vi bruker selv i jobben, og som vi vet gir gode resultater over tid.'
-seo_description: 'Gulvverket nettbutikk tilbyr kvalitetsprodukter for rengjøring, vedlikehold og beskyttelse av parkett og tregulv. Produkter valgt og anbefalt av fagmann.'
-hero_image: 0001-637758618954488020.webp
+seo_description: 'Gulvverket tilbyr kvalitetsprodukter for rengjøring, vedlikehold og beskyttelse av parkett og tregulv.'
+hero_image: site/parkett-lys.webp
 updated_by: db163cda-ce66-44d8-8bee-faa25fcd0ff9
-updated_at: 1781177484
+updated_at: 1781698444
+story_image: site/undraw_reading_6jjr.png
+seo_title: 'Gulvverket – produkter for behandling og beskyttelse av dine gulv'
 ---

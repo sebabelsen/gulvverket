@@ -6,7 +6,8 @@ lead: |-
   Gulvverket er bygget på én enkel tanke:
   Kvalitet varer lengst.
 updated_by: db163cda-ce66-44d8-8bee-faa25fcd0ff9
-updated_at: 1780310152
+updated_at: 1781698360
+featured_image: site/undraw_reading_6jjr.png
 content:
   -
     type: paragraph
