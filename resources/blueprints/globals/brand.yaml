@@ -35,3 +35,8 @@ tabs:
             field:
               type: text
               display: Address
+          -
+            handle: org_nr
+            field:
+              type: text
+              display: 'Org nr'

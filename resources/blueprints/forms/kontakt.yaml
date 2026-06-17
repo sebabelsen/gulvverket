@@ -1,0 +1,46 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: name
+            field:
+              autocomplete: name
+              placeholder: 'Navnet ditt'
+              type: text
+              display: Navn
+              validate:
+                - required
+          -
+            handle: email
+            field:
+              input_type: email
+              autocomplete: email
+              placeholder: navn@eksempel.no
+              type: text
+              display: E-post
+              validate:
+                - required
+                - email
+          -
+            handle: phone_nr
+            field:
+              input_type: tel
+              character_limit: 15
+              autocomplete: tel
+              placeholder: '123 45 678'
+              type: text
+              display: Telefon
+              validate:
+                - required
+                - 'regex:/^[\d\s+]{8,15}$/'
+          -
+            handle: comment
+            field:
+              placeholder: 'Hva lurer du på?'
+              type: textarea
+              display: Melding
+              validate:
+                - required
