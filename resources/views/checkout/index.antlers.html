@@ -19,7 +19,7 @@ compatible shipping option is selected). All state lives in one root Checkout co
         {{# ---------- Kunde ---------- #}}
         {{ if logged_out }}
         <section aria-label="{{ 'Kunde' | trans }}">
-            <h2 class="text-lg font-semibold text-gray-900 mb-4">{{ 'Kunde' | trans }}</h2>
+            <h2 class="text-lg font-semibold text-gray-900 mb-2">{{ 'Kunde' | trans }}</h2>
             <div class="flex flex-col space-y-4">
                 <div class="grid sm:grid-cols-2 gap-6">
                     {{ partial:checkout/components/input name="first_name" label="Fornavn" type="text" placeholder="Ola"
@@ -38,7 +38,7 @@ compatible shipping option is selected). All state lives in one root Checkout co
         {{# ---------- Leveringsadresse ---------- #}}
         {{ if {cart:has_physical_products} }}
         <section aria-label="{{ 'Leveringsadresse' | trans }}" @change="$dispatch('checkout-address-changed')">
-            <h2 class="text-lg font-semibold text-gray-900 mb-4">{{ 'Leveringsadresse' | trans }}</h2>
+            <h2 class="text-lg font-semibold text-gray-900 mb-2">{{ 'Leveringsadresse' | trans }}</h2>
             {{ partial:checkout/components/address type="shipping" }}
         </section>
         {{ /if }}
@@ -47,7 +47,7 @@ compatible shipping option is selected). All state lives in one root Checkout co
         {{ if {cart:has_physical_products} }}
         <section aria-label="{{ 'Fraktmetode' | trans }}"
             @checkout-address-changed.window.debounce.700ms="refreshShipping()">
-            <h2 class="text-lg font-semibold text-gray-900 mb-4">{{ 'Fraktmetode' | trans }}</h2>
+            <h2 class="text-lg font-semibold text-gray-900 mb-2">{{ 'Fraktmetode' | trans }}</h2>
 
             <input type="hidden" name="shipping_method" x-model="selectedShippingMethod">
 
@@ -103,8 +103,8 @@ compatible shipping option is selected). All state lives in one root Checkout co
 
         {{# ---------- Betaling ---------- #}}
         <section aria-label="{{ 'Betaling' | trans }}">
-            <h2 class="text-lg font-semibold text-gray-900 mb-1">{{ 'Betaling' | trans }}</h2>
-            <p class="text-sm text-gray-500 mb-4">{{ 'Alle transaksjoner er sikre og krypterte.' | trans }}</p>
+            <h2 class="text-lg font-semibold text-gray-900 mb-2">{{ 'Betaling' | trans }}</h2>
+            <p class="text-sm text-gray-500 mb-3">{{ 'Alle transaksjoner er sikre og krypterte.' | trans }}</p>
 
             <template x-if="isFetchingPaymentGateways">
                 <p class="text-sm text-gray-600">{{ 'Laster inn betalingsmetoder...' | trans }}</p>
@@ -115,21 +115,38 @@ compatible shipping option is selected). All state lives in one root Checkout co
             </template>
 
             <template x-if="!isFetchingPaymentGateways && paymentGateways.length > 0">
-                <div class="flex flex-col space-y-2">
+                <div class="overflow-hidden rounded-xl border border-gray-300 bg-white">
                     <template x-for="pg in paymentGateways" :key="pg.handle">
                         <div>
                             <label
-                                class="relative flex items-center gap-3 rounded-md border bg-white p-4 cursor-pointer transition"
-                                :class="gateway === pg.handle ? 'border-secondary ring-1 ring-secondary bg-secondary/5' : 'border-gray-300 hover:border-gray-400'">
-                                <input type="radio" name="payment_gateway" class="accent-secondary" :value="pg.handle"
-                                    :checked="gateway === pg.handle" @change="gateway = pg.handle">
-                                <span class="font-semibold text-gray-900"
-                                    x-text="pg.handle === 'pay_on_delivery' ? '{{ 'Faktura' | trans }}' : pg.name"></span>
+                                class="flex items-center justify-between gap-4 px-4 py-4 cursor-pointer transition-colors border-b border-gray-200 last:border-b-0"
+                                :class="gateway === pg.handle ? 'bg-blue-50' : 'hover:bg-gray-50'">
+
+                                <div class="flex items-center gap-3">
+                                    <input type="radio" name="payment_gateway" class="h-5 w-5 accent-blue-600"
+                                        :value="pg.handle" :checked="gateway === pg.handle"
+                                        @change="gateway = pg.handle">
+
+                                    <span class="font-medium text-gray-900" x-text="pg.handle === 'pay_on_delivery'
+                                    ? '{{ 'Faktura' | trans }}'
+                                    : pg.name">
+                                    </span>
+                                </div>
+
+                                {{# Future-proof area for payment logos #}}
+                                <div class="flex items-center gap-2">
+                                    <template x-if="pg.handle === 'pay_on_delivery'">
+                                        <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                            Faktura
+                                        </span>
+                                    </template>
+                                </div>
                             </label>
-                            <p x-show="gateway === pg.handle && pg.handle === 'pay_on_delivery'" x-cloak
-                                class="mt-2 text-sm text-gray-600 bg-gray-50 border border-gray-200 rounded-md px-4 py-3">
+
+                            <div x-show="gateway === pg.handle && pg.handle === 'pay_on_delivery'" x-collapse x-cloak
+                                class="border-t border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600">
                                 {{ 'Vi sender faktura til din registrerte e-postadresse.' | trans }}
-                            </p>
+                            </div>
                         </div>
                     </template>
                 </div>
@@ -141,21 +158,39 @@ compatible shipping option is selected). All state lives in one root Checkout co
             <h2 class="text-lg font-semibold text-gray-900 mb-4">{{ 'Faktureringsadresse' | trans }}</h2>
 
             {{ if {cart:has_physical_products} }}
-            <div class="flex flex-col space-y-2">
-                <label class="relative flex items-center gap-3 rounded-md border bg-white p-4 cursor-pointer transition"
-                    :class="useShippingAddressForBilling ? 'border-secondary ring-1 ring-secondary bg-secondary/5' : 'border-gray-300 hover:border-gray-400'">
-                    <input type="radio" name="billing_choice" class="accent-secondary"
+            <div class="overflow-hidden rounded-xl border border-gray-300 bg-white">
+
+                <label class="flex items-center gap-3 px-4 py-4 cursor-pointer border-b border-gray-200"
+                    :class="useShippingAddressForBilling ? 'bg-blue-50' : 'hover:bg-gray-50'">
+
+                    <input type="radio" name="billing_choice" class="h-5 w-5 accent-blue-600"
                         :checked="useShippingAddressForBilling" @change="useShippingAddressForBilling = true">
-                    <span class="font-medium text-gray-900 text-sm">{{ 'Samme som leveringsadresse' | trans }}</span>
+
+                    <span class="font-medium text-gray-900">
+                        {{ 'Samme som leveringsadresse' | trans }}
+                    </span>
                 </label>
 
-                <label class="relative flex items-center gap-3 rounded-md border bg-white p-4 cursor-pointer transition"
-                    :class="!useShippingAddressForBilling ? 'border-secondary ring-1 ring-secondary bg-secondary/5' : 'border-gray-300 hover:border-gray-400'">
-                    <input type="radio" name="billing_choice" class="accent-secondary"
-                        :checked="!useShippingAddressForBilling" @change="useShippingAddressForBilling = false">
-                    <span class="font-medium text-gray-900 text-sm">{{ 'Bruk en annen faktureringsadresse' | trans
-                        }}</span>
-                </label>
+                <div>
+                    <label class="flex items-center gap-3 px-4 py-4 cursor-pointer"
+                        :class="!useShippingAddressForBilling ? 'bg-blue-50' : 'hover:bg-gray-50'">
+
+                        <input type="radio" name="billing_choice" class="h-5 w-5 accent-blue-600"
+                            :checked="!useShippingAddressForBilling" @change="useShippingAddressForBilling = false">
+
+                        <span class="font-medium text-gray-900">
+                            {{ 'Bruk en annen faktureringsadresse' | trans }}
+                        </span>
+                    </label>
+
+                    <div x-show="!useShippingAddressForBilling" x-collapse x-cloak
+                        class="border-t border-gray-200 bg-gray-50 px-4 py-4">
+
+                        {{ partial:checkout/components/address type="billing" }}
+
+                    </div>
+                </div>
+
             </div>
             {{ /if }}
 
@@ -174,26 +209,19 @@ compatible shipping option is selected). All state lives in one root Checkout co
                     <input type="hidden" name="billing_address[country]" :value="cart.shipping_address?.country?.value">
                 </div>
             </template>
-
-            {{# Otherwise show billing fields #}}
-            <template x-if="! useShippingAddressForBilling">
-                <div class="{{ if {cart:has_physical_products} }}mt-4{{ /if }}">
-                    {{ partial:checkout/components/address type="billing" }}
-                </div>
-            </template>
         </section>
 
         {{ /cart:update }}
 
         {{# ---------- Place order (posts to the selected gateway's checkout_url) ---------- #}}
-        <div>
+        <div class="mt-6">
             <form x-show="!isFetchingPaymentGateways && gateway" x-cloak :action="placeOrderUrl" method="POST"
                 @submit.prevent="placeOrder($event.target)">
-                {{ partial:checkout/components/button label="Legg inn bestilling" type="submit" }}
+                {{ partial:checkout/components/button label="Fullfør bestilling" type="submit" }}
             </form>
             <button x-show="!isFetchingPaymentGateways && !gateway" x-cloak type="button" disabled
-                class="w-full flex items-center justify-center rounded-md border border-transparent bg-secondary/50 px-4 py-1.5 text-base font-medium text-white cursor-not-allowed">
-                {{ 'Legg inn bestilling' | trans }}
+                class="w-full flex items-center justify-center rounded-md border border-transparent bg-secondary/50 px-4 py-1.5 text-base font-medium text-white cursor-not-allowed mt-6">
+                {{ 'Fullfør bestilling' | trans }}
             </button>
         </div>
 
