@@ -1,26 +1,397 @@
+{{#
+Single-page checkout. All sections are visible at once. Customer details, shipping
+address, shipping method and billing address live in one cart:update form that is
+saved via AJAX (on shipping change + before placing the order). Shipping options and
+payment gateways are fetched via AJAX (Cargo computes them against the current cart:
+the shipping endpoint 422s without an address, and pay_on_delivery only appears once a
+compatible shipping option is selected). All state lives in one root Checkout component.
+#}}
+
 {{ if ! {cart:exists} || {cart:count} === 0 }}
-    {{ redirect to="/cart" }}
+{{ redirect to="/cart" }}
 {{ /if }}
 
 <template x-if="cart">
-    <div class="flex flex-col space-y-4">
-        {{#
-            Here's where you can define the steps shown to customers during the Checkout process.
-            You can add your own steps if you'd like, just make sure they're wrapped in the checkout/components/step partial.
-        #}}
+    <div class="flex flex-col space-y-10">
 
-        {{ partial:checkout/steps/customer }}
-        {{ partial:checkout/steps/shipping_address }}
-        {{ partial:checkout/steps/shipping }}
-        {{ partial:checkout/steps/billing_address }}
-        {{ partial:checkout/steps/payment }}
+        {{ cart:update id="checkout-details" class="flex flex-col space-y-10" @submit.prevent="" }}
+
+        {{# ---------- Kunde ---------- #}}
+        {{ if logged_out }}
+        <section aria-label="{{ 'Kunde' | trans }}">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">{{ 'Kunde' | trans }}</h2>
+            <div class="flex flex-col space-y-4">
+                <div class="grid sm:grid-cols-2 gap-6">
+                    {{ partial:checkout/components/input name="first_name" label="Fornavn" type="text" placeholder="Ola"
+                    xBindValue="cart.customer?.first_name" autocomplete="given-name" required="true" }}
+                    {{ partial:checkout/components/input name="last_name" label="Etternavn" type="text"
+                    placeholder="Nordmann" xBindValue="cart.customer?.last_name" autocomplete="family-name"
+                    required="true" }}
+                </div>
+                {{ partial:checkout/components/input name="email" label="E-post" type="email"
+                placeholder="ola.nordmann@eksempel.no" xBindValue="cart.customer?.email" autocomplete="email"
+                required="true" }}
+            </div>
+        </section>
+        {{ /if }}
+
+        {{# ---------- Leveringsadresse ---------- #}}
+        {{ if {cart:has_physical_products} }}
+        <section aria-label="{{ 'Leveringsadresse' | trans }}" @change="$dispatch('checkout-address-changed')">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">{{ 'Leveringsadresse' | trans }}</h2>
+            {{ partial:checkout/components/address type="shipping" }}
+        </section>
+        {{ /if }}
+
+        {{# ---------- Fraktmetode ---------- #}}
+        {{ if {cart:has_physical_products} }}
+        <section aria-label="{{ 'Fraktmetode' | trans }}"
+            @checkout-address-changed.window.debounce.700ms="refreshShipping()">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">{{ 'Fraktmetode' | trans }}</h2>
+
+            <input type="hidden" name="shipping_method" x-model="selectedShippingMethod">
+
+            <template x-if="isFetchingShippingOptions">
+                <div class="py-4 flex items-center justify-center" role="status" aria-live="polite">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        class="w-6 h-6 animate-spin text-gray-500 mr-2" aria-hidden="true">
+                        <path
+                            d="M10.14 1.16a11 11 0 0 0-9 8.92A1.59 1.59 0 0 0 2.46 12a1.52 1.52 0 0 0 1.65-1.3 8 8 0 0 1 6.66-6.61A1.42 1.42 0 0 0 12 2.69a1.57 1.57 0 0 0-1.86-1.53Z"
+                            style="transform-origin:center;animation:spinner_svv2 1.5s infinite linear"
+                            fill="currentColor" />
+                        <style>
+                            @keyframes spinner_svv2 {
+                                to {
+                                    transform: rotate(360deg)
+                                }
+                            }
+                        </style>
+                    </svg>
+                    <span class="text-gray-500 text-sm">{{ 'Laster inn fraktmetoder...' | trans }}</span>
+                </div>
+            </template>
+
+            <div x-show="!isFetchingShippingOptions && shippingOptions.length === 0" class="text-sm text-gray-600"
+                role="status">
+                <span x-show="! cart.shipping_address?.line_1">{{ 'Skriv inn leveringsadressen din for å se
+                    fraktmetoder.' | trans }}</span>
+                <span x-show="cart.shipping_address?.line_1">{{ 'Vi kan dessverre ikke sende til denne adressen.' |
+                    trans }}</span>
+            </div>
+
+            <template x-if="!isFetchingShippingOptions && shippingOptions.length > 0">
+                <ul class="flex flex-col space-y-2" role="radiogroup" aria-label="{{ 'Fraktmetoder' | trans }}">
+                    <template x-for="option in shippingOptions" :key="option.handle">
+                        <li>
+                            <label
+                                class="relative flex items-center justify-between gap-3 rounded-md border bg-white p-4 cursor-pointer transition"
+                                :class="selectedShippingOption === option.handle ? 'border-secondary ring-1 ring-secondary bg-secondary/5' : 'border-gray-300 hover:border-gray-400'">
+                                <span class="flex items-center gap-3">
+                                    <input type="radio" name="shipping_option" class="accent-secondary"
+                                        :value="option.handle" :checked="selectedShippingOption === option.handle"
+                                        @change="selectShippingOption(option)" required>
+                                    <span class="font-semibold text-gray-900 text-sm" x-text="option.name"></span>
+                                </span>
+                                <span class="text-sm text-gray-700" x-text="option.price"></span>
+                            </label>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+        </section>
+        {{ /if }}
+
+        {{# ---------- Betaling ---------- #}}
+        <section aria-label="{{ 'Betaling' | trans }}">
+            <h2 class="text-lg font-semibold text-gray-900 mb-1">{{ 'Betaling' | trans }}</h2>
+            <p class="text-sm text-gray-500 mb-4">{{ 'Alle transaksjoner er sikre og krypterte.' | trans }}</p>
+
+            <template x-if="isFetchingPaymentGateways">
+                <p class="text-sm text-gray-600">{{ 'Laster inn betalingsmetoder...' | trans }}</p>
+            </template>
+
+            <template x-if="!isFetchingPaymentGateways && paymentGateways.length === 0">
+                <p class="text-sm text-gray-600">{{ 'Velg en fraktmetode for å se betalingsmetoder.' | trans }}</p>
+            </template>
+
+            <template x-if="!isFetchingPaymentGateways && paymentGateways.length > 0">
+                <div class="flex flex-col space-y-2">
+                    <template x-for="pg in paymentGateways" :key="pg.handle">
+                        <div>
+                            <label
+                                class="relative flex items-center gap-3 rounded-md border bg-white p-4 cursor-pointer transition"
+                                :class="gateway === pg.handle ? 'border-secondary ring-1 ring-secondary bg-secondary/5' : 'border-gray-300 hover:border-gray-400'">
+                                <input type="radio" name="payment_gateway" class="accent-secondary" :value="pg.handle"
+                                    :checked="gateway === pg.handle" @change="gateway = pg.handle">
+                                <span class="font-semibold text-gray-900"
+                                    x-text="pg.handle === 'pay_on_delivery' ? '{{ 'Faktura' | trans }}' : pg.name"></span>
+                            </label>
+                            <p x-show="gateway === pg.handle && pg.handle === 'pay_on_delivery'" x-cloak
+                                class="mt-2 text-sm text-gray-600 bg-gray-50 border border-gray-200 rounded-md px-4 py-3">
+                                {{ 'Vi sender faktura til din registrerte e-postadresse.' | trans }}
+                            </p>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </section>
+
+        {{# ---------- Faktureringsadresse ---------- #}}
+        <section aria-label="{{ 'Faktureringsadresse' | trans }}">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">{{ 'Faktureringsadresse' | trans }}</h2>
+
+            {{ if {cart:has_physical_products} }}
+            <div class="flex flex-col space-y-2">
+                <label class="relative flex items-center gap-3 rounded-md border bg-white p-4 cursor-pointer transition"
+                    :class="useShippingAddressForBilling ? 'border-secondary ring-1 ring-secondary bg-secondary/5' : 'border-gray-300 hover:border-gray-400'">
+                    <input type="radio" name="billing_choice" class="accent-secondary"
+                        :checked="useShippingAddressForBilling" @change="useShippingAddressForBilling = true">
+                    <span class="font-medium text-gray-900 text-sm">{{ 'Samme som leveringsadresse' | trans }}</span>
+                </label>
+
+                <label class="relative flex items-center gap-3 rounded-md border bg-white p-4 cursor-pointer transition"
+                    :class="!useShippingAddressForBilling ? 'border-secondary ring-1 ring-secondary bg-secondary/5' : 'border-gray-300 hover:border-gray-400'">
+                    <input type="radio" name="billing_choice" class="accent-secondary"
+                        :checked="!useShippingAddressForBilling" @change="useShippingAddressForBilling = false">
+                    <span class="font-medium text-gray-900 text-sm">{{ 'Bruk en annen faktureringsadresse' | trans
+                        }}</span>
+                </label>
+            </div>
+            {{ /if }}
+
+            {{# Mirror the shipping address when "same" is selected #}}
+            <template x-if="useShippingAddressForBilling">
+                <div>
+                    <input type="hidden" name="use_shipping_address_for_billing" value="1">
+                    <input type="hidden" name="billing_address[name]" :value="cart.shipping_address?.name">
+                    <input type="hidden" name="billing_address[line_1]" :value="cart.shipping_address?.line_1">
+                    <input type="hidden" name="billing_address[line_2]" :value="cart.shipping_address?.line_2">
+                    <input type="hidden" name="billing_address[company]" :value="cart.shipping_address?.company">
+                    <input type="hidden" name="billing_address[city]" :value="cart.shipping_address?.city">
+                    <input type="hidden" name="billing_address[postcode]" :value="cart.shipping_address?.postcode">
+                    <input type="hidden" name="billing_address[phone]" :value="cart.shipping_address?.phone">
+                    <input type="hidden" name="billing_address[state]" :value="cart.shipping_address?.state?.code">
+                    <input type="hidden" name="billing_address[country]" :value="cart.shipping_address?.country?.value">
+                </div>
+            </template>
+
+            {{# Otherwise show billing fields #}}
+            <template x-if="! useShippingAddressForBilling">
+                <div class="{{ if {cart:has_physical_products} }}mt-4{{ /if }}">
+                    {{ partial:checkout/components/address type="billing" }}
+                </div>
+            </template>
+        </section>
+
+        {{ /cart:update }}
+
+        {{# ---------- Place order (posts to the selected gateway's checkout_url) ---------- #}}
+        <div>
+            <form x-show="!isFetchingPaymentGateways && gateway" x-cloak :action="placeOrderUrl" method="POST"
+                @submit.prevent="placeOrder($event.target)">
+                {{ partial:checkout/components/button label="Legg inn bestilling" type="submit" }}
+            </form>
+            <button x-show="!isFetchingPaymentGateways && !gateway" x-cloak type="button" disabled
+                class="w-full flex items-center justify-center rounded-md border border-transparent bg-secondary/50 px-4 py-1.5 text-base font-medium text-white cursor-not-allowed">
+                {{ 'Legg inn bestilling' | trans }}
+            </button>
+        </div>
+
     </div>
 </template>
 
 {{ section:sidebar }}
-    {{ partial:checkout/components/cart_summary }}
+{{ partial:checkout/components/cart_summary }}
 {{ /section:sidebar }}
 
 {{ prepend:footer_scripts }}
-    {{ partial:checkout/js/checkout }}
+<script>
+    document.getElementById('Checkout')?.setAttribute('x-data', 'Checkout');
+
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('Checkout', () => ({
+            cart: null,
+            busy: false,
+            errors: {},
+            gateway: null,
+
+            // shipping
+            shippingOptions: [],
+            selectedShippingMethod: null,
+            selectedShippingOption: null,
+            isFetchingShippingOptions: true,
+
+            // payment
+            paymentGateways: [],
+            isFetchingPaymentGateways: true,
+
+            // billing
+            useShippingAddressForBilling: true,
+
+            get placeOrderUrl() {
+                if (!this.gateway) return '';
+                const pg = this.paymentGateways.find(g => g.handle === this.gateway);
+                return (pg && pg.checkout_url) ? pg.checkout_url : ('/!/cargo/cart/payments/' + this.gateway + '/checkout');
+            },
+
+            init() {
+                fetch('{{ route:statamic.cargo.cart.index }}', { headers: { Accept: 'application/json' } })
+                    .then(response => response.json())
+                    .then(data => {
+                        this.cart = data.data;
+
+                        this.selectedShippingMethod = this.cart.shipping_method?.handle ?? null;
+                        this.selectedShippingOption = this.cart.shipping_option?.handle ?? null;
+                        this.gateway = this.cart.payment_gateway ?? null;
+                        this.computeBillingDefault();
+
+                        this.fetchShippingOptions();
+                        this.fetchPaymentGateways();
+
+                        // When the total changes (e.g. a shipping option is selected) re-fetch
+                        // gateways — pay_on_delivery only appears once compatible shipping is set.
+                        this.$watch('cart.grand_total', () => {
+                            this.isFetchingPaymentGateways = true;
+                            this.fetchPaymentGateways();
+                        });
+                    })
+                    .catch(error => {
+                        alert(`{{ 'Noe gikk galt da vi hentet handlekurven din. Prøv igjen senere.' | trans }}`);
+                    });
+            },
+
+            computeBillingDefault() {
+                if (
+                    this.cart.has_physical_products
+                    && this.cart.shipping_address?.line_1
+                    && this.cart.billing_address?.line_1
+                ) {
+                    const norm = (a) => JSON.stringify({
+                        name: a?.name, line_1: a?.line_1, line_2: a?.line_2,
+                        city: a?.city, postcode: a?.postcode,
+                        state: a?.state?.code, country: a?.country?.value,
+                    });
+                    this.useShippingAddressForBilling = norm(this.cart.shipping_address) === norm(this.cart.billing_address);
+                }
+            },
+
+            fetchShippingOptions() {
+                fetch('{{ route:statamic.cargo.cart.shipping }}', { headers: { 'Accept': 'application/json' } })
+                    .then(response => {
+                        if (response.status === 422) return [];   // no shipping address yet
+                        if (!response.ok) throw new Error('shipping');
+                        return response.json();
+                    })
+                    .then(data => {
+                        this.shippingOptions = Array.isArray(data) ? data : [];
+                        const stillValid = this.shippingOptions.some(o => o.handle === this.selectedShippingOption);
+                        if ((!this.selectedShippingOption || !stillValid) && this.shippingOptions.length > 0) {
+                            this.selectedShippingOption = this.shippingOptions[0].handle;
+                            this.selectedShippingMethod = this.shippingOptions[0].shipping_method;
+                        }
+                        this.isFetchingShippingOptions = false;
+                    })
+                    .catch(() => {
+                        this.shippingOptions = [];
+                        this.isFetchingShippingOptions = false;
+                    });
+            },
+
+            // Re-fetch shipping when the address changes (saves the address first
+            // so the shipping endpoint can price against it).
+            async refreshShipping() {
+                this.isFetchingShippingOptions = true;
+                try { await this.saveDetails(); } catch (e) { }
+                this.fetchShippingOptions();
+            },
+
+            async selectShippingOption(option) {
+                this.selectedShippingOption = option.handle;
+                this.selectedShippingMethod = option.shipping_method;
+                this.busy = true;
+                this.$nextTick(async () => {
+                    try {
+                        await this.saveDetails();
+                        // Selecting shipping is exactly when pay_on_delivery may become
+                        // available, so refresh gateways even if the total didn't change.
+                        this.isFetchingPaymentGateways = true;
+                        this.fetchPaymentGateways();
+                    } catch (e) { } finally { this.busy = false; }
+                });
+            },
+
+            fetchPaymentGateways() {
+                if (!this.cart || this.cart.is_free) {
+                    this.paymentGateways = [];
+                    this.isFetchingPaymentGateways = false;
+                    return;
+                }
+                fetch('{{ route:statamic.cargo.cart.payment-gateways }}', { headers: { 'Accept': 'application/json' } })
+                    .then(response => response.json())
+                    .then(data => {
+                        this.paymentGateways = Array.isArray(data) ? data : [];
+                        const stillValid = this.paymentGateways.some(g => g.handle === this.gateway);
+                        if ((!this.gateway || !stillValid) && this.paymentGateways.length > 0) {
+                            this.gateway = this.paymentGateways[0].handle;
+                        }
+                        if (this.paymentGateways.length === 0) this.gateway = null;
+                        this.isFetchingPaymentGateways = false;
+                    })
+                    .catch(() => {
+                        this.paymentGateways = [];
+                        this.isFetchingPaymentGateways = false;
+                    });
+            },
+
+            async saveDetails() {
+                const form = document.getElementById('checkout-details');
+
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' },
+                });
+
+                if (response.status === 422) {
+                    const data = await response.json();
+                    this.errors = data.errors || {};
+                    throw { validation: true };
+                }
+
+                if (!response.ok) {
+                    throw {};
+                }
+
+                const data = await response.json();
+
+                if (data.errors) {
+                    this.errors = data.errors;
+                    throw { validation: true };
+                }
+
+                this.cart = data.data;
+                this.errors = {};
+                return data;
+            },
+
+            async placeOrder(form) {
+                this.busy = true;
+                this.errors = {};
+
+                try {
+                    await this.saveDetails();
+                    form.submit();
+                } catch (error) {
+                    this.busy = false;
+
+                    if (!error || !error.validation) {
+                        alert(`{{ 'Noe gikk galt da vi sendte inn skjemaet. Prøv igjen senere.' | trans }}`);
+                    }
+
+                    document.getElementById('checkout-details')?.scrollIntoView({ behavior: 'smooth' });
+                }
+            },
+        }));
+    });
+</script>
 {{ /prepend:footer_scripts }}
