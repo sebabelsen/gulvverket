@@ -1,0 +1,26 @@
+<!--
+{{#
+    Site-wide Organization / LocalBusiness (Store) structured data.
+    Pulled from the `brand` global. Given an @id so Product and Article
+    schema can reference it as seller / author / publisher.
+#}}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "@id": "{{ site:url }}/#organization",
+    "name": {{ brand:company_name | json_ld }},
+    "url": "{{ site:url }}",
+    {{ brand:logo }}"logo": "{{ site:url }}{{ url }}",
+    "image": "{{ site:url }}{{ url }}",{{ /brand:logo }}
+    {{ if brand:telephone }}"telephone": {{ brand:telephone | json_ld }},{{ /if }}
+    {{ if brand:email }}"email": {{ brand:email | json_ld }},{{ /if }}
+    {{ if brand:org_nr }}"vatID": {{ brand:org_nr | json_ld }},{{ /if }}
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": {{ brand:address | json_ld }},
+        "addressCountry": "NO"
+    }
+}
+</script>
+-->

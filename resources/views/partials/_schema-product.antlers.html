@@ -1,0 +1,38 @@
+<!--
+{{#
+    Product structured data. Include on the product detail template.
+    Price comes from the raw money value (minor units) so it's a clean
+    decimal; availability flips to OutOfStock only when stock is exactly 0.
+#}}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "Product",
+            "name": {{ title | json_ld }},
+            {{ if short_description }}"description": {{ short_description | json_ld }},{{ elseif seo_description }}"description": {{ seo_description | json_ld }},{{ /if }}
+            {{ if gallery }}"image": [{{ gallery }}"{{ site:url }}{{ glide:url preset='product_main' }}"{{ unless last }},{{ /unless }}{{ /gallery }}],{{ /if }}
+            "sku": {{ slug | json_ld }},
+            "url": {{ permalink | json_ld }},
+            "offers": {
+                "@type": "Offer",
+                "url": {{ permalink | json_ld }},
+                "priceCurrency": "NOK",
+                "price": "{{ price | raw | money_decimal }}",
+                "availability": "https://schema.org/{{ if stock === 0 }}OutOfStock{{ else }}InStock{{ /if }}",
+                "seller": { "@id": "{{ site:url }}/#organization" }
+            }
+        },
+        {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Hjem", "item": "{{ site:url }}" },
+                { "@type": "ListItem", "position": 2, "name": "Produkter", "item": "{{ site:url }}/produkter" },
+                { "@type": "ListItem", "position": 3, "name": {{ title | json_ld }}, "item": {{ permalink | json_ld }} }
+            ]
+        }
+    ]
+}
+</script>
+-->
