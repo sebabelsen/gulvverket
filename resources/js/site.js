@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Scroll detection — adds .is-scrolled after threshold
+    // Scroll detection
     const SCROLL_THRESHOLD = 20;
     let ticking = false;
 
@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Lightbox
+        /*
         const lightbox = document.querySelector('[data-lightbox]');
         if (lightbox && mainImg) {
             const lbImg = lightbox.querySelector('[data-lightbox-img]');
@@ -89,12 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 index = active ? thumbs.indexOf(active) : 0;
                 render();
                 lightbox.hidden = false;
-                document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
                 closeBtn?.focus();
             };
             const close = () => {
                 lightbox.hidden = true;
-                document.body.style.overflow = '';
+                document.documentElement.style.overflow = '';
                 openBtn?.focus();
             };
 
@@ -112,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (e.key === 'ArrowRight' && hasMany) { index += 1; render(); }
             });
         }
+        */
     }
 
     // Quantity stepper
