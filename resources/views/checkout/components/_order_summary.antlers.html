@@ -29,7 +29,7 @@
                         {{ if variant }}
                             <span class="text-xs text-gray-500">{{ variant:name }}</span>
                         {{ /if }}
-                        <span class="text-xs text-gray-500">{{ 'Quantity' | trans }}: {{ quantity }}</span>
+                        <span class="text-xs text-gray-500">{{ 'Antall' | trans }}: {{ quantity }}</span>
                     </div>
                 </div>
 
@@ -39,7 +39,7 @@
     </ul>
 
     <div class="flex items-center justify-between">
-        <span>{{ 'Subtotal' | trans }}</span>
+        <span>{{ 'Delsum' | trans }}</span>
         <span>{{ sub_total }}</span>
     </div>
 
@@ -74,7 +74,7 @@
 
     <div>
         <div class="flex items-center justify-between font-bold text-lg">
-            <span>{{ 'Total' | trans }}</span>
+            <span>{{ 'Totalt' | trans }}</span>
             <span>{{ site:attributes:currency | upper }} {{ grand_total }}</span>
         </div>
 
