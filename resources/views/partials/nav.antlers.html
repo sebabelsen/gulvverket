@@ -2,13 +2,13 @@
     <div class="nav-shell">
         <div class="nav-pill">
 
-            <a href="{{ link to="/" }}" title="{{ site:name }}" aria-label="Til forsiden">
+            <a href="{{ link to="/" }}" class="brand" title="{{ site:name }}" aria-label="Til forsiden">
                 <img src="/assets/logo/gulvverket-logo.svg" alt="{{ site:name }} logo" class="h-6" />
             </a>
 
             <nav class="main-nav" aria-label="Hovedmeny">
                 {{ nav:main_nav }}
-                    <a href="{{ url }}" class="{{ if is_current }}active{{ /if }}">{{ title }}</a>
+                <a href="{{ url }}" class="{{ if is_current }}active{{ /if }}">{{ title }}</a>
                 {{ /nav:main_nav }}
             </nav>
 
@@ -20,7 +20,8 @@
                         class="lucide lucide-shopping-bag-icon lucide-shopping-bag">
                         <path d="M16 10a4 4 0 0 1-8 0" />
                         <path d="M3.103 6.034h17.794" />
-                        <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z" />
+                        <path
+                            d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z" />
                     </svg>
 
                     {{ unless {cart:is_empty} }}
@@ -41,7 +42,7 @@
         <div class="nav-drop">
             <div class="nav-drop-inner">
                 {{ nav:main_nav }}
-                    <a href="{{ url }}" class="{{ if is_current }}active{{ /if }}">{{ title }}</a>
+                <a href="{{ url }}" class="{{ if is_current }}active{{ /if }}">{{ title }}</a>
                 {{ /nav:main_nav }}
             </div>
         </div>

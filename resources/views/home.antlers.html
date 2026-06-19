@@ -1,32 +1,33 @@
 {{# HERO #}}
-<section class="home-band home-band--hero">
-    <div class="container home-band-inner">
-        <div class="hero-grid">
+<section class="home-hero">
+    <div class="container">
+        <div class="hero">
 
-            <div class="hero-content">
+            <div class="hero-copy">
+                <span class="eyebrow">Nettbutikk for gulvpleie</span>
                 <h1 class="hero-title">{{ hero_title }}</h1>
 
                 {{ if hero_intro }}
-                    <p class="hero-intro">{{ hero_intro }}</p>
+                <p class="hero-intro">{{ hero_intro }}</p>
                 {{ /if }}
 
-                {{ if hero_cta_label && hero_cta_url }}
-                    <a href="{{ hero_cta_url }}" class="btn primary">
-                        {{ hero_cta_label }}
-                        <span aria-hidden="true">→</span>
+                <div class="hero-actions">
+                    {{ if hero_cta_label && hero_cta_url }}
+                    <a href="{{ hero_cta_url }}" class="btn primary">{{ hero_cta_label }}</a>
+                    {{ /if }}
+                    <a href="#hvorfor" class="btn soft">
+                        Hvorfor Gulvverket
                     </a>
-                {{ /if }}
+                </div>
             </div>
 
-            <div>
+            <div class="hero-media">
                 {{ if hero_image }}
-                    {{ hero_image }}
-                        <div class="hero-media">
-                            <img src="{{ url }}" alt="{{ alt ?? hero_title }}">
-                        </div>
-                    {{ /hero_image }}
+                {{ hero_image }}
+                <img src="{{ url }}" alt="{{ alt ?? hero_title }}">
+                {{ /hero_image }}
                 {{ else }}
-                    <div class="hero-media-empty">Last opp et hovedbilde i CP</div>
+                <span class="media-placeholder">Last opp et hovedbilde i CP</span>
                 {{ /if }}
             </div>
 
@@ -34,19 +35,21 @@
     </div>
 </section>
 
-{{# FEATURED PRODUCTS #}}
-<section class="home-band home-band--alt">
-    <div class="container home-band-inner">
+{{# UTVALGTE PRODUKTER #}}
+<section class="home-section">
+    <div class="container">
 
         <div class="section-head">
             <h2 class="section-title">Utvalgte produkter</h2>
-            <a href="/produkter" class="section-link">Se alle →</a>
+            <a href="/produkter" class="btn soft">
+                Alle produkter
+            </a>
         </div>
 
         {{ nocache }}
         <div class="products-grid">
-            {{ collection from="products" limit="3" }}
-                {{ partial:product-card }}
+            {{ collection from="products" limit="4" }}
+            {{ partial:product-card }}
             {{ /collection }}
         </div>
         {{ /nocache }}
@@ -54,71 +57,88 @@
     </div>
 </section>
 
-{{# HGS STORY #}}
-{{ if story_heading || story_body }}
-    <section class="container home-band-inner">
-        <div class="story-grid">
+{{# HVORFOR GULVVERKET #}}
+<section class="home-section">
+    <div class="container">
+        <div class="values-band" id="hvorfor">
 
-            <div>
-                {{ if story_image }}
-                    {{ story_image }}
-                        <div class="story-media">
-                            <img src="{{ url }}" alt="{{ alt ?? story_heading }}">
-                        </div>
-                    {{ /story_image }}
-                {{ else }}
-                    <div class="story-media-empty">Placeholder</div>
-                {{ /if }}
+            <div class="band-head">
+                <span class="eyebrow">{{ values_heading ?? 'Hvorfor Gulvverket' }}</span>
+                <h2>Som å handle hos en lokal fagbutikk</h2>
             </div>
 
-            <div class="story-content">
-                <p class="story-eyebrow">Bak Gulvverket</p>
-                <h2 class="story-title">{{ story_heading }}</h2>
-
-                {{ if story_body }}
-                    <p class="story-body">{{ story_body }}</p>
-                {{ /if }}
-
-                <p class="story-link">
-                    <a href="/om-oss" class="link-arrow">
-                        Les mer om oss
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                    </a>
-                </p>
+            <div class="values">
+                <div class="value">
+                    <span class="value-num">1</span>
+                    <h3>{{ value_1_title }}</h3>
+                    <p>{{ value_1_body }}</p>
+                </div>
+                <div class="value">
+                    <span class="value-num">2</span>
+                    <h3>{{ value_2_title }}</h3>
+                    <p>{{ value_2_body }}</p>
+                </div>
+                <div class="value">
+                    <span class="value-num">3</span>
+                    <h3>{{ value_3_title }}</h3>
+                    <p>{{ value_3_body }}</p>
+                </div>
             </div>
 
         </div>
-    </section>
-{{ /if }}
+    </div>
+</section>
 
-{{# LATEST FROM BLOG #}}
-<section class="home-band home-band--alt">
-    <div class="container home-band-inner">
+{{# FÅ INSPIRASJON #}}
+<section class="home-section">
+    <div class="container">
 
         <div class="section-head">
-            <h2 class="section-title">Siste fra bloggen</h2>
-            <a href="/blogg" class="section-link">Se alle →</a>
+            <h2 class="section-title">Få inspirasjon</h2>
+            <a href="/blogg" class="btn soft">Les bloggen</a>
         </div>
 
         <div class="articles-grid">
             {{ collection from="articles" sort="date:desc" limit="3" }}
-                {{ partial:article-card }}
+            {{ partial:article-card }}
             {{ /collection }}
 
             {{ if no_results }}
-                <p class="home-empty">Ingen artikler publisert ennå.</p>
+            <p class="home-empty">Ingen artikler publisert ennå.</p>
             {{ /if }}
         </div>
 
     </div>
 </section>
 
-{{# CTA #}}
-<section class="container home-cta">
-    <h2 class="cta-title">Trenger du faglig veiledning?</h2>
-    <p class="cta-text">Vi svarer gjerne på spørsmål om produkter, vedlikehold og behandling.</p>
-    <a href="/kontakt" class="btn primary">
-        Send en henvendelse
-        <span aria-hidden="true">→</span>
-    </a>
+{{# FEATURE — BAK GULVVERKET #}}
+{{ if story_heading || story_body }}
+<section class="home-section">
+    <div class="container">
+        <div class="feature">
+
+            <div class="feature-copy">
+                <span class="eyebrow">Bak Gulvverket</span>
+                <h2>{{ story_heading }}</h2>
+                {{ if story_body }}
+                <p>{{ story_body }}</p>
+                {{ /if }}
+                <div>
+                    <a href="/om-oss" class="btn primary">Les mer om oss</a>
+                </div>
+            </div>
+
+            <div class="feature-media">
+                {{ if story_image }}
+                {{ story_image }}
+                <img src="{{ url }}" alt="{{ alt ?? story_heading }}">
+                {{ /story_image }}
+                {{ else }}
+                <span class="media-placeholder">Last opp et bilde i CP</span>
+                {{ /if }}
+            </div>
+
+        </div>
+    </div>
 </section>
+{{ /if }}

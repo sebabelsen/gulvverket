@@ -20,6 +20,9 @@ body {
     background: var(--color-bg);
     color: var(--color-text);
     padding-top: var(--header-offset);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 img {
@@ -38,8 +41,7 @@ p {
 
 /*
     Heading defaults — applied via :where() for ZERO specificity.
-    Any class or inline style on an h1/h2/h3 will easily override.
-    This means the foundation is set, but custom styles still win where they exist.
+    Fraunces carries the personality at medium weight; bold reads heavy.
 */
 :where(h1, h2, h3, h4) {
     font-family: var(--font-serif);
@@ -51,27 +53,27 @@ p {
     font-size: var(--text-5xl);
     line-height: var(--leading-tight);
     letter-spacing: var(--tracking-tight);
-    font-weight: var(--font-bold);
+    font-weight: var(--font-medium);
 }
 
 :where(h2) {
     font-size: var(--text-4xl);
     line-height: var(--leading-tight);
     letter-spacing: var(--tracking-tight);
-    font-weight: var(--font-bold);
+    font-weight: var(--font-medium);
 }
 
 :where(h3) {
     font-size: var(--text-2xl);
     line-height: var(--leading-snug);
     letter-spacing: var(--tracking-snug);
-    font-weight: var(--font-semibold);
+    font-weight: var(--font-medium);
 }
 
 :where(h4) {
     font-size: var(--text-xl);
     line-height: var(--leading-snug);
-    font-weight: var(--font-semibold);
+    font-weight: var(--font-medium);
 }
 
 .footer-links,
@@ -79,6 +81,16 @@ p {
 .contact-list,
 nav ul {
     list-style: none;
+}
+
+/* Eyebrow — uppercase letterspaced label above headings */
+.eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: var(--font-bold);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-primary);
 }
 
 /* Layout helper */

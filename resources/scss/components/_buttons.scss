@@ -9,8 +9,8 @@
     justify-content: center;
     gap: 0.55rem;
 
-    padding: 0.85rem 1.25rem;
-    border-radius: var(--radius-md);
+    padding: 0.82rem 1.6rem;
+    border-radius: var(--radius-pill);
     font-weight: 600;
     font-size: 0.95rem;
     text-decoration: none;
@@ -33,12 +33,12 @@
     background: var(--btn-primary-bg);
     color: var(--btn-primary-fg);
     border-color: transparent;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: none;
 
     &:hover {
         background: var(--btn-primary-bg-hover);
         color: var(--btn-primary-fg-hover);
-        box-shadow: var(--shadow-sm);
+        transform: translateY(-1px);
     }
 }
 
