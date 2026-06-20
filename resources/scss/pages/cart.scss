@@ -19,7 +19,7 @@
 .cart-empty {
     background: var(--color-bg-overlay);
     border: var(--border-subtle);
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-lg);
     padding: var(--space-8);
     text-align: center;
 }
@@ -33,7 +33,7 @@
 .cart-items {
     background: var(--color-bg-overlay);
     border: var(--border-subtle);
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-lg);
     overflow: hidden;
 }
 
@@ -53,7 +53,7 @@
     flex-shrink: 0;
     width: 5rem;
     height: 5rem;
-    background: var(--surface-1);
+    background: var(--surface-card);
     border-radius: var(--radius-md);
     overflow: hidden;
 

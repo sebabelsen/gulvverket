@@ -1,0 +1,37 @@
+/* ==============================
+   ERROR PAGE
+============================== */
+
+.error-page {
+    max-width: 36rem;
+    margin: 0 auto;
+    padding: clamp(4rem, 12vw, 8rem) var(--container-padding);
+    text-align: center;
+
+    .eyebrow {
+        display: block;
+        margin-bottom: var(--space-3);
+    }
+}
+
+.error-title {
+    font-size: var(--text-5xl);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    margin: 0 0 var(--space-4);
+}
+
+.error-text {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-muted);
+    margin: 0 auto var(--space-6);
+    max-width: 40ch;
+}
+
+.error-actions {
+    display: flex;
+    gap: var(--space-3);
+    justify-content: center;
+    flex-wrap: wrap;
+}

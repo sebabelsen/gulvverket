@@ -3,21 +3,33 @@
 ============================== */
 
 .blog-index {
-    max-width: 64rem;
+    max-width: var(--container);
     margin: 0 auto;
     padding: var(--section-y) var(--container-padding);
 }
 
 .blog-header {
-    max-width: 40rem;
-    margin-bottom: var(--space-7);
+    max-width: 44rem;
+    margin-bottom: var(--space-6);
+
+    .eyebrow {
+        display: block;
+        margin-bottom: var(--space-3);
+    }
 }
 
 .blog-title {
-    font-size: var(--text-4xl);
+    font-size: var(--text-5xl);
     line-height: var(--leading-tight);
     letter-spacing: var(--tracking-tight);
     margin: 0 0 var(--space-3);
+}
+
+.blog-lead {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-muted);
+    margin: 0;
 }
 
 /* Tag filter pills */
@@ -35,6 +47,8 @@
     align-items: center;
     padding: var(--space-2) var(--space-4);
     font-size: var(--text-sm);
+    font-family: inherit;
+    cursor: pointer;
     color: var(--color-text-muted);
     background: var(--surface-1);
     border: var(--border-subtle);
@@ -65,10 +79,14 @@
 .blog-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-6);
+    gap: var(--space-7) var(--space-6);
 
-    @media (min-width: 720px) {
+    @media (min-width: 600px) {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 940px) {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
