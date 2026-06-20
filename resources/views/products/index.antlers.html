@@ -1,12 +1,22 @@
-<section class="page page--wide">
+<section class="page page--wide product-index">
 
-    <header class="page-header">
+    <header class="product-index-header">
+       <!-- <span class="eyebrow">Nettbutikk</span> -->
         <h1 class="page-title">Produkter</h1>
     </header>
-
-    <div class="product-grid">
+<!--
+    <nav class="pill-nav" data-product-filter aria-label="Filtrer etter kategori">
+        <button type="button" class="pill is-active" data-cat="">Alle</button>
+        {{ taxonomy:categories sort="title" }}
+        <button type="button" class="pill" data-cat="{{ slug }}">{{ title }}</button>
+        {{ /taxonomy:categories }}
+    </nav>
+-->
+    <div class="product-grid" data-product-grid>
         {{ collection from="products" }}
+        <div class="product-cell" data-cats="{{ category }}{{ slug }} {{ /category }}">
             {{ partial:product-card }}
+        </div>
         {{ /collection }}
 
         {{ if no_results }}

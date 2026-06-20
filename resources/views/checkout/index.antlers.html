@@ -17,23 +17,14 @@ compatible shipping option is selected). All state lives in one root Checkout co
         {{ cart:update id="checkout-details" class="flex flex-col space-y-10" @submit.prevent="" }}
 
         {{# ---------- Kunde ---------- #}}
-        {{ if logged_out }}
         <section aria-label="{{ 'Kunde' | trans }}">
             <h2 class="text-lg font-semibold text-gray-900 mb-2">{{ 'Kunde' | trans }}</h2>
             <div class="flex flex-col space-y-4 mt-8">
-                <div class="grid sm:grid-cols-2 gap-6">
-                    {{ partial:checkout/components/input name="first_name" label="Fornavn" type="text" placeholder="Ola"
-                    xBindValue="cart.customer?.first_name" autocomplete="given-name" required="true" }}
-                    {{ partial:checkout/components/input name="last_name" label="Etternavn" type="text"
-                    placeholder="Nordmann" xBindValue="cart.customer?.last_name" autocomplete="family-name"
-                    required="true" }}
-                </div>
                 {{ partial:checkout/components/input name="email" label="E-post" type="email"
-                placeholder="ola.nordmann@eksempel.no" xBindValue="cart.customer?.email" autocomplete="email"
+                placeholder="navn@eksempel.no" xBindValue="cart.customer?.email" autocomplete="email"
                 required="true" }}
             </div>
         </section>
-        {{ /if }}
 
         {{# ---------- Leveringsadresse ---------- #}}
         {{ if {cart:has_physical_products} }}
@@ -120,10 +111,10 @@ compatible shipping option is selected). All state lives in one root Checkout co
                         <div>
                             <label
                                 class="flex items-center justify-between gap-4 px-4 py-4 cursor-pointer transition-colors border-b border-gray-200 last:border-b-0"
-                                :class="gateway === pg.handle ? 'bg-blue-50' : 'hover:bg-gray-50'">
+                                :class="gateway === pg.handle ? 'bg-secondary/10' : 'hover:bg-gray-50'">
 
                                 <div class="flex items-center gap-3">
-                                    <input type="radio" name="payment_gateway" class="h-5 w-5 accent-blue-600"
+                                    <input type="radio" name="payment_gateway" class="h-5 w-5 accent-secondary"
                                         :value="pg.handle" :checked="gateway === pg.handle"
                                         @change="gateway = pg.handle">
 
@@ -161,9 +152,9 @@ compatible shipping option is selected). All state lives in one root Checkout co
             <div class="overflow-hidden rounded-xl border border-gray-300 bg-white">
 
                 <label class="flex items-center gap-3 px-4 py-4 cursor-pointer border-b border-gray-200"
-                    :class="useShippingAddressForBilling ? 'bg-blue-50' : 'hover:bg-gray-50'">
+                    :class="useShippingAddressForBilling ? 'bg-secondary/10' : 'hover:bg-gray-50'">
 
-                    <input type="radio" name="billing_choice" class="h-5 w-5 accent-blue-600"
+                    <input type="radio" name="billing_choice" class="h-5 w-5 accent-secondary"
                         :checked="useShippingAddressForBilling" @change="useShippingAddressForBilling = true">
 
                     <span class="font-medium text-gray-900">
@@ -173,9 +164,9 @@ compatible shipping option is selected). All state lives in one root Checkout co
 
                 <div>
                     <label class="flex items-center gap-3 px-4 py-4 cursor-pointer"
-                        :class="!useShippingAddressForBilling ? 'bg-blue-50' : 'hover:bg-gray-50'">
+                        :class="!useShippingAddressForBilling ? 'bg-secondary/10' : 'hover:bg-gray-50'">
 
-                        <input type="radio" name="billing_choice" class="h-5 w-5 accent-blue-600"
+                        <input type="radio" name="billing_choice" class="h-5 w-5 accent-secondary"
                             :checked="!useShippingAddressForBilling" @change="useShippingAddressForBilling = false">
 
                         <span class="font-medium text-gray-900">

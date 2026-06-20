@@ -1,17 +1,16 @@
 <section class="blog-index">
 
     <header class="blog-header">
-        <h1 class="blog-title">Nyheter</h1>
+        <h1 class="blog-title">Blogg</h1>
     </header>
-
-    {{# Tag filter pills #}}
-    {{#<nav class="pill-nav">
+<!--
+    <nav class="pill-nav">
         <a href="/blogg" class="pill is-active">Alle</a>
         {{ taxonomy:article_tags }}
         <a href="{{ url }}" class="pill">{{ title }}</a>
         {{ /taxonomy:article_tags }}
-    </nav>#}}
-
+    </nav>
+-->
     <div class="blog-grid">
 
         {{ collection from="articles" sort="date:desc" }}

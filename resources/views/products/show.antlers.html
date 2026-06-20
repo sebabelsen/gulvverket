@@ -14,81 +14,142 @@
         <div class="product-gallery" data-gallery>
             {{ if gallery }}
 
-                {{ gallery limit="1" }}
-                    <button type="button" class="product-gallery-main" data-gallery-open aria-label="Forstørr bilde">
-                        <img data-gallery-main-img src="{{ glide:url preset='product_main' }}" data-full="{{ glide:url preset='product_zoom' }}" alt="{{ alt ?? title }}">
-                        <span class="product-gallery-zoom" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                        </span>
-                    </button>
-                {{ /gallery }}
+            {{ gallery limit="1" }}
+            <button type="button" class="product-gallery-main" data-gallery-open aria-label="Forstørr bilde">
+                <img data-gallery-main-img src="{{ glide:url preset='product_main' }}"
+                    data-full="{{ glide:url preset='product_zoom' }}" alt="{{ alt ?? title }}">
+                <span class="product-gallery-zoom" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        <line x1="11" y1="8" x2="11" y2="14"></line>
+                        <line x1="8" y1="11" x2="14" y2="11"></line>
+                    </svg>
+                </span>
+            </button>
+            {{ /gallery }}
 
-                {{ if gallery | length > 1 }}
-                    <div class="product-thumbs">
-                        {{ gallery }}
-                            <button type="button" class="product-thumb{{ if first }} is-active{{ /if }}" data-gallery-thumb data-src="{{ glide:url preset='product_main' }}" data-full="{{ glide:url preset='product_zoom' }}" data-alt="{{ alt ?? title }}" aria-label="Vis bilde {{ count }}">
-                                <img src="{{ glide:url preset='product_thumb' }}" alt="" loading="lazy" decoding="async">
-                            </button>
-                        {{ /gallery }}
-                    </div>
-                {{ /if }}
+            {{ if gallery | length > 1 }}
+            <div class="product-thumbs">
+                {{ gallery }}
+                <button type="button" class="product-thumb{{ if first }} is-active{{ /if }}" data-gallery-thumb
+                    data-src="{{ glide:url preset='product_main' }}" data-full="{{ glide:url preset='product_zoom' }}"
+                    data-alt="{{ alt ?? title }}" aria-label="Vis bilde {{ count }}">
+                    <img src="{{ glide:url preset='product_thumb' }}" alt="" loading="lazy" decoding="async">
+                </button>
+                {{ /gallery }}
+            </div>
+            {{ /if }}
 
             {{ else }}
-                <div class="product-gallery-empty">Ingen bilde</div>
+            <div class="product-gallery-empty">Ingen bilde</div>
             {{ /if }}
         </div>
 
         {{# ---------- Info ---------- #}}
         <div class="product-info">
             {{ if category }}
-                {{ category }}
-                    <a href="{{ url }}" class="product-category">{{ title }}</a>
-                {{ /category }}
+            {{ category }}
+            <a href="{{ url }}" class="product-category">{{ title }}</a>
+            {{ /category }}
             {{ /if }}
 
             <h1 class="product-info-title">{{ title }}</h1>
 
             {{ if recommended }}
-                <p class="product-recommended">
-                    <span class="dot" aria-hidden="true"></span>
-                    Vi bruker dette selv
-                </p>
+            <p class="product-recommended">
+                <span class="dot" aria-hidden="true"></span>
+                Vi bruker dette selv
+            </p>
             {{ /if }}
 
-            {{ if short_description }}
-                <p class="product-short">{{ short_description }}</p>
-            {{ /if }}
-
-            <div class="product-buy">
-                <p class="product-price-lg">{{ price }}</p>
-                <p class="product-tax-note">Inkl. mva. Frakt beregnes i kassen.</p>
-
-                {{ cart:add }}
-                    <div class="product-cart">
-                        <div class="product-qty-stepper" data-qty>
-                            <button type="button" class="product-qty-btn" data-qty-dec aria-label="Færre">&minus;</button>
-                            <label class="visually-hidden" for="quantity">Antall</label>
-                            <input id="quantity" type="number" name="quantity" value="1" min="1" required class="product-qty" inputmode="numeric">
-                            <button type="button" class="product-qty-btn" data-qty-inc aria-label="Flere">+</button>
-                        </div>
-                        <button type="submit" class="btn primary product-add">
-                            Legg i handlekurv
-                        </button>
-                    </div>
-                {{ /cart:add }}
+            <div class="product-price-row">
+                <span class="product-price-lg">{{ price }}</span>
+                <span class="product-tax-note">inkl. mva.</span>
             </div>
 
-            {{ if description }}
-                <div class="product-description prose">
-                    {{ description }}
-                </div>
+            {{ if short_description }}
+            <p class="product-short">{{ short_description }}</p>
             {{ /if }}
+
+            {{ if fagmann_tip }}
+            <div class="product-fagmann">
+                <span class="product-fagmann-ic" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M9 11l3 3L22 4"></path>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                    </svg>
+                </span>
+                <div>
+                    <span class="product-fagmann-label">Tips fra fagmann</span>
+                    <p>{{ fagmann_tip }}</p>
+                </div>
+            </div>
+            {{ /if }}
+
+            {{ cart:add }}
+            <div class="product-buy">
+                <div class="product-qty-stepper" data-qty>
+                    <button type="button" class="product-qty-btn" data-qty-dec aria-label="Færre">&minus;</button>
+                    <label class="visually-hidden" for="quantity">Antall</label>
+                    <input id="quantity" type="number" name="quantity" value="1" min="1" required class="product-qty"
+                        inputmode="numeric">
+                    <button type="button" class="product-qty-btn" data-qty-inc aria-label="Flere">+</button>
+                </div>
+                <button type="submit" class="btn primary product-add">Legg i handlekurv</button>
+            </div>
+            {{ /cart:add }}
+
+            <ul class="product-trust">
+                <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="m5 13 4 4L19 7"></path>
+                    </svg>
+                    Faktura per e-post
+                </li>
+                <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M5 7h14l1 5H4z"></path>
+                        <circle cx="8" cy="18" r="1.6"></circle>
+                        <circle cx="16" cy="18" r="1.6"></circle>
+                    </svg>
+                    Sendes innen 1–3 dager
+                </li>
+                <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path>
+                    </svg>
+                    Ingen tredjepartsgebyr
+                </li>
+                <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M12 7v5l3 2"></path>
+                    </svg>
+                    Faglig hjelp på e-post
+                </li>
+            </ul>
         </div>
 
     </div>
 
+    {{ if description }}
+    <section class="product-detail">
+        <h2 class="product-detail-title">Produktbeskrivelse</h2>
+        <div class="product-description prose">
+            {{ description }}
+        </div>
+    </section>
+    {{ /if }}
+
     {{# ---------- Lightbox ---------- #}}
-   <!-- {{ if gallery }}
+    <!-- {{ if gallery }}
         <div class="lightbox" data-lightbox role="dialog" aria-modal="true" aria-label="Bildevisning" hidden>
             <button type="button" class="lightbox-close" data-lightbox-close aria-label="Lukk">&times;</button>
             <button type="button" class="lightbox-nav lightbox-prev" data-lightbox-prev aria-label="Forrige">&#8249;</button>
@@ -99,14 +160,14 @@
     -->
 
     {{ if related_products }}
-        <section class="article-related">
-            <h2 class="related-title">Se også</h2>
-            <div class="product-grid">
-                {{ related_products }}
-                    {{ partial:product-card }}
-                {{ /related_products }}
-            </div>
-        </section>
+    <section class="product-related">
+        <h2 class="product-related-title">Se også</h2>
+        <div class="product-grid">
+            {{ related_products }}
+            {{ partial:product-card }}
+            {{ /related_products }}
+        </div>
+    </section>
     {{ /if }}
 
 </article>
