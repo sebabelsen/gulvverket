@@ -30,3 +30,4 @@ Thumbs.db
 content/cargo/carts
 content/cargo/orders
 users
+.ddev
