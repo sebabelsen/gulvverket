@@ -1,7 +1,7 @@
 name: 'Sebastian L'
 super: true
 id: db163cda-ce66-44d8-8bee-faa25fcd0ff9
-password: pizza2000
+password_hash: $2y$12$XE6I05bHfDfpkG8iK81HGugjhKp2zzSlal8ZOJHB8d1lSnSG9bwJW
 preferences:
   collections:
     pages:
