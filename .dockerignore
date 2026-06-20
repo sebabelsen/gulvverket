@@ -1,0 +1,40 @@
+# Dependencies installed during build
+node_modules/
+vendor/
+
+# Version control
+.git/
+.gitignore
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE and OS files
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist/
+build/
+*.log
+
+# Development files
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# Documentation
+docs/
+README.md
+*.md
+
+# Tests
+tests/
+test/
+*.test.js
+*.spec.js
