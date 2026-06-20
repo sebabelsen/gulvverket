@@ -55,6 +55,14 @@ tabs:
               display: Anbefalt
               instructions: 'Vis et badge på produktet som signaliserer at HGS bruker det i daglig arbeid.'
               localizable: true
+          -
+            handle: fagmann_tip
+            field:
+              type: textarea
+              display: 'Tips fra fagmann'
+              instructions: 'Kort råd som vises i en egen boks på produktsiden. La stå tom for å skjule boksen.'
+              character_limit: 280
+              localizable: true
   inventory:
     display: Lager
     sections:

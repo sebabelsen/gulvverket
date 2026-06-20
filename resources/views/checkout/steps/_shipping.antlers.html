@@ -4,7 +4,6 @@
     When the page loads, the customer won't have entered their address yet. We'll use an AJAX request to fetch the
     available shipping options for the cart and pre-select the first one. When the customer selects a shipping option,
     the cart summary will update in real-time.
-#}}
 
 {{ if {cart:has_physical_products} }}
     {{ partial:checkout/components/step title="Fraktmetode" x-data="Shipping" }}
@@ -111,3 +110,4 @@
         </script>
     {{ /push:footer_scripts }}
 {{ /if }}
+#}}

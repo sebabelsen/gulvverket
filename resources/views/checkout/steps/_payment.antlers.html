@@ -6,7 +6,7 @@
     was initially loaded.
 
     You can find the payment forms for each gateway under `resources/views/checkout/payment-forms/`.
-#}}
+
 
 {{ partial:checkout/components/step title="Betaling" formless="true" x-data="Payment" }}
     <template x-if="cart.is_free">
@@ -89,3 +89,4 @@
         });
     </script>
 {{ /push:footer_scripts }}
+#}}

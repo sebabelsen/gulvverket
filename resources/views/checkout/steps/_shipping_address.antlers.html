@@ -1,6 +1,6 @@
 {{#
     Displays the "Shipping Address" step in the Checkout process.
-#}}
+
 
 {{ if {cart:has_physical_products} }}
     {{ partial:checkout/components/step title="Leveringsadresse" }}
@@ -11,3 +11,4 @@
         {{ /slot:footer }}
     {{ /partial:checkout/components/step }}
 {{ /if }}
+#}}

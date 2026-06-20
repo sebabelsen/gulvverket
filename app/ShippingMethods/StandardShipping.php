@@ -14,12 +14,7 @@ class StandardShipping extends ShippingMethod
         return collect([
             ShippingOption::make($this)
                 ->name(__('Standard pakke'))
-                ->price(9900)
-                ->acceptsPaymentOnDelivery(true),
-
-            ShippingOption::make($this)
-                ->name(__('Stor pakke'))
-                ->price(19900)
+                ->price(7500)
                 ->acceptsPaymentOnDelivery(true),
         ]);
     }

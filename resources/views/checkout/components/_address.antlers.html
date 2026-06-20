@@ -70,7 +70,7 @@
         xBindValue="cart.{type}_address?.phone"
         autocomplete="{type} tel"
     }}
-    <template x-if="states.length">
+    <!--<template x-if="states.length">
         {{ partial:checkout/components/combobox
             name="{type}_address[state]"
             label="State/County"
@@ -82,12 +82,14 @@
             display_key="name"
             placeholder="Select a state"
         }}
-    </template>
+    </template>-->
 </div>
 {{ push:footer_scripts }}
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('{{ type | ucfirst }}Address', () => ({
+                firstName: '',
+                lastName: '',
                 country: null,
                 state: null,
                 countries: [
@@ -97,7 +99,25 @@
                 ],
                 states: [],
                 init() {
-                    this.country = this.cart.{{ type }}_address?.country?.value;
+                    const fullName = (this.cart.{{ type }}_address?.name || this.cart.customer?.name || '').trim();
+                    const parts = fullName.split(/\s+/).filter(Boolean);
+                    this.firstName = parts.shift() || '';
+                    this.lastName = parts.join(' ');
+ 
+                    try {
+                        const dn = new Intl.DisplayNames(['nb'], { type: 'region' });
+                        this.countries = this.countries
+                            .map((c) => {
+                                try {
+                                    return { value: c.value, label: dn.of(c.value) || c.label };
+                                } catch (e) {
+                                    return c;
+                                }
+                            })
+                            .sort((a, b) => a.label.localeCompare(b.label, 'nb'));
+                    } catch (e) {}
+ 
+                    this.country = this.cart.{{ type }}_address?.country?.value || 'NO';
                     this.state = this.cart.{{ type }}_address?.state?.code;
                     if (this.country) this.fetchStates();
                     this.$watch('country', () => {

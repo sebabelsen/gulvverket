@@ -13,13 +13,13 @@ value_1_body: 'Nettbutikken drives av profesjonelle gulvteknikere. Produktene vi
 value_2_title: 'Resultater over tid'
 value_2_body: 'Vi vet hva som gir gode resultater år etter år – ikke bare ved første vask. Anbefalingene er basert på praktisk erfaring.'
 value_3_title: 'Trygt og enkelt'
-value_3_body: 'Faktura per e-post, ingen tredjepartsgebyrer, og faglige svar på spørsmål. Som å handle hos en lokal fagbutikk på nett.'
+value_3_body: 'Faktura per e-post, ingen tredjepartsgebyrer, og faglige svar på spørsmål.'
 story_heading: 'Produktene vi selv bruker'
 story_body: 'Nettbutikken drives av profesjonelle gulvteknikkere. Dette er produkter vi bruker selv i jobben, og som vi vet gir gode resultater over tid.'
 seo_description: 'Gulvverket tilbyr kvalitetsprodukter for rengjøring, vedlikehold og beskyttelse av parkett og tregulv.'
 hero_image: site/parkett-lys.webp
 updated_by: db163cda-ce66-44d8-8bee-faa25fcd0ff9
-updated_at: 1781698444
+updated_at: 1781897813
 story_image: site/undraw_reading_6jjr.png
 seo_title: 'Gulvverket – produkter for behandling og beskyttelse av dine gulv'
 ---
