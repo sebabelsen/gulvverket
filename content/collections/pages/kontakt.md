@@ -4,9 +4,8 @@ blueprint: page
 title: Kontakt
 template: kontakt
 lead: 'Spørsmål om produkter, bestilling eller faglige råd? Vi svarer vanligvis innen én virkedag.'
-featured_image: undraw_comment-sent_8c4r.png
 updated_by: db163cda-ce66-44d8-8bee-faa25fcd0ff9
-updated_at: 1781698589
+updated_at: 1781986487
 content:
   -
     type: paragraph

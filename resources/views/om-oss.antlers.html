@@ -1,0 +1,25 @@
+<article class="about">
+
+    <header class="about-header">
+        <span class="eyebrow">Om oss</span>
+        <h1 class="about-title">{{ title }}</h1>
+        {{ if lead }}
+            <p class="about-lead">{{ lead }}</p>
+        {{ /if }}
+    </header>
+
+    {{ if featured_image }}
+        {{ featured_image }}
+            <div class="about-hero">
+                <img src="{{ url }}" alt="{{ alt ?? title }}">
+            </div>
+        {{ /featured_image }}
+    {{ /if }}
+
+    {{ if content }}
+        <div class="about-body prose">
+            {{ content }}
+        </div>
+    {{ /if }}
+
+</article>

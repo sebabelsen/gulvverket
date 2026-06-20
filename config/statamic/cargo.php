@@ -126,7 +126,7 @@ return [
         |
         */
 
-        'always_checkout_as_guest' => false,
+        'always_checkout_as_guest' => true,
 
         /*
         |--------------------------------------------------------------------------

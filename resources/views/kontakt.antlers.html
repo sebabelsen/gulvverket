@@ -1,74 +1,91 @@
-<div class="page page--form">
+<section class="contact-page">
+    <div class="contact-layout">
 
-    {{ partial:page-header }}
+        <div class="contact-intro">
+            <h1 class="page-title">{{ title }}</h1>
+            {{ if lead }}
+                <p class="page-lead">{{ lead }}</p>
+            {{ /if }}
+            {{ if content }}
+                <div class="contact-text">{{ content }}</div>
+            {{ /if }}
 
-    {{ if content }}
-    <div class="page-intro">
-        {{ content }}
-    </div>
-    {{ /if }}
-
-    <div class="contact-card">
-
-        {{ form:kontakt }}
-
-        {{ if success }}
-        <div class="alert alert--success">
-            <p class="alert-title">Takk for henvendelsen!</p>
-            <p class="alert-text">Vi svarer vanligvis innen én virkedag.</p>
-        </div>
-        {{ /if }}
-
-        {{ if errors }}
-        <div class="alert alert--error">
-            <p class="alert-title">Sjekk feltene under:</p>
-            <ul class="alert-list">
-                {{ errors }}
-                <li>{{ value }}</li>
-                {{ /errors }}
+            <ul class="contact-details">
+                <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 5L2 7"></path></svg>
+                    <a href="mailto:{{ brand:email }}">{{ brand:email }}</a>
+                </li>
+                <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    <a href="tel:{{ brand:telephone | replace(' ', '') }}">{{ brand:telephone }}</a>
+                </li>
+                <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    <span>{{ brand:address }}</span>
+                </li>
             </ul>
         </div>
-        {{ /if }}
 
-        <div class="form-stack">
+        <div class="contact-card">
+            {{ form:kontakt }}
 
-            <div>
-                <label for="name" class="field-label">Navn <span class="field-required">*</span></label>
-                <input id="name" type="text" name="name" value="{{ old:name }}" autocomplete="name"
-                    placeholder="Navnet ditt" required class="field-input">
-            </div>
+                {{ if success }}
+                <div class="alert alert--success">
+                    <p class="alert-title">Takk for henvendelsen!</p>
+                    <p class="alert-text">Vi svarer vanligvis innen én virkedag.</p>
+                </div>
+                {{ /if }}
 
-            <div>
-                <label for="email" class="field-label">E-post <span class="field-required">*</span></label>
-                <input id="email" type="email" name="email" value="{{ old:email }}" autocomplete="email"
-                    placeholder="navn@eksempel.no" required class="field-input">
-            </div>
+                {{ if errors }}
+                <div class="alert alert--error">
+                    <p class="alert-title">Sjekk feltene under:</p>
+                    <ul class="alert-list">
+                        {{ errors }}
+                        <li>{{ value }}</li>
+                        {{ /errors }}
+                    </ul>
+                </div>
+                {{ /if }}
 
-            <div>
-                <label for="phone_nr" class="field-label">Telefon <span class="field-required">*</span></label>
-                <input id="phone_nr" type="tel" name="phone_nr" value="{{ old:phone_nr }}" autocomplete="tel"
-                    maxlength="15" placeholder="123 45 678" required class="field-input">
-            </div>
+                <div class="form-stack">
 
-            <div>
-                <label for="comment" class="field-label">Melding <span class="field-required">*</span></label>
-                <textarea id="comment" name="comment" rows="6" placeholder="Hva lurer du på?" required
-                    class="field-textarea">{{ old:comment }}</textarea>
-            </div>
+                    <div>
+                        <label for="name" class="field-label">Navn <span class="field-required">*</span></label>
+                        <input id="name" type="text" name="name" value="{{ old:name }}" autocomplete="name"
+                            placeholder="Navnet ditt" required class="field-input">
+                    </div>
 
-            {{# Honeypot #}}
-            <div class="honeypot" aria-hidden="true">
-                <label>Ikke fyll inn: <input type="text" name="winnie"></label>
-            </div>
+                    <div>
+                        <label for="email" class="field-label">E-post <span class="field-required">*</span></label>
+                        <input id="email" type="email" name="email" value="{{ old:email }}" autocomplete="email"
+                            placeholder="navn@eksempel.no" required class="field-input">
+                    </div>
 
-            <button type="submit" class="btn primary form-submit">
-                Send melding
-            </button>
+                    <div>
+                        <label for="phone_nr" class="field-label">Telefon <span class="field-required">*</span></label>
+                        <input id="phone_nr" type="tel" name="phone_nr" value="{{ old:phone_nr }}" autocomplete="tel"
+                            maxlength="15" placeholder="Ditt nummer" required class="field-input">
+                    </div>
 
+                    <div>
+                        <label for="comment" class="field-label">Melding <span class="field-required">*</span></label>
+                        <textarea id="comment" name="comment" rows="6" placeholder="Hva lurer du på?" required
+                            class="field-textarea">{{ old:comment }}</textarea>
+                    </div>
+
+                    {{# Honeypot #}}
+                    <div class="honeypot" aria-hidden="true">
+                        <label>Ikke fyll inn: <input type="text" name="winnie"></label>
+                    </div>
+
+                    <button type="submit" class="btn primary form-submit">
+                        Send melding
+                    </button>
+
+                </div>
+
+            {{ /form:kontakt }}
         </div>
 
-        {{ /form:kontakt }}
-
     </div>
-
-</div>
+</section>
