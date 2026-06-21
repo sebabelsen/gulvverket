@@ -21,7 +21,7 @@ $downloadUrl = URL::signedRoute('statamic.cargo.download', [
 <x-mail::table>
 |                    |               |
 | -----------------: | ------------: |
-| **Subtotal** | {{ $order->sub_total }} |
+| **Delsum** | {{ $order->sub_total }} |
 @if($order->discounts)
 | **Rabatter** | -{{ $order->discount_total }}|
 @endif
