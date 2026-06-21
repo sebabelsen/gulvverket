@@ -6,7 +6,7 @@ short_description: 'Bona Wood Floor Cleaner 4 liter er en praktisk og økonomisk
 price: 49900
 tax_class: general
 updated_by: db163cda-ce66-44d8-8bee-faa25fcd0ff9
-updated_at: 1781176883
+updated_at: 1782075017
 recommended: true
 description:
   -
@@ -86,20 +86,6 @@ description:
       -
         type: text
         text: 'Daglig og periodisk rengjøring av lakkerte parkett- og heltregulv.'
-  -
-    type: paragraph
-    content:
-      -
-        type: text
-        marks:
-          -
-            type: bold
-        text: 'Tips fra fagmann:'
-      -
-        type: hardBreak
-      -
-        type: text
-        text: 'Dette er et produkt du kan bruke fast, uten å bekymre deg for at det sliter på gulvet. Det er nettopp det som er poenget med et godt vedlikeholdsprodukt.'
 gallery:
   - woodfill_refil.webp
   - 0001-637758618954488020.webp
@@ -107,6 +93,7 @@ category: rengjoring
 related_products:
   - 8d796449-1ae0-4103-bd52-ca382d20ad25
   - dd0dc7f0-c42a-425b-bb9f-0b588fa2098d
+fagmann_tip: 'Dette er et produkt du kan bruke fast, uten å bekymre deg for at det sliter på gulvet. Det er nettopp det som er poenget med et godt vedlikeholdsprodukt.'
 ---
 En profesjonell pH-nøytral renser utviklet for daglig vedlikehold av tregulv. Brukes fortynnet i lunkent vann.
 
