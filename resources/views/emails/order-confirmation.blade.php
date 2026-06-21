@@ -46,6 +46,13 @@ $downloadUrl = URL::signedRoute('statamic.cargo.download', [
 **Faktueringsadresse:** {{ $order->billingAddress() }}
 
 **Kunde:** {{ $order->customer()->name }} ({{ $order->customer()->email }})
+
+@if($order->get('company'))
+**Bedrift:** {{ $order->get('company') }}
+@endif
+@if($order->get('phone'))
+**Telefon:** {{ $order->get('phone') }}
+@endif
 </x-mail::panel>
 
 Takk for bestillingen!<br>

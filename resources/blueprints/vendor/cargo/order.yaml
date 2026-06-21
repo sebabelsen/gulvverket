@@ -1,3 +1,14 @@
 tabs:
   main:
-    fields: {  }
+    fields:
+      -
+        handle: phone
+        field:
+          type: text
+          display: Telefon
+          input_type: tel
+      -
+        handle: company
+        field:
+          type: text
+          display: Bedrift

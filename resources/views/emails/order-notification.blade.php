@@ -6,6 +6,12 @@ En ny bestilling med faktura-betaling er mottatt. Lag faktura og send til kunden
 <x-mail::panel>
 **Kunde:** {{ $order->customer()->name }}
 **E-post:** [{{ $order->customer()->email }}](mailto:{{ $order->customer()->email }})
+@if($order->get('company'))
+**Bedrift:** {{ $order->get('company') }}
+@endif
+@if($order->get('phone'))
+**Telefon:** {{ $order->get('phone') }}
+@endif
 </x-mail::panel>
 
 ## Leveringsadresse
@@ -49,12 +55,6 @@ En ny bestilling med faktura-betaling er mottatt. Lag faktura og send til kunden
 </x-mail::button>
 
 ---
-
-**Neste steg:**
-1. Logg inn i [Fiken](https://fiken.no) og opprett ny faktura
-2. Bruk informasjonen over (kunde, adresser, produkter)
-3. Send faktura til {{ $order->customer()->email }}
-4. Når faktura er betalt: marker ordren som betalt i Statamic CP
 
 {{ config('app.name') }}
 </x-mail::message>
