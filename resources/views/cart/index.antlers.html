@@ -1,5 +1,26 @@
 <section class="cart">
 
+    {{ if {get:lagt_til} && !{cart:is_empty} }}
+    <div class="cart-added" role="status" aria-live="polite">
+        <div class="cart-added-head">
+            <span class="cart-added-ic" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="m5 13 4 4L19 7"></path>
+                </svg>
+            </span>
+            <div>
+                <p class="cart-added-title">Produktet er lagt i handlekurven</p>
+                <p class="cart-added-text">Vil du gå videre til kassen, eller fortsette å handle?</p>
+            </div>
+        </div>
+        <div class="cart-added-actions">
+            <a href="/produkter" class="btn outline">Fortsett å handle</a>
+            <a href="/checkout" class="btn primary">Gå til kassen</a>
+        </div>
+    </div>
+    {{ /if }}
+
     <h1 class="cart-title">Handlekurv</h1>
 
     {{ if {cart:is_empty} }}
@@ -53,10 +74,12 @@
         <p class="cart-note">Frakt og eventuell mva beregnes i kassen.</p>
     </div>
 
+    {{ if !{get:lagt_til} }}
     <div class="cart-actions">
         <a href="/produkter" class="cart-continue">← Fortsett å handle</a>
         <a href="/checkout" class="btn primary">Gå til kassen</a>
     </div>
+    {{ /if }}
 
     {{ /cart }}
 
