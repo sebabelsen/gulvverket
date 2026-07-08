@@ -161,3 +161,11 @@
     --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
     --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* Tighter rhythm on small screens */
+@media (max-width: 700px) {
+    :root {
+        --section-y: 2.25rem;
+        --section-y-lg: 3rem;
+    }
+}

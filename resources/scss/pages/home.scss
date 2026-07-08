@@ -249,3 +249,68 @@
         object-fit: cover;
     }
 }
+
+/* ==============================
+   MOBILE TIGHTENING
+============================== */
+@media (max-width: 700px) {
+    .home-hero {
+        padding-top: 0.75rem;
+    }
+
+    .hero-copy {
+        padding: var(--space-5) var(--space-5) var(--space-6);
+    }
+
+    .hero-title {
+        font-size: var(--text-5xl);
+        margin-bottom: var(--space-3);
+    }
+
+    .hero-intro {
+        font-size: var(--text-base);
+        margin-bottom: var(--space-5);
+    }
+
+    .hero-media {
+        min-height: 200px;
+    }
+
+    .section-head {
+        align-items: center;
+        gap: var(--space-3);
+        margin-bottom: var(--space-5);
+
+        .btn {
+            flex-shrink: 0;
+        }
+    }
+
+    .section-title {
+        font-size: var(--text-3xl);
+    }
+
+    .products-grid {
+        gap: var(--space-4);
+    }
+
+    .articles-grid {
+        gap: var(--space-5);
+    }
+
+    .values-band {
+        padding: var(--space-6) var(--space-5);
+    }
+
+    .band-head {
+        margin-bottom: var(--space-6);
+    }
+
+    .values {
+        gap: var(--space-5);
+    }
+
+    .feature-copy {
+        padding: var(--space-5) var(--space-5) var(--space-6);
+    }
+}

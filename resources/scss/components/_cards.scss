@@ -290,3 +290,22 @@
         }
     }
 }
+
+/* ==============================
+   MOBILE TIGHTENING
+============================== */
+@media (max-width: 700px) {
+    .card h2,
+    .card h3 {
+        font-size: var(--text-xl);
+    }
+
+    .card-media,
+    .card-media-empty {
+        margin-bottom: var(--space-3);
+    }
+
+    .product-title {
+        margin-top: var(--space-3);
+    }
+}
