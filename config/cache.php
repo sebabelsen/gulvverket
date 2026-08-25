@@ -130,6 +130,6 @@ return [
     |
     */
 
-    'serializable_classes' => false,
+    'serializable_classes' => true, //satt til true for å fikse at dashboard widgets kræsjer.
 
 ];
