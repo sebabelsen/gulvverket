@@ -3,33 +3,34 @@
     @desc Renders address form fields.
     @param* type The type of address. Options: shipping, billing.
 #}}
-<div x-data="{{ type | ucfirst }}Address" class="flex flex-col space-y-6">
-    {{ partial:checkout/components/combobox
-        name="{type}_address[country]"
-        label="Land"
-        autocomplete="{type} country"
-        required="true"
-        model="country"
-        options="countries"
-        value_key="value"
-        display_key="label"
-        placeholder="Velg et land"
-    }}
-    {{ partial:checkout/components/input
-        name="{type}_address[name]"
-        label="Navn"
-        type="text"
-        xBindValue="cart.{type}_address?.name || cart.customer?.name"
-        autocomplete="{type} name"
-        required="true"
-    }}
-    {{ partial:checkout/components/input
-        name="{type}_address[company]"
-        label="Bedrift (valgfritt)"
-        type="text"
-        xBindValue="cart.{type}_address?.company"
-        autocomplete="{type} organization"
-    }}
+<div x-data="{{ type | ucfirst }}Address" class="flex flex-col space-y-4 mt-4">
+    
+    {{# Visual Country Dropdown (Locked to Norway) #}}
+    <input type="hidden" name="{{ type }}_address[country]" value="NO">
+    <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Land/region</label>
+        <select disabled class="w-full rounded-md border-gray-300 bg-gray-50 text-gray-500 shadow-sm sm:text-sm">
+            <option>Norge</option>
+        </select>
+    </div>
+
+    {{# Hidden Name Field (Built from First + Last Name for Cargo without triggering Antlers) #}}
+    <input type="hidden" name="{{ type }}_address[name]" x-bind:value="(firstName + ' ' + lastName).trim()">
+
+    {{# First & Last Name Grid #}}
+    <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Fornavn</label>
+            <input type="text" name="{{ type }}_address[first_name]" x-model="firstName" autocomplete="{{ type }} given-name" required 
+                class="w-full rounded-md border-gray-300 shadow-sm focus:border-secondary focus:ring-secondary sm:text-sm">
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Etternavn</label>
+            <input type="text" name="{{ type }}_address[last_name]" x-model="lastName" autocomplete="{{ type }} family-name" required 
+                class="w-full rounded-md border-gray-300 shadow-sm focus:border-secondary focus:ring-secondary sm:text-sm">
+        </div>
+    </div>
+
     {{ partial:checkout/components/input
         name="{type}_address[line_1]"
         label="Adresse"
@@ -38,6 +39,7 @@
         autocomplete="{type} address-line1"
         required="true"
     }}
+    
     {{ partial:checkout/components/input
         name="{type}_address[line_2]"
         label="Leilighet, etasje osv. (valgfritt)"
@@ -45,7 +47,8 @@
         xBindValue="cart.{type}_address?.line_2"
         autocomplete="{type} address-line2"
     }}
-    <div class="grid sm:grid-cols-2 gap-6">
+    
+    <div class="grid sm:grid-cols-2 gap-4">
         {{ partial:checkout/components/input
             name="{type}_address[postcode]"
             label="Postnummer"
@@ -54,6 +57,7 @@
             autocomplete="{type} postal-code"
             required="true"
         }}
+        
         {{ partial:checkout/components/input
             name="{type}_address[city]"
             label="By"
@@ -63,74 +67,31 @@
             required="true"
         }}
     </div>
+    
     {{ partial:checkout/components/input
         name="{type}_address[phone]"
-        label="Telefon (valgfritt)"
+        label="Telefon"
         type="tel"
         xBindValue="cart.{type}_address?.phone"
         autocomplete="{type} tel"
+        required="true"
     }}
-    <!--<template x-if="states.length">
-        {{ partial:checkout/components/combobox
-            name="{type}_address[state]"
-            label="State/County"
-            autocomplete="{type} address-level1"
-            required="true"
-            model="state"
-            options="states"
-            value_key="code"
-            display_key="name"
-            placeholder="Select a state"
-        }}
-    </template>-->
 </div>
+
 {{ push:footer_scripts }}
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('{{ type | ucfirst }}Address', () => ({
                 firstName: '',
                 lastName: '',
-                country: null,
-                state: null,
-                countries: [
-                    {{ dictionary:countries emojis="false" }}
-                        { value: {{ value | to_json }}, label: {{ label | to_json }} },
-                    {{ /dictionary:countries }}
-                ],
-                states: [],
                 init() {
-                    const fullName = (this.cart.{{ type }}_address?.name || this.cart.customer?.name || '').trim();
-                    const parts = fullName.split(/\s+/).filter(Boolean);
-                    this.firstName = parts.shift() || '';
-                    this.lastName = parts.join(' ');
- 
-                    try {
-                        const dn = new Intl.DisplayNames(['nb'], { type: 'region' });
-                        this.countries = this.countries
-                            .map((c) => {
-                                try {
-                                    return { value: c.value, label: dn.of(c.value) || c.label };
-                                } catch (e) {
-                                    return c;
-                                }
-                            })
-                            .sort((a, b) => a.label.localeCompare(b.label, 'nb'));
-                    } catch (e) {}
- 
-                    this.country = this.cart.{{ type }}_address?.country?.value || 'NO';
-                    this.state = this.cart.{{ type }}_address?.state?.code;
-                    if (this.country) this.fetchStates();
-                    this.$watch('country', () => {
-                        this.state = null;
-                        this.fetchStates();
-                    });
-                },
-                fetchStates() {
-                    this.states = [];
-                    fetch(`{{ route:statamic.cargo.states }}?country=${this.country}`)
-                        .then(response => response.json())
-                        .then(data => this.states = data);
-                },
+                    const fullName = (this.cart?.{{ type }}_address?.name || this.cart?.customer?.name || '').trim();
+                    const parts = fullName.split(' ').filter(Boolean);
+                    if (parts.length > 0) {
+                        this.firstName = parts.shift() || '';
+                        this.lastName = parts.join(' ');
+                    }
+                }
             }));
         });
     </script>

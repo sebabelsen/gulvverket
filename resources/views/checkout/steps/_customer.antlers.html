@@ -1,22 +1,33 @@
 {{#
 Displays the "Customer" step in the Checkout process.
-
+#}}
 
 {{ partial:checkout/components/step title="Kunde" }}
 <div class="flex flex-col space-y-4">
+
+    {{# Added Customer Name Field #}}
     {{ partial:checkout/components/input
-    name="email"
-    label="E-post"
-    type="email"
-    placeholder="navn@eksempel.no"
-    xBindValue="cart.customer?.email"
-    autocomplete="email"
-    required="true"
+        name="name"
+        label="Navn"
+        type="text"
+        placeholder="Ditt fulle navn"
+        xBindValue="cart.customer?.name"
+        autocomplete="name"
+        required="true"
+    }}
+
+    {{ partial:checkout/components/input
+        name="email"
+        label="E-post"
+        type="email"
+        placeholder="navn@eksempel.no"
+        xBindValue="cart.customer?.email"
+        autocomplete="email"
+        required="true"
     }}
 </div>
 
 {{ slot:footer }}
-{{ partial:checkout/components/button label="Fortsett →" type="submit" }}
+    {{ partial:checkout/components/button label="Fortsett →" type="submit" }}
 {{ /slot:footer }}
 {{ /partial:checkout/components/step }}
-#}}

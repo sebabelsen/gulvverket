@@ -17,12 +17,18 @@ compatible shipping option is selected). All state lives in one root Checkout co
         {{ cart:update id="checkout-details" class="flex flex-col space-y-10" @submit.prevent="" }}
 
         {{# ---------- Kunde ---------- #}}
-        <section aria-label="{{ 'Kunde' | trans }}">
-            <h2 class="text-lg font-semibold text-gray-900 mb-2">{{ 'Kunde' | trans }}</h2>
-            <div class="flex flex-col space-y-4 mt-8">
-                {{ partial:checkout/components/input name="email" label="E-post" type="email"
-                placeholder="navn@eksempel.no" xBindValue="cart.customer?.email" autocomplete="email"
-                required="true" }}
+        <section aria-label="{{ 'Kontakt' | trans }}">
+            <h2 class="text-lg font-semibold text-gray-900 mb-2">{{ 'Kontakt' | trans }}</h2>
+            <div class="flex flex-col space-y-4 mt-4">
+                {{ partial:checkout/components/input 
+                    name="email" 
+                    label="E-postadresse" 
+                    type="email"
+                    placeholder="navn@eksempel.no" 
+                    xBindValue="cart.customer?.email" 
+                    autocomplete="email"
+                    required="true" 
+                }}
             </div>
         </section>
 
@@ -197,7 +203,7 @@ compatible shipping option is selected). All state lives in one root Checkout co
                     <input type="hidden" name="billing_address[postcode]" :value="cart.shipping_address?.postcode">
                     <input type="hidden" name="billing_address[phone]" :value="cart.shipping_address?.phone">
                     <input type="hidden" name="billing_address[state]" :value="cart.shipping_address?.state?.code">
-                    <input type="hidden" name="billing_address[country]" :value="cart.shipping_address?.country?.value">
+                    <input type="hidden" name="billing_address[country]" value="NO">
                 </div>
             </template>
         </section>
@@ -288,7 +294,7 @@ compatible shipping option is selected). All state lives in one root Checkout co
                     const norm = (a) => JSON.stringify({
                         name: a?.name, line_1: a?.line_1, line_2: a?.line_2,
                         city: a?.city, postcode: a?.postcode,
-                        state: a?.state?.code, country: a?.country?.value,
+                        state: a?.state?.code, country: 'NO',
                     });
                     this.useShippingAddressForBilling = norm(this.cart.shipping_address) === norm(this.cart.billing_address);
                 }
@@ -364,10 +370,18 @@ compatible shipping option is selected). All state lives in one root Checkout co
 
             async saveDetails() {
                 const form = document.getElementById('checkout-details');
+                const formData = new FormData(form);
+
+                // --- MAGIC: Copy Shipping Name to Customer Name ---
+                const shippingName = formData.get('shipping_address[name]');
+                if (shippingName) {
+                    formData.set('name', shippingName);
+                }
+                // --------------------------------------------------
 
                 const response = await fetch(form.action, {
                     method: form.method,
-                    body: new FormData(form),
+                    body: formData,
                     headers: { 'Accept': 'application/json' },
                 });
 
@@ -376,6 +390,7 @@ compatible shipping option is selected). All state lives in one root Checkout co
                     this.errors = data.errors || {};
                     throw { validation: true };
                 }
+                
 
                 if (!response.ok) {
                     throw {};
