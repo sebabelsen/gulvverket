@@ -1,5 +1,5 @@
 <x-mail::message>
-# Ny bestilling #{{ $order->orderNumber() }}
+# Ny bestilling #{{ $order->orderNumber }}
 
 En ny bestilling med faktura-betaling er mottatt. Lag faktura og send til kunden.
 
@@ -40,7 +40,7 @@ En ny bestilling med faktura-betaling er mottatt. Lag faktura og send til kunden
 |              |               |
 | :----------- | ------------: |
 | Delsum       | {{ $order->sub_total }} |
-@if($order->shippingOption)
+@if($order->shippingOption())
 | Frakt ({{ $order->shippingOption()->name() }}) | {{ $order->shipping_total }} |
 @endif
 | **Total**    | **{{ $order->grand_total }}** |

@@ -25,8 +25,8 @@ $downloadUrl = URL::signedRoute('statamic.cargo.download', [
 @if($order->discounts)
 | **Rabatter** | -{{ $order->discount_total }}|
 @endif
-@if($order->shippingOption)
-| **Levering** ({{ $order->shippingOption()->name }}) | {{ $order->shipping_total }} |
+@if($order->shippingOption())
+| **Levering** ({{ $order->shippingOption()->name() }}) | {{ $order->shipping_total }} |
 @endif
 @unless(config('statamic.cargo.taxes.price_includes_tax'))
 | **Skatt** | {{ $order->tax_total }} |
@@ -35,7 +35,7 @@ $downloadUrl = URL::signedRoute('statamic.cargo.download', [
 </x-mail::table>
 
 <x-mail::panel>
-@if($order->shippingOption)
+@if($order->shippingOption())
 **Fraktmetoder:** {{ $order->shippingOption()->name() }}
 @endif
 
@@ -43,9 +43,10 @@ $downloadUrl = URL::signedRoute('statamic.cargo.download', [
 **Leveringsadresse:** {{ $order->shippingAddress() }}
 @endif
 
-**Faktueringsadresse:** {{ $order->billingAddress() }}
+**Faktureringsadresse:** {{ $order->billingAddress() }}
 
-**Kunde:** {{ $order->customer()->name }} ({{ $order->customer()->email }})
+**Kunde:** {{ $order->customer()->name }}
+**E-post:** [{{ $order->customer()->email }}](mailto:{{ $order->customer()->email }})
 
 @if($order->get('company'))
 **Bedrift:** {{ $order->get('company') }}
