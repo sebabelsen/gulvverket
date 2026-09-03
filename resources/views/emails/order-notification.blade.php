@@ -4,8 +4,8 @@
 En ny bestilling med faktura-betaling er mottatt. Lag faktura og send til kunden.
 
 <x-mail::panel>
-**Kunde:** {{ $order->customer()->name }}
-**E-post:** [{{ $order->customer()->email }}](mailto:{{ $order->customer()->email }})
+**Kunde:** {{ $order->customer()?->name ?? $order->get('name') ?? 'Gjest' }}
+**E-post:** [{{ $order->customer()?->email ?? $order->get('email') }}](mailto:{{ $order->customer()?->email ?? $order->get('email') }})
 @if($order->get('company'))
 **Bedrift:** {{ $order->get('company') }}
 @endif

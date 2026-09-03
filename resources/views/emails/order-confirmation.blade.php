@@ -45,8 +45,7 @@ $downloadUrl = URL::signedRoute('statamic.cargo.download', [
 
 **Faktureringsadresse:** {{ $order->billingAddress() }}
 
-**Kunde:** {{ $order->customer()->name }}
-**E-post:** [{{ $order->customer()->email }}](mailto:{{ $order->customer()->email }})
+**Kunde:** {{ $order->customer()?->name ?? $order->get('name') ?? 'Gjest' }} ({{ $order->customer()?->email ?? $order->get('email') }})
 
 @if($order->get('company'))
 **Bedrift:** {{ $order->get('company') }}
