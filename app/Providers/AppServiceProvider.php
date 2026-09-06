@@ -8,6 +8,7 @@ use DuncanMcClean\Cargo\Events\OrderCreated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class AppServiceProvider extends ServiceProvider
 {
