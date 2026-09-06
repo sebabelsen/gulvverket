@@ -26,12 +26,17 @@ class AppServiceProvider extends ServiceProvider
     {
         // Bekreftelse til kunden ved bestilling
         Event::listen(OrderCreated::class, function ($event) {
-            Mail::to($event->order->customer())
-                ->locale($event->order->site()->shortLocale())
-                ->send(new OrderConfirmation($event->order));
+            // Safely grab the email from either the customer object or the top-level order data
+            $customerEmail = $event->order->customer()?->email ?? $event->order->get('email');
+
+            if ($customerEmail) {
+                Mail::to($customerEmail)
+                    ->locale($event->order->site()->shortLocale())
+                    ->send(new OrderConfirmation($event->order));
+            }
         });
 
-        // Varsel til Tom ved ny bestilling
+        // Varsel til gulvverket ved ny bestilling
         Event::listen(OrderCreated::class, function ($event) {
             if ($email = env('ORDER_NOTIFICATION_EMAIL')) {
                 Mail::to($email)
