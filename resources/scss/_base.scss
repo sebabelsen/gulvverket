@@ -39,10 +39,6 @@ p {
     line-height: var(--leading-relaxed);
 }
 
-/*
-    Heading defaults — applied via :where() for ZERO specificity.
-    Fraunces carries the personality at medium weight; bold reads heavy.
-*/
 :where(h1, h2, h3, h4) {
     font-family: var(--font-serif);
     margin: 0 0 var(--space-3);
@@ -83,7 +79,6 @@ nav ul {
     list-style: none;
 }
 
-/* Eyebrow — uppercase letterspaced label above headings */
 .eyebrow {
     font-family: var(--font-sans);
     font-size: var(--text-xs);
