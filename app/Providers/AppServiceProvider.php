@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        // Varsel til gulvverket ved ny bestilling
+        // Varsel til kontakt@gulvverket.no ved ny bestilling
         Event::listen(OrderCreated::class, function ($event) {
             if ($email = env('ORDER_NOTIFICATION_EMAIL')) {
                 Mail::to($email)
