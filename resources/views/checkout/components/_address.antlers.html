@@ -1,10 +1,10 @@
 {{#
-    @name Address
-    @desc Renders address form fields.
-    @param* type The type of address. Options: shipping, billing.
+@name Address
+@desc Renders address form fields.
+@param* type The type of address. Options: shipping, billing.
 #}}
 <div x-data="{{ type | ucfirst }}Address" class="flex flex-col space-y-4 mt-4">
-    
+
     {{# Visual Country Dropdown (Locked to Norway) #}}
     <input type="hidden" name="{{ type }}_address[country]" value="NO">
     <div>
@@ -21,60 +21,62 @@
     <div class="grid sm:grid-cols-2 gap-4">
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Fornavn</label>
-            <input type="text" name="{{ type }}_address[first_name]" x-model="firstName" autocomplete="{{ type }} given-name" required 
+            <input type="text" name="{{ type }}_address[first_name]" x-model="firstName"
+                autocomplete="{{ type }} given-name" required
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-secondary focus:ring-secondary sm:text-sm">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Etternavn</label>
-            <input type="text" name="{{ type }}_address[last_name]" x-model="lastName" autocomplete="{{ type }} family-name" required 
+            <input type="text" name="{{ type }}_address[last_name]" x-model="lastName"
+                autocomplete="{{ type }} family-name" required
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-secondary focus:ring-secondary sm:text-sm">
         </div>
     </div>
 
     {{ partial:checkout/components/input
-        name="{type}_address[line_1]"
-        label="Adresse"
-        type="text"
-        xBindValue="cart.{type}_address?.line_1"
-        autocomplete="{type} address-line1"
-        required="true"
+    name="{type}_address[line_1]"
+    label="Adresse"
+    type="text"
+    xBindValue="cart.{type}_address?.line_1"
+    autocomplete="{type} address-line1"
+    required="true"
     }}
-    
+
     {{ partial:checkout/components/input
-        name="{type}_address[line_2]"
-        label="Leilighet, etasje osv. (valgfritt)"
-        type="text"
-        xBindValue="cart.{type}_address?.line_2"
-        autocomplete="{type} address-line2"
+    name="{type}_address[line_2]"
+    label="Leilighet, etasje osv. (valgfritt)"
+    type="text"
+    xBindValue="cart.{type}_address?.line_2"
+    autocomplete="{type} address-line2"
     }}
-    
+
     <div class="grid sm:grid-cols-2 gap-4">
         {{ partial:checkout/components/input
-            name="{type}_address[postcode]"
-            label="Postnummer"
-            type="text"
-            xBindValue="cart.{type}_address?.postcode"
-            autocomplete="{type} postal-code"
-            required="true"
+        name="{type}_address[postcode]"
+        label="Postnummer"
+        type="text"
+        xBindValue="cart.{type}_address?.postcode"
+        autocomplete="{type} postal-code"
+        required="true"
         }}
-        
+
         {{ partial:checkout/components/input
-            name="{type}_address[city]"
-            label="By"
-            type="text"
-            xBindValue="cart.{type}_address?.city"
-            autocomplete="{type} address-level1"
-            required="true"
+        name="{type}_address[city]"
+        label="By"
+        type="text"
+        xBindValue="cart.{type}_address?.city"
+        autocomplete="{type} address-level1"
+        required="true"
         }}
     </div>
-    
+
     {{ partial:checkout/components/input
-        name="{type}_address[phone]"
-        label="Telefon"
-        type="tel"
-        xBindValue="cart.{type}_address?.phone"
-        autocomplete="{type} tel"
-        required="true"
+    name="{type}_address[phone]"
+    label="Telefon"
+    type="tel"
+    xInitValue="cart.{type}_address?.phone"
+    autocomplete="{type} tel"
+    required="true"
     }}
 </div>
 

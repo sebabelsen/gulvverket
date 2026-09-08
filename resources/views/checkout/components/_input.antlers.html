@@ -8,6 +8,9 @@
     @param placeholder The placeholder for the input field.
     @param value The value for the input field.
     @param xBindValue The name of an Alpine.js property to bind the input field to.
+    @param xBindValue The name of an Alpine.js property to bind the input field to.
+    @param xInitValue The name of an Alpine.js property to pre-fill the input once on mount, without continuously re-binding it (use for fields saved via debounced AJAX while the user may still be typing).
+    @param required Boolean. Whether the input field is required.
     @param required Boolean. Whether the input field is required.
     @param disabled Boolean. Whether the input field is disabled.
 #}}
@@ -24,6 +27,7 @@
             {{ if placeholder }}placeholder="{{ placeholder | trans }}"{{ /if }}
             {{ if value }}value="{{ value }}"{{ /if }}
             {{ if xBindValue }}:value="{{ xBindValue }}"{{ /if }}
+            {{ if xInitValue }}x-init="$el.value = ({{ xInitValue }}) || $el.value"{{ /if }}
             {{ if required }}required aria-required="true"{{ /if }}
             {{ if disabled }}disabled readonly{{ /if }}
             class="block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary focus:ring-secondary sm:text-sm disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed"

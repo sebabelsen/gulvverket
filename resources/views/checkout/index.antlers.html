@@ -20,14 +20,14 @@ compatible shipping option is selected). All state lives in one root Checkout co
         <section aria-label="{{ 'Kontakt' | trans }}">
             <h2 class="text-lg font-semibold text-gray-900 mb-2">{{ 'Kontakt' | trans }}</h2>
             <div class="flex flex-col space-y-4 mt-4">
-                {{ partial:checkout/components/input 
-                    name="email" 
-                    label="E-postadresse" 
-                    type="email"
-                    placeholder="navn@eksempel.no" 
-                    xBindValue="cart.customer?.email" 
-                    autocomplete="email"
-                    required="true" 
+                {{ partial:checkout/components/input
+                name="email"
+                label="E-postadresse"
+                type="email"
+                placeholder="navn@eksempel.no"
+                xBindValue="cart.customer?.email"
+                autocomplete="email"
+                required="true"
                 }}
             </div>
         </section>
@@ -377,6 +377,9 @@ compatible shipping option is selected). All state lives in one root Checkout co
                 if (shippingName) {
                     formData.set('name', shippingName);
                 }
+
+                const billingPhone = formData.get('billing_address[phone]') || formData.get('shipping_address[phone]');
+                if (billingPhone) formData.set('phone', billingPhone);
                 // --------------------------------------------------
 
                 const response = await fetch(form.action, {
@@ -390,7 +393,7 @@ compatible shipping option is selected). All state lives in one root Checkout co
                     this.errors = data.errors || {};
                     throw { validation: true };
                 }
-                
+
 
                 if (!response.ok) {
                     throw {};
